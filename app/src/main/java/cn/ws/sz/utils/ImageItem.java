@@ -9,7 +9,8 @@ import java.io.Serializable;
  */
 
 public class ImageItem implements Serializable{
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1416662018954001614L;
 
     public String imageId;
     public String thumbnailPath;

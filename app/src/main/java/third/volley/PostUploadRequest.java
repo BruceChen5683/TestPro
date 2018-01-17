@@ -22,17 +22,17 @@ import java.util.Map;
  * Created by chenjianliang on 2018/1/12.
  */
 
-public class PostUploadRequest extends Request<JSONObject> {
+public class PostUploadRequest extends Request<String> {
 
     private final String prefix = "--";
     private final String end = "\r\n";
     private final String boundary = "--------------" + System.currentTimeMillis();
     private final String mimeType = "multipart/form-data;boundary=" + boundary;
-    private Response.Listener<JSONObject> mListener;
+    private Response.Listener<String> mListener;
     private Map<String, String[]> fileMap;
 
     public PostUploadRequest(String url, Map<String, String[]> fileMap,
-                             Response.Listener<JSONObject> mListener,
+                             Response.Listener<String> mListener,
                              Response.ErrorListener listener) {
         super(Method.POST, url, listener);
         this.mListener = mListener;
@@ -43,20 +43,18 @@ public class PostUploadRequest extends Request<JSONObject> {
     }
 
     @Override
-    protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+    protected Response<String> parseNetworkResponse(NetworkResponse response) {
         try {
             String je = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-            return Response.success(new JSONObject(je), HttpHeaderParser.parseCacheHeaders(response));
+            return Response.success(je, HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException var3) {
             return Response.error(new ParseError(var3));
-        } catch (JSONException var4) {
-            return Response.error(new ParseError(var4));
         }
     }
 
     @Override
-    protected void deliverResponse(JSONObject jsonObject) {
-        mListener.onResponse(jsonObject);
+    protected void deliverResponse(String response) {
+        mListener.onResponse(response);
     }
 
     @Override

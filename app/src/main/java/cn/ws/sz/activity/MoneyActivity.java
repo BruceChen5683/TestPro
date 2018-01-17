@@ -30,8 +30,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -49,6 +54,8 @@ import cn.ws.sz.utils.StringUtils;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
 import cn.ws.sz.view.MyGridView;
+import third.volley.PostUploadRequest;
+import third.volley.VolleyListenerInterface;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
 
@@ -75,6 +82,8 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     private ImageView ivAliConfim,ivWeChatConfim;
 
     private Map<String,String> params = new HashMap<>();
+
+    private Map<String,String[]> paramsImg = new HashMap<>();//key parm || value是长度为2的字符串数组， 下标0存放的是文件的本地路径，下标1存放的是传送到服务器中的文件名
 
 
     public static ArrayList<ImageItem> SelectedImages = new ArrayList<ImageItem>();
@@ -268,6 +277,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
     private void payAction() {
 
+        uploadImage();
         Log.d(TAG, "payAction: ");
 
         //check
@@ -334,13 +344,46 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 //        handler.sendEmptyMessageDelayed(MSG_PAY_SUCCESS,1000);
     }
 
-    private void check() {
-        //商家分类
+    private void uploadImage() {
 
-        Log.d(TAG, "check: 1");
 
-        Log.d(TAG, "check: 2");
+        for (int i = 0; i < SelectedImages.size(); i++) {
+
+            Log.d(TAG, "uploadImage: " + SelectedImages.get(i).getImagePath());
+            paramsImg.clear();
+            paramsImg.put("pic", new String[]{SelectedImages.get(i).getImagePath(), SelectedImages.get(i).getImagePath()});
+
+            //发起请求
+
+            VolleyRequestUtil.RequestPostFile(this,
+                    Constant.URL_UPLOAD_PIC,
+                    Constant.TAG_PIC_UPLOAD + i,
+                    paramsImg,
+                    new VolleyListenerInterface(this,
+                            VolleyListenerInterface.mListener,
+                            VolleyListenerInterface.mErrorListener) {
+                        @Override
+                        public void onMySuccess(String result) {
+                            Log.d(TAG, "onMySuccess: " + result);
+                            UploadStatus status = gson.fromJson(result, UploadStatus.class);
+                            if (status.getErrcode() == 0) {
+                                ToastUtil.showShort(MoneyActivity.this, "商家信息上传成功");
+                            } else {
+                                ToastUtil.showShort(MoneyActivity.this, "商家信息上传失败");
+                            }
+
+                        }
+
+                        @Override
+                        public void onMyError(VolleyError error) {
+                            Log.d(TAG, "onMyError: ");
+                        }
+                    },
+                    true);
+        }
+
     }
+
 
     private void changPayConfim(boolean ali){
         if(ali){
