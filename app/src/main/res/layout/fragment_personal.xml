@@ -1,0 +1,180 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grayLight"
+    tools:context="cn.ws.sz.fragment.PersonalFragment">
+
+    <include layout="@layout/title_bar_recommend"></include>
+
+    <!--收藏 足迹-->
+    <LinearLayout
+        style="@style/personal_summary_5_65_2"
+        android:weightSum="2">
+
+        <RelativeLayout
+            android:id="@+id/rlCollect"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="收藏"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/grayLight"></View>
+        <RelativeLayout
+            android:id="@+id/rlLookHistory"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="足迹"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:id="@+id/money"
+        style="@style/personal_summary_5_65">
+
+        <ImageView
+            android:id="@+id/imgMoney"
+            style="@style/business_detail_iv"
+            android:src="@mipmap/icon_my_money"/>
+
+        <TextView
+            android:id="@+id/tvMoney1"
+            style="@style/business_detail_tv"
+            android:layout_toRightOf="@+id/imgMoney"
+            android:text="@string/money"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvMoney2"
+            style="@style/business_detail_iv_right"
+            android:drawableRight="@mipmap/btn_classifyl_go"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/grayMiddle"
+            android:drawablePadding="5dp"
+            android:text="推荐人得佣金" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/apply"
+        android:layout_marginTop="1dp"
+        style="@style/personal_summary_5_65">
+
+        <ImageView
+            android:id="@+id/imgApply"
+            style="@style/business_detail_iv"
+
+            android:src="@mipmap/icon_my_apply"/>
+
+        <TextView
+            android:id="@+id/tvApply1"
+            style="@style/business_detail_tv"
+
+            android:layout_toRightOf="@+id/imgApply"
+            android:text="@string/apply"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvApply2"
+            style="@style/business_detail_iv_right"
+            android:drawableRight="@mipmap/btn_classifyl_go"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            android:maxLines="1"
+            android:textColor="@color/grayMiddle"
+            android:text="拥抱财富" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/service"
+        android:layout_marginTop="1dp"
+        style="@style/personal_summary_5_65">
+
+        <ImageView
+            android:id="@+id/imgService"
+            style="@style/business_detail_iv"
+
+            android:src="@mipmap/icon_my_service"/>
+
+        <TextView
+            android:id="@+id/tvService1"
+            style="@style/business_detail_tv"
+
+            android:layout_toRightOf="@+id/imgService"
+            android:text="@string/service"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvService2"
+            style="@style/business_detail_iv_right"
+            android:drawableRight="@mipmap/btn_classifyl_go"
+            android:ellipsize="end"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/grayMiddle"
+            android:text="用心服务" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/about"
+        android:layout_marginTop="1dp"
+        style="@style/personal_summary_5_65">
+
+        <ImageView
+            android:id="@+id/imgAbout"
+            style="@style/business_detail_iv"
+
+            android:src="@mipmap/icon_my_about"/>
+
+        <TextView
+            android:id="@+id/tvAbout1"
+            style="@style/business_detail_tv"
+            android:layout_toRightOf="@+id/imgAbout"
+            android:text="@string/about"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvAbout2"
+            style="@style/business_detail_iv_right"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/btn_classifyl_go"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/grayMiddle"
+            android:text="产品介绍" />
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

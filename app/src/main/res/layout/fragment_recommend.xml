@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grayLight"
+    tools:context="cn.ws.sz.fragment.RecommendFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <include layout="@layout/title_bar_recommend"></include>
+
+    <RelativeLayout
+        android:id="@+id/enter"
+        style="@style/personal_summary_5_65">
+
+        <ImageView
+            android:id="@+id/imgEnter"
+            style="@style/business_detail_iv"
+            android:src="@mipmap/icon_recommend_enter"/>
+        <TextView
+            android:id="@+id/tvEnter1"
+            style="@style/business_detail_tv"
+            android:layout_toRightOf="@+id/imgEnter"
+            android:text="@string/recommed_enter"
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvEnter2"
+            style="@style/business_detail_iv_right"
+            android:drawableRight="@mipmap/btn_classifyl_go"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/grayMiddle"
+            android:text="推荐人得佣金" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="1dp"
+        android:id="@+id/friend"
+        style="@style/personal_summary_5_65">
+
+        <ImageView
+            android:id="@+id/imgFriend"
+            style="@style/business_detail_iv"
+            android:src="@mipmap/icon_recommend_friend"/>
+
+        <TextView
+            android:id="@+id/tvFriend1"
+            style="@style/business_detail_tv"
+            android:layout_toRightOf="@+id/imgFriend"
+            android:text="@string/recommed_friend"
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvFriend2"
+            style="@style/business_detail_iv_right"
+            android:drawableRight="@mipmap/btn_classifyl_go"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/grayMiddle"
+            android:text="携手万商，拥抱财富" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="1dp"
+        android:id="@+id/money"
+        style="@style/personal_summary_5_65">
+
+        <ImageView
+            android:id="@+id/imgMoney"
+            style="@style/business_detail_iv"
+            android:src="@mipmap/icon_recommend_money"/>
+
+        <TextView
+            android:id="@+id/tvMoney1"
+            style="@style/business_detail_tv"
+            android:layout_toRightOf="@+id/imgMoney"
+            android:text="@string/recommed_money"
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+    </RelativeLayout>
+
+</LinearLayout>

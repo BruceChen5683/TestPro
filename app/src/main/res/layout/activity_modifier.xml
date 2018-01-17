@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.ws.sz.activity.ModifierActivity"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar"></include>
+
+    <RelativeLayout
+        style="@style/personal_summary">
+        <TextView
+            android:id="@+id/business_name"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="凤凰大厦繁华都市酒店"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/personal_summary_5_50">
+        <ImageView
+            android:id="@+id/ivAddres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/icon_classifyl_location_big"/>
+        <TextView
+            android:id="@+id/tvAddres"
+            android:layout_toRightOf="@+id/ivAddres"
+            android:maxLines="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:text="鸠江区万春路西路鸠兹家园北商业街门门面房6-7-8室"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayLight"></View>
+    <RelativeLayout
+        android:id="@+id/rlTel"
+        style="@style/personal_summary_5_50">
+        <ImageView
+            android:id="@+id/ivTel"
+            style="@style/business_detail_iv"
+            android:src="@mipmap/icon_classifyl_cellphone"/>
+        <TextView
+            android:id="@+id/tvTel"
+            android:layout_toRightOf="@+id/ivTel"
+            android:maxLines="1"
+            style="@style/business_detail_tv"
+            android:textColor="@color/black"
+            android:text="13812345678"/>
+
+        <Button
+            android:id="@+id/yzm"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            style="@style/business_detail_iv_right"
+            android:text="点击获取验证码"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/rect_red"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/grayLight"></View>
+    <RelativeLayout
+        style="@style/personal_summary_5_50">
+
+        <TextView
+            android:id="@+id/tvVer"
+            style="@style/business_detail_iv"
+            android:textColor="@color/text_red"
+            android:text="请输入短信验证码:"/>
+
+        <EditText
+            android:id="@+id/etVer"
+            android:layout_toRightOf="@+id/tvVer"
+            style="@style/business_detail_tv"
+            android:background="@null"
+            android:textCursorDrawable="@null"
+            android:inputType="number"
+            android:maxLength="6"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grayMiddle"
+            android:hint="6位数字"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/grayLight"></View>
+
+    <RelativeLayout
+        style="@style/personal_summary_5_195">
+
+        <TextView
+            android:id="@+id/tvTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_red"
+            android:layout_alignParentLeft="true"
+            android:text="请输入新广告内容:"/>
+
+        <EditText
+            android:id="@+id/etAd"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/tvTip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:hint="广告内容，最多200字"
+            android:gravity="top"
+            android:textColorHint="@color/grayLight"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@null"
+            android:background="@drawable/rect_graylight"
+            android:maxLength="200"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/personal_summary"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/btnSure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:background="@drawable/rect_red"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:background="@drawable/rect_graylight_2"
+            android:layout_centerVertical="true"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

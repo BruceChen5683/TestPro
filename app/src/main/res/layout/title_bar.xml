@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/title_bg">
+
+    <LinearLayout
+        android:id="@+id/returnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/btn_classifyl_back"
+            android:contentDescription="@null"
+            android:clickable="true" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title_value"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/returnBack"
+        android:layout_toLeftOf="@+id/right_button"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:ellipsize="middle"
+        android:textColor="@color/title_text_color"
+        android:layout_centerInParent="true"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/right_button"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:visibility="invisible">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:clickable="true"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+</RelativeLayout>

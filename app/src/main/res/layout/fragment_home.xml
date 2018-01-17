@@ -1,0 +1,377 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.ws.sz.fragment.HomeFragment"
+    android:background="@color/grayLight"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_search_bar"></include>
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--广告轮播-->
+
+            <fragment
+                android:id="@+id/fragment_banner_content"
+                android:name="cn.ws.sz.fragment.BannerFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></fragment>
+
+
+            <!--八大分类-->
+            <LinearLayout
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:weightSum="4"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/food"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/icon_home_food" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/food"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#828282"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/supermarket"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/icon_home_supermarket" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/supermarket"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#828282"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/entertainment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/icon_home_entertainment" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/entertainment"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#828282"
+                        android:textSize="16sp"  />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/life"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/icon_home_life" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/life"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#828282"
+                        android:textSize="16sp"  />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:weightSum="4" >
+
+                <LinearLayout
+                    android:id="@+id/wholesale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/icon_home_wholesale" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wholesale"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#828282"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/business"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/icon_home_business" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/business"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#828282"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/education"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/icon_home_education" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/education"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#828282"
+                        android:textSize="16sp"  />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/car"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/icon_home_car" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/car"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#828282"
+                        android:textSize="16sp"  />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--热门商家 广告 小广播-->
+
+            <RelativeLayout
+                android:id="@+id/rlNotice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="5dp"
+                android:layout_marginTop="2dp">
+                <ImageView
+                    android:id="@+id/ivNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_home_notice"/>
+
+                <TextView
+                    android:id="@+id/tvNotice"
+                    android:layout_toRightOf="@+id/ivNotice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:text="@string/hot_ad"
+                    android:textColor="@android:color/black" >
+                </TextView>
+            </RelativeLayout>
+
+            <!--热门商家-->
+            <LinearLayout
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:paddingBottom="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_more"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="热门商家"
+                    android:textColor="@color/text_red"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@mipmap/icon_home_more"/>
+
+                <cn.ws.sz.view.MyGridView
+                    android:id="@+id/gvHot"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:horizontalSpacing="10dp"
+                    android:numColumns="2"
+                    android:scrollbars="none"
+                    android:verticalSpacing="3dp">
+                </cn.ws.sz.view.MyGridView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+    </ScrollView>
+
+</LinearLayout>
+
+
+    <!--&lt;!&ndash;热门商家简要信息&ndash;&gt;-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:weightSum="2" >-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/hot1"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@color/white"-->
+    <!--android:orientation="vertical" >-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="5dp"-->
+    <!--android:background="@drawable/busine_logo" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:text="@string/hot1_address"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:textColor="#828282"-->
+    <!--android:textSize="16sp"  />-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="10dp"-->
+    <!--android:layout_height="match_parent">-->
+    <!--</View>-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/hot2"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@color/white"-->
+    <!--android:orientation="vertical" >-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="5dp"-->
+    <!--android:background="@mipmap/business_tmp" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:text="@string/hot2_address"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:textColor="#828282"-->
+    <!--android:textSize="16sp"  />-->
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->

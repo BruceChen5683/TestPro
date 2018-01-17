@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="title_bg">#d72626</color>
+
+    <color name="gray_bg">#efefef</color>
+
+    <color name="collect_text">#070707</color>
+    <color name="collect_divider">#f6f6f6</color>
+
+
+
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="text_red">#ff0000</color>
+    <color name="text_gray">#888</color>
+
+
+
+
+    <!--third searchView-->
+    <color name="colorDefault">#ffffff</color>
+    <color name="colorBackground">#f1f0f6</color>
+    <color name="colorText">#9b9b9b</color>
+
+    <color name="personal_summary">#333</color>
+
+
+
+
+    <color name="gray">#ccc</color>
+    <color name="grayDark">#555</color>
+    <color name="grayLighter">#f5f5f5</color>
+    <color name="grayLight">#efefef</color>
+    <color name="grayMiddle">#aaa</color>
+    <color name="blue">#00abeb</color>
+    <color name="blueLight">#c3efff</color>
+    <color name="title_text_color">#ffffff</color>
+    <color name="search_text_color">#ddd</color>
+    <color name="white">#ffffff</color>
+    <color name="search_text">#aaa</color>
+    <color name="search_text_hint">#ccc</color>
+    <color name="black">#000000</color>
+    <color name="none_color">#00000000</color>
+    <color name="color_hei">#ff000000</color>
+    <color name="color_hei_8">#00000000</color>
+    <color name="color_bai">#ffffffff</color>
+    <color name="color_bai_8">#ffffffff</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_view">#b0000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <drawable name="trans">@color/color_hei_8</drawable>
+    <item name="preview_btn_bg_press" type="drawable">#ff000000</item>
+    <color name="chat_time">@color/color_bai</color>
+    <color name="thirty_transparent_black">#4d000000</color>
+    <color name="sc_gray">#ff777777</color>
+    <color name="lightgreen">#99CC33</color>
+    <color name="green">#00CC00</color>
+    <color name="sediment_result_minus">#88C051</color>
+    <color name="sediment_result_plus1">#DDDD93</color>
+
+    <color name="sediment_result_plus2">#F7C240</color>
+
+    <color name="sediment_result_plus3">#F37654</color>
+    <color name="sediment_result_plus4">#EB4D4B</color>
+    <color name="sediment_result_0">#88C051</color>
+    <color name="sediment_result_1">#F37654</color>
+    <color name="chemical_result_0">#88C051</color>
+    <color name="chemical_result_1">#DDDD93</color>
+    <color name="chemical_result_2">#cc9958</color>
+    <color name="chemical_result_3">#F37654</color>
+    <color name="chemical_result_4">#EB4D4B</color>
+
+    <color name="female_normal">#888888</color>
+    <color name="female_selected">#b87fce</color>
+    <color name="male_normal">#888888</color>
+    <color name="male_selected">#5a9eda</color>
+
+    <!-- 个人设置  相关颜色-->
+    <color name="settings_summary">#383838</color>
+    <color name="settings_value">#C2C2C2</color>
+    <color name="settings_background">#EBEBEB</color>
+
+    <color name="credit_title">#F5F5F5</color>
+    <color name="credit_line">#F4F4F4</color>
+
+    <color name="pop_window">#353A3D</color>
+
+
+    <!-- 客服回复，虚线颜色 -->
+    <color name="imaginary_line">#576b95</color>
+    <!-- 回复者字体颜色 -->
+    <color name="comment_master">#376d89</color>
+    <!-- 回复内容 -->
+    <color name="comment_content">#222222</color>
+
+    <!-- 时间 -->
+    <color name="comment_time">#8a8a8a</color>
+
+
+    <!--  注册，输入框背景-->
+    <color name="register_bg">#e1f5fc</color>
+    <!--  注册，输入颜色-->
+    <color name="register_tv">#666666</color>
+    <!-- 注册,登录按钮背景 -->
+    <color name="loginBtn_bg">#3399FE</color>
+
+
+
+    <color name="yzf">#009900</color>
+    <color name="wzf">#666666</color>
+
+    <color name="recommend_money">#e5d8c3</color>
+    <!--237 144 40-->
+
+    <color name="submit_money">#dc9028</color>
+
+
+</resources>

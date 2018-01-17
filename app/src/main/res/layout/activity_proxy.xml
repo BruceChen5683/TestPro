@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grayLight"
+    tools:context="cn.ws.sz.activity.ProxyActivity">
+
+    <include
+        layout="@layout/title_bar"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--姓名-->
+            <RelativeLayout
+                android:id="@+id/rlProxyName"
+                style="@style/personal_summary_5_65">
+                <ImageView
+                    android:id="@+id/star"
+                    style="@style/business_detail_iv"
+                    android:src="@drawable/ic_star_black_24dp"/>
+                <TextView
+                    android:id="@+id/tvProxyName1"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/star"
+                    android:text="姓  名          "
+                    android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/tvProxyName2"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/tvProxyName1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:textCursorDrawable="@null"
+                    android:textColorHint="@color/grayLight"
+                    android:hint="请输入姓名" />
+
+            </RelativeLayout>
+
+
+            <!-- 手机号-->
+            <RelativeLayout
+                android:layout_marginTop="1dp"
+                android:id="@+id/rlProxyPhone"
+                style="@style/personal_summary_5_65">
+                <ImageView
+                    android:id="@+id/star1"
+                    style="@style/business_detail_iv"
+                    android:src="@drawable/ic_star_black_24dp"/>
+                <TextView
+                    android:id="@+id/tvProxyPhone1"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/star1"
+                    android:text="手机号        "
+                    android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/tvProxyPhone2"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/tvProxyPhone1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:inputType="phone"
+                    android:textCursorDrawable="@null"
+                    android:textColorHint="@color/grayLight"
+                    android:hint="请输入手机号码" />
+            </RelativeLayout>
+
+            <!--身份证-->
+            <RelativeLayout
+                android:layout_marginTop="1dp"
+                android:id="@+id/rlIdCard"
+                style="@style/personal_summary_5_65">
+                <ImageView
+                    android:id="@+id/star2"
+                    style="@style/business_detail_iv"
+                    android:src="@drawable/ic_star_black_24dp"/>
+                <TextView
+                    android:id="@+id/tvIdCard1"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/star2"
+                    android:text="身份证号码"
+                    android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/tvIdCard2"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/tvIdCard1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:textCursorDrawable="@null"
+                    android:textColorHint="@color/grayLight"
+                    android:hint="请输入身份证号码" />
+
+            </RelativeLayout>
+
+            <!--支付宝账号-->
+            <RelativeLayout
+                android:layout_marginTop="1dp"
+                android:id="@+id/rlAli"
+                style="@style/personal_summary_5_65">
+                <ImageView
+                    android:id="@+id/star3"
+                    style="@style/business_detail_iv"
+                    android:src="@drawable/ic_star_black_24dp"/>
+                <TextView
+                    android:id="@+id/tvAli1"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/star3"
+                    android:text="支付宝账号"
+                    android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/tvAli2"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/tvAli1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:textCursorDrawable="@null"
+                    android:textColorHint="@color/grayLight"
+                    android:hint="请输入支付宝账号" />
+            </RelativeLayout>
+
+            <!--微信账号-->
+            <RelativeLayout
+                android:layout_marginTop="1dp"
+                android:id="@+id/rlWeChat"
+                style="@style/personal_summary_5_65">
+                <ImageView
+                    android:id="@+id/star4"
+                    style="@style/business_detail_iv"
+                    android:src="@drawable/ic_star_black_24dp"/>
+                <TextView
+                    android:id="@+id/tvWeChat1"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/star4"
+                    android:text="微信账号    "
+                    android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/tvWeChat2"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/tvWeChat1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:textCursorDrawable="@null"
+                    android:textColorHint="@color/grayLight"
+                    android:hint="请输入微信账号" />
+            </RelativeLayout>
+
+            <!--上传手持身份证-->
+
+            <RelativeLayout
+                android:layout_marginTop="5dp"
+                style="@style/personal_summary_5_65">
+                <ImageView
+                    android:id="@+id/star5"
+                    style="@style/business_detail_iv"
+                    android:src="@drawable/ic_star_black_24dp"/>
+                <TextView
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/star5"
+                    android:text="上传手持身份证照片:"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/personal_summary_5_wrap">
+                <ImageView
+                    android:id="@+id/star6"
+                    style="@style/business_detail_iv_2"
+                    android:src="@drawable/ic_star_black_24dp"
+                    android:visibility="invisible"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_toRightOf="@+id/star6"
+                    android:src="@mipmap/my_camera"/>
+            </RelativeLayout>
+
+            <!--<RelativeLayout-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--style="@style/personal_summary_5_wrap_nobg">-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:text="用热情服务商家，靠才智创造财富！"/>-->
+            <!--</RelativeLayout>-->
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用热情服务商家，靠才智创造财富！"
+                android:textColor="@color/white"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center">
+            </TextView>
+
+
+            <Button
+                android:id="@+id/submitMoney"
+                android:layout_marginTop="5dp"
+                style="@style/personal_summary_4_1"
+                android:text="@string/settled_submit"
+                android:textColor="@color/white"
+                android:layout_gravity="bottom"
+                android:gravity="center">
+            </Button>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

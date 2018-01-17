@@ -1,0 +1,374 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="personal_summary">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="personal_summary_10">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/blue</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="personal_summary_10_1">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/text_red</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="personal_summary_10_1_noPadiding">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/text_red</item>
+    </style>
+
+
+    <style name="personal_summary_white">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="personal_summary_white_2">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
+    <style name="personal_summary_no_padding">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="personal_summary_5">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_65">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_65_nobg">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_wrap">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_wrap_65">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">110dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_wrap_nobg">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+
+    <style name="personal_summary_5_85">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">85dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_200">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@drawable/rect_graylight</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_100">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@drawable/rect_graylight</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_65_">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="personal_summary_5_65_2">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_50">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="personal_summary_5_195">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">195dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+
+    <style name="personal_summary_4">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="personal_summary_4_1">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/submit_money</item>
+    </style>
+
+    <style name="personal_summary_2">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">195dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="personal_summary_3">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">130dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="personal_summary_3_grayDark">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">130dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/grayDark</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="personal_summary_3_padding_10_110">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">110dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="personal_summary_3_padding_10_165">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">165dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="personal_summary_3_padding_lr">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">195dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <style name="personal_summary_3_padding_lr_2">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">130dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <style name="personal_summary_4_padding_lr">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">165dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+
+    <style name="personal_summary_3_no_bg">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">130dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="personal_summary_150_no_bg">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="personal_summary_no_bg">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="recommend_dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    
+    <style name="dialogAnimation" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+
+    <style name="business_detail_iv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <style name="business_detail_iv_2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <style name="business_detail_iv_right">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="business_detail_tv">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="business_detail_tv_2">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+</resources>

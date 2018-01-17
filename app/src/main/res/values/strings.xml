@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">万商</string>
+
+
+    <string name="tab_home">首页</string>
+    <string name="tab_classify">分类</string>
+    <string name="tab_search">搜索</string>
+    <string name="tab_personal">我的</string>
+    <string name="tab_recommend">推荐</string>
+
+
+    <!--八大分类-->
+    <string name="food">餐饮美食</string>
+    <string name="supermarket">超市百货</string>
+    <string name="entertainment">娱乐休闲</string>
+    <string name="life">生活服务</string>
+
+    <string name="wholesale">贸易批发</string>
+    <string name="business">商业服务</string>
+    <string name="education">教育培训</string>
+    <string name="car">汽车服务</string>
+
+
+    <!--热门广告-->
+    <string name="hot_ad">金卡通道，2018年信用卡大全 免费申请...</string>
+    <string name="hot1_address">金羊座时尚餐厅（乐丰店）</string>
+    <string name="hot2_address">金羊座时尚餐厅（乐丰店）</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--我的万商-->
+    <string name="money">入驻万商</string>
+    <string name="apply">申请成为区域代理</string>
+    <string name="service">联系客服</string>
+    <string name="about">关于万商</string>
+
+    <!--推荐-->
+    <string name="recommed_enter">推荐好友入驻万商</string>
+    <string name="recommed_friend">推荐好友加入代理</string>
+    <string name="recommed_money">查看我的推荐</string>
+
+    <!--入驻万商-->
+    <string name="settled_classify">商家分类:</string>
+    <string name="settled_name">商家名称:</string>
+    <string name="settled_addres">商家地址:</string>
+    <string name="settled_coordinate">商家坐标:</string>
+    <string name="settled_fixed_phone">固定电话:</string>
+    <string name="settled_tel">手机号码:</string>
+    <string name="settled_main_business">主营:</string>
+    <string name="settled_ad">广告:</string>
+    <string name="settled_post_photo">上传商家照片:</string>
+    <string name="settled_recommend">推荐人:</string>
+    <string name="wanshang_normal">万商普通商家</string>
+    <string name="wanshang_vip">万商高级商家</string>
+    <string name="settled_submit">提交审核</string>
+
+
+</resources>

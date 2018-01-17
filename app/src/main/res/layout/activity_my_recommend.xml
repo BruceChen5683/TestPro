@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="cn.ws.sz.activity.MyRecommendActivity">
+
+    <include layout="@layout/title_bar"></include>
+
+    <RelativeLayout
+        android:id="@+id/rlTel"
+        style="@style/personal_summary_5_65">
+        <ImageView
+            android:id="@+id/star"
+            style="@style/business_detail_iv"
+            android:src="@drawable/ic_star_black_24dp"/>
+
+        <TextView
+            android:id="@+id/tvTel"
+            android:layout_toRightOf="@+id/star"
+            style="@style/business_detail_tv"
+            android:textColor="@color/black"
+            android:text="手机号码："/>
+
+        <EditText
+            android:layout_toRightOf="@+id/tvTel"
+            android:id="@+id/etTel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:hint="  请输入手机号码"
+            android:background="@null"
+            android:textCursorDrawable="@null"
+            android:inputType="phone"/>
+    </RelativeLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/grayLight"></View>
+    <RelativeLayout
+        android:id="@+id/rlIcCard"
+        android:layout_marginTop="1dp"
+        style="@style/personal_summary_5_65">
+
+        <ImageView
+            android:id="@+id/star2"
+            style="@style/business_detail_iv"
+            android:src="@drawable/ic_star_black_24dp"/>
+
+        <TextView
+            android:id="@+id/tvIcCard"
+            android:layout_toRightOf="@+id/star2"
+            style="@style/business_detail_tv"
+            android:textColor="@color/black"
+            android:text="身份证号码："/>
+
+        <EditText
+            android:layout_toRightOf="@+id/tvIcCard"
+            android:id="@+id/etIcCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:hint="请输入身份证号码"
+            android:background="@null"
+            android:textCursorDrawable="@null"
+            android:maxLength="18" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayLight"></View>
+    <RelativeLayout
+        style="@style/personal_summary_5_65">
+        <Button
+            android:id="@+id/lookup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查看"
+            android:paddingLeft="80dp"
+            android:paddingRight="80dp"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rect_red"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/grayLight"></View>
+
+    <RelativeLayout
+        style="@style/personal_summary_5_65">
+        <TextView
+            android:id="@+id/tvTody"
+            style="@style/business_detail_iv"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:textColor="@color/black"
+            android:text="今日推荐："/>
+        <TextView
+            android:id="@+id/tvTodayRecommend"
+            android:layout_toRightOf="@+id/tvTody"
+            style="@style/business_detail_tv"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="10家"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayLight"></View>
+    <RelativeLayout
+        style="@style/personal_summary_5_65">
+        <TextView
+            android:id="@+id/tvAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:textColor="@color/black"
+            android:text="累计推荐："/>
+        <TextView
+            android:layout_toRightOf="@+id/tvAll"
+            android:id="@+id/tvAllRecommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="100家"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        style="@style/personal_summary_10_1_noPadiding">
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="广告"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:background="@color/text_red"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/personal_summary_3">
+        <EditText
+            android:id="@+id/dialogEt"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/grayDark"
+            android:maxLength="100"
+            android:text="广告内容"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayLight"></View>
+
+    <RelativeLayout
+        android:id="@+id/rlModifierAd"
+        style="@style/personal_summary">
+        <TextView
+            android:id="@+id/tvModifier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="false"
+            android:text="修改广告内容"
+            android:textColor="@color/grayDark"
+            android:gravity="center"/>
+    </RelativeLayout>
+
+</LinearLayout>

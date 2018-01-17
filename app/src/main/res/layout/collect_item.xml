@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/personal_summary_3_padding_lr_2">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:paddingLeft="10dp"
+        style="@style/business_detail_iv"
+        android:text="香格里拉酒店"
+        android:textColor="@color/collect_text" />
+
+    <ImageView
+        style="@style/business_detail_iv_right"
+        android:src="@mipmap/btn_classifyl_go"/>
+</RelativeLayout>

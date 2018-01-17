@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_viewager_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" >
+
+        <cn.ws.sz.view.BaseViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </cn.ws.sz.view.BaseViewPager>
+
+        <LinearLayout
+            android:id="@+id/layout_viewpager_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/gap_small_padding"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/view_padding"
+            android:paddingRight="@dimen/view_padding" >
+        </LinearLayout>
+
+        <!--<TextView-->
+            <!--android:id="@+id/layout_viewpager_type"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="血液"-->
+            <!--android:textSize="16sp"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:shadowColor="#f0ffffff"-->
+            <!--android:shadowDx="2"-->
+            <!--android:shadowDy="2"-->
+            <!--android:shadowRadius="1"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentBottom="true"/>-->
+    </RelativeLayout>
+
+</FrameLayout>

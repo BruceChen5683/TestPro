@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.ws.sz.activity.BusinessDetailActivity"
+    android:background="@color/grayLight"
+    android:orientation="vertical">
+
+    <cn.ws.sz.view.ImageLayout
+        android:id="@+id/rlLogo"
+        style="@style/personal_summary_150_no_bg"
+        android:background="@drawable/business_logo_tmp">
+
+        <RelativeLayout
+            android:id="@+id/rlBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/btn_classifyl_back"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCollect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/btn_classifyl_collect"/>
+        </RelativeLayout>
+
+
+
+    </cn.ws.sz.view.ImageLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_marginTop="5dp"
+                style="@style/personal_summary_3_padding_10_110">
+
+                <RelativeLayout
+                    android:id="@+id/rlBusinessName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/business_name"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="和平饭店"/>
+
+                    <ImageView
+                        android:id="@+id/ivLabel"
+                        android:paddingLeft="5dp"
+                        android:layout_toRightOf="@+id/business_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/icon_classifyl_label"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/vistor"
+                    android:paddingTop="10dp"
+                    android:layout_below="@id/rlBusinessName"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grayMiddle"
+                    android:text="已浏览120次"/>
+
+                <ImageView
+                    android:id="@+id/ivHot"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_classifyl_hot"/>
+
+                <ImageView
+                    android:id="@+id/ivAddres"
+                    android:paddingTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/vistor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_classifyl_location_big"/>
+                <TextView
+                    android:id="@+id/tvAddres"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="50dp"
+                    android:paddingTop="5dp"
+                    android:layout_below="@id/vistor"
+                    android:layout_toRightOf="@+id/ivAddres"
+                    android:gravity="center|left"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="鸠江区万春路西路鸠兹家园北商业街门门面房6-7-8室"/>
+            </RelativeLayout>
+            <!--<RelativeLayout-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--style="@style/personal_summary_10">-->
+                <!--<TextView-->
+                    <!--android:id="@+id/business_name"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:text="和平饭店"/>-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/ivLabel"-->
+                    <!--android:layout_toRightOf="@+id/business_name"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@mipmap/icon_classifyl_label"/>-->
+                <!--<TextView-->
+                    <!--android:id="@+id/vistor"-->
+                    <!--android:layout_below="@id/business_name"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="已浏览120次"/>-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/ivHot"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:src="@mipmap/icon_classifyl_hot"/>-->
+            <!--</RelativeLayout>-->
+
+            <!--<RelativeLayout-->
+                <!--style="@style/personal_summary_10_1">-->
+                <!--<ImageView-->
+                    <!--android:id="@+id/ivAddres"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@mipmap/icon_classifyl_location_big"/>-->
+                <!--<TextView-->
+                    <!--android:id="@+id/tvAddres"-->
+                    <!--android:layout_toRightOf="@+id/ivAddres"-->
+                    <!--android:maxLines="3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="鸠江区晚春路很好的时光哈帅哥哈商家低空掠过火辣的是"/>-->
+            <!--</RelativeLayout>-->
+
+            <RelativeLayout
+                android:id="@+id/rlFixedPhone"
+                android:layout_marginTop="1dp"
+                style="@style/personal_summary_5">
+                <ImageView
+                    android:id="@+id/ivFixedPhone"
+                    style="@style/business_detail_iv"
+                    android:src="@mipmap/icon_classifyl_phone_big"/>
+                <TextView
+                    android:id="@+id/tvFixedPhone"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/ivFixedPhone"
+                    android:maxLines="1"
+                    android:text="05535739166"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlTel"
+                android:layout_marginTop="1dp"
+                style="@style/personal_summary_5">
+                <ImageView
+                    android:id="@+id/ivTel"
+                    style="@style/business_detail_iv"
+                    android:src="@mipmap/icon_classifyl_cellphone"/>
+                <TextView
+                    android:id="@+id/tvTel"
+                    style="@style/business_detail_tv"
+                    android:layout_toRightOf="@+id/ivTel"
+                    android:maxLines="1"
+                    android:text="18312345678"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlMainBusiness"
+                android:layout_marginTop="5dp"
+                style="@style/personal_summary_5">
+                <TextView
+                    style="@style/business_detail_iv"
+                    android:gravity="center"
+                    android:id="@+id/ivMainBusiness1"
+                    android:text="@string/settled_main_business"
+                    android:textColor="@color/text_red"/>
+                <TextView
+                    android:id="@+id/tvTivMainBusiness2"
+                    android:layout_toRightOf="@+id/ivMainBusiness1"
+                    android:maxLines="1"
+                    android:paddingRight="10dp"
+                    style="@style/business_detail_tv"
+                    android:text="餐饮、住宿、会议、棋牌"/>
+
+                <ImageView
+                    android:id="@+id/ivMainBusinessGo"
+                    style="@style/business_detail_iv_right"
+                    android:src="@mipmap/btn_classifyl_go"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlAd"
+                android:layout_marginTop="5dp"
+                style="@style/personal_summary_5">
+                <TextView
+                    android:id="@+id/tvAd1"
+                    style="@style/business_detail_iv"
+                    android:text="@string/settled_ad"
+                    android:textColor="@color/text_red"/>
+                <TextView
+                    android:id="@+id/tvAd2"
+                    android:layout_toRightOf="@+id/tvAd1"
+                    android:maxLines="1"
+                    style="@style/business_detail_tv"
+                    android:ellipsize="end"
+                    android:paddingRight="10dp"
+                    android:text="圣诞元旦庆祝获得：充值1000送300，充的送的多，欢迎光临。"/>
+                <ImageView
+                    android:id="@+id/ivAdGo"
+                    style="@style/business_detail_iv_right"
+                    android:src="@mipmap/btn_classifyl_go"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="5dp"
+                style="@style/personal_summary_5">
+                <ImageView
+                    android:id="@+id/ivSimilar"
+                    style="@style/business_detail_iv"
+                    android:src="@mipmap/icon_classifyl_similar"/>
+                <TextView
+                    android:id="@+id/tvSimilar"
+                    android:layout_toRightOf="@+id/ivSimilar"
+                    android:maxLines="1"
+                    style="@style/business_detail_tv"
+                    android:text="同类商家"/>
+            </RelativeLayout>
+
+
+
+<!--同类商家-->
+
+            <ListView
+                android:layout_marginTop="1dp"
+                android:id="@+id/lvSimilar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/grayLight"
+                android:dividerHeight="1dp">
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</LinearLayout>

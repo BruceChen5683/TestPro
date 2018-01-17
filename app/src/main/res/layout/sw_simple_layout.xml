@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/personal_summary_3_padding_lr"
+    android:background="@drawable/categroy_bg"
+    >
+
+    <TextView
+        android:id="@+id/simpleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="@drawable/categroy_selector"
+        android:ellipsize="end"
+        android:maxLines="1"/>
+</RelativeLayout>
