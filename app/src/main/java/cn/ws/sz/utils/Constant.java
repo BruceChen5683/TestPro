@@ -12,6 +12,7 @@ public class Constant {
     public static final int CODE_IMAGE_SELECT_ACTIVITY = 1;
     public static final int CODE_ACTION_IMAGE_CAPTURE = 2;
     public static final int CODE_CITY_PICERK_ACTIVITY = 3;
+    public static final int CODE_MODIFIER_ACTIVITY = 4;
 
     public static final String URL_CATEGORY = "/api/category/list/";//分类接口  +  分类id (一级分类0 二级分类使用一级分类id)
 
@@ -27,6 +28,8 @@ public class Constant {
     public static final String URL_UPLOAD_BUSINESS_INFO = "/api/merchant/addMerchant";//添加商户
 
     public static final String URL_MODIFIR_ADWORDS = "/api/merchant/changeAd";//修改广告词
+    public static final String URL_MODIFIR_MAINPRODUCTS = "/api/merchant/changeMainProducts";//修改广告词
+
 
     public static final String URL_UPLOAD_PIC = "/api/merchant/uploadImage";//上传图片
 
@@ -38,9 +41,14 @@ public class Constant {
     public static final String TAG_BUSINESS_INFO_UPLOAD = "business_info_upload";
     public static final String TAG_MODIFIER_ADWORDS = "modify_ad";
     public static final String TAG_MODIFIER_MAINPRODUCTS= "modify_main_product";
+
     public static final String TAG_PIC_UPLOAD = "pic_upload";
     public static final String TAG_AD = "area_ad";
 	public static final String TAG_HOT = "business_hot";
+
+
+    public static final int MODIFIER_AD_TYPE = 1;
+    public static final int MODIFIER_MAIN_PRODUCTS_TYPE = 2;
 
 
 

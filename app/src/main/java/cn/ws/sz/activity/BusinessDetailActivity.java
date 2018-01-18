@@ -41,6 +41,8 @@ import cn.ws.sz.view.ImageLayout;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
 
+import static cn.ws.sz.utils.Constant.MODIFIER_AD_TYPE;
+
 public class BusinessDetailActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener,SoftKeyboardStateListener {
     private RelativeLayout rlMainBusiness;
     private RelativeLayout rlAd;
@@ -73,6 +75,8 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
     private TextView tvTivMainBusiness2,tvAd2,tvModifier;
     private ImageLayout rlLogo;
+
+    private int type = -1;
 
 
 
@@ -265,20 +269,19 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlMainBusiness:
+                type = Constant.MODIFIER_MAIN_PRODUCTS_TYPE;
                 showMainBusinessDialog();
                 break;
             case R.id.rlAd:
+                type = MODIFIER_AD_TYPE;
                 showAdDialog();
                 break;
             case R.id.rlModifierAd:
                 Intent intent = new Intent();
-
-                if(businessBean != null){
-                    intent.putExtra("BusinessBean",businessBean);
-                }
-
+                intent.putExtra("BusinessBean",businessBean);
+                intent.putExtra("type",type);
                 intent.setClass(BusinessDetailActivity.this, ModifierActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,Constant.CODE_MODIFIER_ACTIVITY);
                 break;
             case R.id.rlBack:
                 Log.d(TAG, "onClick: ");
@@ -362,6 +365,32 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
             WindowManager.LayoutParams lp = adDiaglog.getWindow().getAttributes();
             lp.height = dialogHeight;
             adDiaglog.getWindow().setAttributes(lp);
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            if(requestCode == Constant.CODE_MODIFIER_ACTIVITY){
+                Log.d(TAG, "onActivityResult: " + data.getStringExtra("newValue"));
+                String newValue = data.getStringExtra("newValue");
+                hideDialog();
+                if(!TextUtils.isEmpty(newValue)){
+                    if (type == MODIFIER_AD_TYPE){
+                        tvAd2.setText(newValue);
+                    }else{
+                        tvTivMainBusiness2.setText(newValue);
+                    }
+                }
+
+            }
+        }
+    }
+
+    private void hideDialog() {
+        if(adDiaglog != null && adDiaglog.isShowing()) {
+            adDiaglog.dismiss();
         }
     }
 }

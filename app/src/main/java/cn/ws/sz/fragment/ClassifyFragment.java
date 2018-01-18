@@ -175,11 +175,6 @@ public class ClassifyFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 hideSecondGridView(true,position);
-//                Intent intent = new Intent();
-//                intent.setClass(getActivity(), BusinessListActivity.class);
-//                intent.putExtra("firstCategroy",firstCategroyId);
-//                intent.putExtra("secondCategroy",position);
-//                startActivity(intent);
             }
         });
 
@@ -201,6 +196,10 @@ public class ClassifyFragment extends Fragment{
         classifySecondGVDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: position "+position);
+                if(classifySecondDetaildata.get(position) == null){
+                    Log.e(TAG, "onItemClick: "+"eeee" );
+                }
                 Intent intent = new Intent();
                 intent.putExtra("BusinessBean",classifySecondDetaildata.get(position));
                 intent.setClass(getActivity(), BusinessDetailActivity.class);
@@ -227,18 +226,9 @@ public class ClassifyFragment extends Fragment{
 
     private List<String> getFirstData(){
         List<String> data = new ArrayList<String>();
-//        if(id == 0){
-
             for (int i =0;i < WSApp.firstCategroyList.size();i++){
                 data.add(WSApp.firstCategroyList.get(i).getName());
             }
-//        }else{
-//            List<ClassifyBean> list = WSApp.secondCategroyMap.get(id);
-//            for (int i =0;i < list.size();i++){
-//                data.add(list.get(i).getName());
-//            }
-//        }
-
         return data;
 
     }
