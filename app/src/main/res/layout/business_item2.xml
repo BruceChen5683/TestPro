@@ -3,29 +3,43 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+              android:weightSum="4"
     >
 <!--图片+名称-->
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="3">
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@mipmap/business_tmp" />
+        android:layout_marginTop="5dp"/>
+</RelativeLayout>
 
-    <TextView
-        android:id="@+id/tvName"
+    <RelativeLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hot1_address"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:textColor="@color/black"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="16sp"  />
+        android:layout_height="0dp">
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hot1_address"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+    </RelativeLayout>
+
+
 </LinearLayout>

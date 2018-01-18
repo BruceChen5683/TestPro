@@ -1,16 +1,22 @@
 package cn.ws.sz.adater;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 import cn.ws.sz.R;
+import cn.ws.sz.bean.BusinessBean;
+import cn.ws.sz.utils.CommonUtils;
+import cn.ws.sz.utils.DeviceUtils;
 
 /**
  * Created by chenjianliang on 2018/1/13.
@@ -18,9 +24,9 @@ import cn.ws.sz.R;
 
 public class BusinesssItem2Adapter extends BaseAdapter{
     private Context context;
-    private List<String> data;
+    private List<BusinessBean> data;
 
-    public BusinesssItem2Adapter(Context context,List<String> data){
+    public BusinesssItem2Adapter(Context context,List<BusinessBean> data){
         this.context = context;
         this.data = data;
     }
@@ -31,7 +37,7 @@ public class BusinesssItem2Adapter extends BaseAdapter{
     }
 
     @Override
-    public String getItem(int position) {
+    public BusinessBean getItem(int position) {
         return data.get(position);
     }
 
@@ -54,10 +60,13 @@ public class BusinesssItem2Adapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tvBusinessName.setText(getItem(position));
+        holder.tvBusinessName.setText(getItem(position).getName());
+		CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
 
-
-
+		convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+				DeviceUtils.getDeviceScreeHeight(context)/4));
+//		holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//				DeviceUtils.getDeviceScreeHeight(context)/4));
 
         return convertView;
     }

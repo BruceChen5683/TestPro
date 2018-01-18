@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="cn.ws.sz.fragment.HomeFragment"
-    android:background="@color/grayLight"
-    android:orientation="vertical">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/grayLight"
+              android:orientation="vertical"
+              tools:context="cn.ws.sz.fragment.HomeFragment">
 
     <include layout="@layout/title_search_bar"></include>
 
@@ -32,10 +32,10 @@
                 android:id="@+id/gridView"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:background="@color/white"
                 android:gravity="center"
-                android:weightSum="4"
                 android:orientation="horizontal"
-                android:background="@color/white">
+                android:weightSum="4">
 
                 <LinearLayout
                     android:id="@+id/food"
@@ -43,21 +43,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_food" />
+                        android:background="@mipmap/icon_home_food"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/food"
                         android:layout_marginTop="10dp"
+                        android:text="@string/food"
                         android:textColor="#828282"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -66,21 +66,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_supermarket" />
+                        android:background="@mipmap/icon_home_supermarket"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/supermarket"
                         android:layout_marginTop="10dp"
+                        android:text="@string/supermarket"
                         android:textColor="#828282"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -89,21 +89,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_entertainment" />
+                        android:background="@mipmap/icon_home_entertainment"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/entertainment"
                         android:layout_marginTop="10dp"
+                        android:text="@string/entertainment"
                         android:textColor="#828282"
-                        android:textSize="16sp"  />
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -112,30 +112,30 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_life" />
+                        android:background="@mipmap/icon_home_life"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/life"
                         android:layout_marginTop="10dp"
+                        android:text="@string/life"
                         android:textColor="#828282"
-                        android:textSize="16sp"  />
+                        android:textSize="16sp"/>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@color/white"
-                android:weightSum="4" >
+                android:orientation="horizontal"
+                android:weightSum="4">
 
                 <LinearLayout
                     android:id="@+id/wholesale"
@@ -143,21 +143,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_wholesale" />
+                        android:background="@mipmap/icon_home_wholesale"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/wholesale"
                         android:layout_marginTop="10dp"
+                        android:text="@string/wholesale"
                         android:textColor="#828282"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -166,21 +166,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_business" />
+                        android:background="@mipmap/icon_home_business"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/business"
                         android:layout_marginTop="10dp"
+                        android:text="@string/business"
                         android:textColor="#828282"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -189,22 +189,22 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_education" />
+                        android:background="@mipmap/icon_home_education"/>
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="@string/education"
-                        android:layout_marginTop="10dp"
                         android:textColor="#828282"
-                        android:textSize="16sp"  />
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
 
@@ -214,22 +214,22 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_car" />
+                        android:background="@mipmap/icon_home_car"/>
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="@string/car"
-                        android:layout_marginTop="10dp"
                         android:textColor="#828282"
-                        android:textSize="16sp"  />
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -240,60 +240,61 @@
                 android:id="@+id/rlNotice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:background="@color/white"
-                android:padding="5dp"
-                android:layout_marginTop="2dp">
+                android:padding="5dp">
+
                 <ImageView
                     android:id="@+id/ivNotice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
                     android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
                     android:src="@mipmap/icon_home_notice"/>
 
-                <TextView
+                <cn.ws.sz.view.MarqueeTextView
                     android:id="@+id/tvNotice"
-                    android:layout_toRightOf="@+id/ivNotice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:gravity="center"
+                    android:layout_toRightOf="@+id/ivNotice"
+                    android:clickable="true"
                     android:ellipsize="marquee"
                     android:focusable="true"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:maxLines="1"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="-1"
+                    android:singleLine="true"
                     android:text="@string/hot_ad"
-                    android:textColor="@android:color/black" >
-                </TextView>
+                    android:textColor="@color/black">
+                </cn.ws.sz.view.MarqueeTextView>
             </RelativeLayout>
 
             <!--热门商家-->
             <LinearLayout
-                android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:orientation="vertical"
                 android:paddingBottom="5dp"
-                android:orientation="vertical">
+                android:paddingTop="10dp">
 
                 <TextView
                     android:id="@+id/tv_more"
-                    android:padding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="热门商家"
-                    android:textColor="@color/text_red"
                     android:drawablePadding="10dp"
-                    android:drawableRight="@mipmap/icon_home_more"/>
+                    android:drawableRight="@mipmap/icon_home_more"
+                    android:padding="5dp"
+                    android:text="热门商家"
+                    android:textColor="@color/text_red"/>
 
                 <cn.ws.sz.view.MyGridView
                     android:id="@+id/gvHot"
-                    android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:horizontalSpacing="10dp"
                     android:numColumns="2"
+                    android:padding="5dp"
                     android:scrollbars="none"
                     android:verticalSpacing="3dp">
                 </cn.ws.sz.view.MyGridView>
@@ -302,76 +303,6 @@
 
         </LinearLayout>
 
-
-
-
-
     </ScrollView>
 
 </LinearLayout>
-
-
-    <!--&lt;!&ndash;热门商家简要信息&ndash;&gt;-->
-    <!--<LinearLayout-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="5dp"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:weightSum="2" >-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/hot1"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center"-->
-    <!--android:background="@color/white"-->
-    <!--android:orientation="vertical" >-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="5dp"-->
-    <!--android:background="@drawable/busine_logo" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:gravity="center"-->
-    <!--android:text="@string/hot1_address"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:textColor="#828282"-->
-    <!--android:textSize="16sp"  />-->
-    <!--</LinearLayout>-->
-
-    <!--<View-->
-    <!--android:layout_width="10dp"-->
-    <!--android:layout_height="match_parent">-->
-    <!--</View>-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/hot2"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center"-->
-    <!--android:background="@color/white"-->
-    <!--android:orientation="vertical" >-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="5dp"-->
-    <!--android:background="@mipmap/business_tmp" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:gravity="center"-->
-    <!--android:text="@string/hot2_address"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:textColor="#828282"-->
-    <!--android:textSize="16sp"  />-->
-    <!--</LinearLayout>-->
-
-    <!--</LinearLayout>-->

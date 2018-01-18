@@ -213,7 +213,7 @@ public class BannerFragment extends Fragment implements ViewPager.OnPageChangeLi
      */
     public void setHeight() {
         getView().getLayoutParams().height = DeviceUtils
-                .getScreenHeight(getActivity()) / 5;
+                .getActivityScreenHeight(getActivity()) / 5;
     }
 
     /**

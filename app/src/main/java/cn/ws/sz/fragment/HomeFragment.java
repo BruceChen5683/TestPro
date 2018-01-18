@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -37,11 +39,14 @@ import cn.ws.sz.activity.SplashActivity;
 import cn.ws.sz.adater.BusinesssItem2Adapter;
 import cn.ws.sz.bean.BannerBean;
 import cn.ws.sz.bean.BannerStatus;
+import cn.ws.sz.bean.BusinessBean;
+import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
+import cn.ws.sz.view.MarqueeTextView;
 import cn.ws.sz.view.ViewFactory;
 import cn.ws.sz.fragment.BannerFragment.ImageCycleViewListener;
 import third.citypicker.PickCityActivity;
@@ -59,7 +64,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private List<ImageView> viewsBanner = new ArrayList<>();
     private int bannerSize = 0;
     private List<BannerBean> bannerList = new ArrayList<BannerBean>();
-//    private int[] bannerImageViews = {R.drawable.banner,R.drawable.banner,R.drawable.banner};
+    private int[] bannerImageViews = {R.drawable.banner,R.drawable.banner,R.drawable.banner};
     private ImageCycleViewListener imageCycleViewListener;
     private MainActivity activity;
 
@@ -67,15 +72,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private RelativeLayout rlSearch = null;
     private LinearLayout food,supermarket,entertainment,life,wholesale,business,education,car;
 
-//    private LinearLayout llHot1;//热门商家
-
     private GridView gridView;
-    private BusinesssItem2Adapter adapter;
+    private BusinesssItem2Adapter hotAdapter;
+
+	private MarqueeTextView tvNotice;
 
     private Gson gson = new Gson();
     private int region = 110101;//default
+	private List<BusinessBean> hotList = new ArrayList<>();
 
+	private StringBuilder adAll = new StringBuilder();
+	private static final int UPDATE_AD_NOTICE = 1;
 
+	private Handler adHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what){
+				case UPDATE_AD_NOTICE:
+					tvNotice.setText(adAll.toString());
+					break;
+				default:
+					break;
+			}
+		}
+	};
 
     public HomeFragment() {
         // Required empty public constructor
@@ -142,7 +162,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
             Log.d(TAG, "initView: 3");
             bannerFragment.setHeight();
-//            loadBannerFragment();
+            loadBannerFragment();
         }
 
         tvArea = (TextView) view.findViewById(R.id.tv_area);
@@ -159,6 +179,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         education = (LinearLayout) view.findViewById(R.id.education);
         car = (LinearLayout) view.findViewById(R.id.car);
 
+		tvNotice = (MarqueeTextView) view.findViewById(R.id.tvNotice);
+		tvNotice.setMarqueeEnable(true);
+
 
         food.setOnClickListener(this);
         supermarket.setOnClickListener(this);
@@ -171,14 +194,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         gridView = (GridView) view.findViewById(R.id.gvHot);
 
-        List<String> data = new ArrayList<String>();
-        data.add("北京天安门");
-        data.add("上海迪斯尼");
-        data.add("51区");
-        data.add("超长地址-----------------------------------------------------------------");
-        data.add("北京天安门");
-        adapter = new BusinesssItem2Adapter(getActivity(),data);
-        gridView.setAdapter(adapter);
+		hotAdapter = new BusinesssItem2Adapter(getActivity(),hotList);
+        gridView.setAdapter(hotAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -196,13 +213,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void loadBannerFragment() {
-//        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[2]));
-//        for (int i = 0; i < 3; i++) {
-//            views.add(ViewFactory.getImageView(getActivity(),
-//                    bannerImageViews[i]));
-//        }
-//        // 将第一个ImageView添加进来
-//        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[0]));
+        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[2]));
+        for (int i = 0; i < 3; i++) {
+            views.add(ViewFactory.getImageView(getActivity(),
+                    bannerImageViews[i]));
+        }
+        // 将第一个ImageView添加进来
+        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[0]));
         // 设置循环，在调用setData方法前调用
         bannerFragment.setCycle(true);
         // 在加载数据前设置是否循环
@@ -307,43 +324,82 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void loadData(){
-        VolleyRequestUtil.RequestGet(getActivity(),
-                Constant.URL_AD + region,//广告区域id
-                Constant.TAG_AD,
-                new VolleyListenerInterface(getActivity(),
-                        VolleyListenerInterface.mListener,
-                        VolleyListenerInterface.mErrorListener) {
-                    @Override
-                    public void onMySuccess(String result) {
-                        Log.d(TAG, "onMySuccess: " + result);
-                        BannerStatus status = gson.fromJson(result,BannerStatus.class);
-                        bannerList.clear();
-                        if(status.getData() != null && status.getData().size() > 0){
-                            bannerList.addAll(status.getData());
-                        }
-                        bannerSize = bannerList.size();
+//        VolleyRequestUtil.RequestGet(getActivity(),
+//                Constant.URL_AD + region,//广告区域id
+//                Constant.TAG_AD,
+//                new VolleyListenerInterface(getActivity(),
+//                        VolleyListenerInterface.mListener,
+//                        VolleyListenerInterface.mErrorListener) {
+//                    @Override
+//                    public void onMySuccess(String result) {
+//                        Log.d(TAG, "onMySuccess: " + result);
+//                        BannerStatus status = gson.fromJson(result,BannerStatus.class);
+//                        bannerList.clear();
+//                        if(status.getData() != null && status.getData().size() > 0){
+//                            bannerList.addAll(status.getData());
+//                        }
+//                        bannerSize = bannerList.size();
+//
+//                        for (int i = 0;i < bannerSize;i++){
+//                            ImageView temp = new ImageView(getActivity());
+//                            viewsBanner.add(temp);
+//                            CommonUtils.setImageView(bannerList.get(i).getBannerUrl(),viewsBanner.get(i));
+//                        }
+//
+//                        views.add(viewsBanner.get(bannerSize-1));
+//                        for (int i = 0;i < bannerSize;i++){
+//                            views.add(viewsBanner.get(i));
+//                        }
+//                        views.add(viewsBanner.get(0));
+//
+//                        loadBannerFragment();
+//
+//                    }
+//
+//                    @Override
+//                    public void onMyError(VolleyError error) {
+//                        Log.d(TAG, "onMyError: ");
+//                    }
+//                },
+//                true);
 
-                        for (int i = 0;i < bannerSize;i++){
-                            ImageView temp = new ImageView(getActivity());
-                            viewsBanner.add(temp);
-                            CommonUtils.setImageView(bannerList.get(i).getBannerUrl(),viewsBanner.get(i));
-                        }
 
-                        views.add(viewsBanner.get(bannerSize-1));
-                        for (int i = 0;i < bannerSize;i++){
-                            views.add(viewsBanner.get(i));
-                        }
-                        views.add(viewsBanner.get(0));
+		VolleyRequestUtil.RequestGet(getActivity(),
+				Constant.URL_HOT + region,//广告区域id
+				Constant.TAG_HOT,
+				new VolleyListenerInterface(getActivity(),
+						VolleyListenerInterface.mListener,
+						VolleyListenerInterface.mErrorListener) {
+					@Override
+					public void onMySuccess(String result) {
+						Log.d(TAG, "onMySuccess: " + result);
+						BusinessStatus status = gson.fromJson(result,BusinessStatus.class);
+						hotList.clear();
+						if(status.getData() != null && status.getData().size() > 0){
+							hotList.addAll(status.getData());
+						}
+						hotAdapter.notifyDataSetChanged();
 
-                        loadBannerFragment();
+						for (int i = 0;i <hotList.size();i++){
+							if(hotList.get(i).getIsHot() == 1){
+								if(!TextUtils.isEmpty(hotList.get(i).getAdWord())){
+									adAll.append("商家"+ hotList.get(i).getName() + ":" + hotList.get(i).getAdWord() + "     ");
+								}
+							}
+						}
+						adHandler.sendEmptyMessage(UPDATE_AD_NOTICE);
 
-                    }
+					}
 
-                    @Override
-                    public void onMyError(VolleyError error) {
-                        Log.d(TAG, "onMyError: ");
-                    }
-                },
-                true);
+					@Override
+					public void onMyError(VolleyError error) {
+						Log.d(TAG, "onMyError: ");
+					}
+				},
+				true);
+
     }
+
+
+
 }
