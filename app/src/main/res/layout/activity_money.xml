@@ -12,6 +12,7 @@
 
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -88,20 +89,24 @@
                     android:layout_toRightOf="@+id/star2"
                     android:text="@string/settled_addres"
                     android:textColor="@color/black" />
-                <TextView
+                <EditText
                     android:id="@+id/tvSettledAddresss2"
                     style="@style/business_detail_tv"
                     android:layout_toRightOf="@+id/tvSettledAddresss1"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="@color/edit_color"
-                    android:text="请输入商家的地址" />
+                    android:background="@null"
+                    android:textCursorDrawable="@null"
+                    android:textColorHint="@color/edit_color"
+                    android:textColor="@color/black"
+                    android:hint="请输入商家的地址" />
                 <ImageView
                     style="@style/business_detail_iv_right"
                     android:src="@mipmap/btn_classifyl_go"/>
             </RelativeLayout>
             <!--详细地址-->
             <RelativeLayout
+                android:id="@+id/rlSettledAddres2"
                 style="@style/personal_summary_5_65_">
                 <ImageView
                     android:id="@+id/star3"
@@ -240,6 +245,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/llMainPoructs"
                     style="@style/personal_summary_5_200"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -277,6 +283,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/llAd"
                     style="@style/personal_summary_5_100"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"

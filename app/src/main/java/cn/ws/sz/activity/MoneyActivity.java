@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,6 +121,13 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     private View rootView;
     private RelativeLayout rlSettledClassify;//选择分类
     private TextView tvSettledClassify2;
+    private int categoryId = -1;
+
+    private RelativeLayout rlSettledName,rlSettledAddres,rlSettledAddres2,rlSettledCoordinate,rlSettledPhone,rlSettledTel;
+    private LinearLayout llMainPoructs,llAd;
+
+
+    private ScrollView scrollView;
 
 
 
@@ -161,6 +169,28 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
+        scrollView = (ScrollView) findViewById(R.id.scrollView);
+
+        rlSettledName = (RelativeLayout) findViewById(R.id.rlSettledName);
+        rlSettledAddres = (RelativeLayout) findViewById(R.id.rlSettledAddres);
+        rlSettledAddres2 = (RelativeLayout) findViewById(R.id.rlSettledAddres2);
+        rlSettledCoordinate = (RelativeLayout) findViewById(R.id.rlSettledCoordinate);
+        rlSettledPhone = (RelativeLayout) findViewById(R.id.rlSettledPhone);
+        rlSettledTel = (RelativeLayout) findViewById(R.id.rlSettledTel);
+
+        llMainPoructs = (LinearLayout) findViewById(R.id.llMainPoructs);
+        llAd = (LinearLayout) findViewById(R.id.llAd);
+
+        rlSettledName.setOnClickListener(this);
+        rlSettledAddres.setOnClickListener(this);
+        rlSettledAddres2.setOnClickListener(this);
+        rlSettledCoordinate.setOnClickListener(this);
+        rlSettledPhone.setOnClickListener(this);
+        rlSettledTel.setOnClickListener(this);
+        llMainPoructs.setOnClickListener(this);
+        llAd.setOnClickListener(this);
+
+
 
 
         tvTitle= (TextView) findViewById(R.id.title_value);
@@ -314,8 +344,45 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                 initPopupWindow();
                 mPopupWindow.showAtLocation(rootView, Gravity.BOTTOM,0,0);
                 break;
+
+            case R.id.rlSettledName:
+                onClickEditTextParent((ViewGroup) v);
+                break;
+            case R.id.rlSettledAddres:
+                onClickEditTextParent((ViewGroup) v);
+                break;
+            case R.id.rlSettledAddres2:
+                onClickEditTextParent((ViewGroup) v);
+                break;
+            case R.id.rlSettledCoordinate:
+                onClickEditTextParent((ViewGroup) v);
+                break;
+            case R.id.rlSettledPhone:
+                onClickEditTextParent((ViewGroup) v);
+                break;
+            case R.id.rlSettledTel:
+                onClickEditTextParent((ViewGroup) v);
+                break;
+            case R.id.llMainPoructs:
+                onClickEditTextParent((ViewGroup) v);
+                break;
+            case R.id.llAd:
+                onClickEditTextParent((ViewGroup) v);
+                break;
+
             default:
                 break;
+        }
+    }
+
+    private void onClickEditTextParent(ViewGroup viewGroup){
+        int count = viewGroup.getChildCount();
+        for (int i = 0;i < count;i++){
+            if (viewGroup.getChildAt(i) instanceof  EditText){
+                EditText et = (EditText) viewGroup.getChildAt(i);
+                CommonUtils.showSoftInputFromWindow(this,et);
+                return;
+            }
         }
     }
 
@@ -331,6 +398,15 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         Log.d(TAG, "payAction: ");
 
         //check
+
+        if(categoryId == -1){
+            ToastUtil.showLong(this,"请选择商家所属的分类");
+            hideDialog();
+            scrollView.smoothScrollTo(0,0);
+            initPopupWindow();
+            mPopupWindow.showAtLocation(rootView, Gravity.BOTTOM,0,0);
+            return;
+        }
         if(TextUtils.isEmpty(tvSettledName2.getText())){
             ToastUtil.showLong(this,"请输入商家名称");
             hideDialog();
@@ -379,7 +455,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
         params.put("name",tvSettledName2.getText().toString());
         params.put("region","110101");
-        params.put("categoryId","63");
+        params.put("categoryId",String.valueOf(categoryId));
         params.put("cellphone",tvSettledTel2.getText().toString());
         params.put("mainProducts",mainProducts.getText().toString());
         params.put("adWord",ad.getText().toString());
@@ -581,9 +657,11 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         if(secondClassifyLenght > 0){
             if(secondClassifyLenght > mCurrentSecondClassifyItem){
                 mCurrentSecondClassify = secondClassifyDatas.get(mCurrentSecondClassifyItem).getName();
+                categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
                 secondClassifyView.setCurrentItem(mCurrentSecondClassifyItem);
             }else {
                 mCurrentSecondClassify = secondClassifyDatas.get(secondClassifyLenght-1).getName();
+                categoryId = secondClassifyDatas.get(secondClassifyLenght-1).getId();
                 secondClassifyView.setCurrentItem(secondClassifyLenght-1);
             }
         }else {
