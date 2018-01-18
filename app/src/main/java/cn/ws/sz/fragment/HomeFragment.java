@@ -231,12 +231,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             }
         };
 
-
-        Log.d(TAG, "loadBannerFragment: "+views.size());
-        for (int i = 0; i < views.size();i++){
-            Log.d(TAG, "loadBannerFragment: "+views.get(i));
-        }
-
         bannerFragment.setData(views, imageCycleViewListener);
         // 设置轮播
         bannerFragment.setWheel(true);
@@ -246,12 +240,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         bannerFragment.setIndicatorCenter();
     }
 
-
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();

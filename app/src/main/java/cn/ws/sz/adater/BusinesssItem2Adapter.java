@@ -65,8 +65,6 @@ public class BusinesssItem2Adapter extends BaseAdapter{
 
 		convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
 				DeviceUtils.getDeviceScreeHeight(context)/4));
-//		holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-//				DeviceUtils.getDeviceScreeHeight(context)/4));
 
         return convertView;
     }

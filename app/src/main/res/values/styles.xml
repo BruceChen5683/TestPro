@@ -371,4 +371,11 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+
+    <!--选择器-->
+    <style name="popup_choose_bottom">
+        <item name="android:windowEnterAnimation">@anim/popup_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_bottom_out</item>
+    </style>
+
 </resources>

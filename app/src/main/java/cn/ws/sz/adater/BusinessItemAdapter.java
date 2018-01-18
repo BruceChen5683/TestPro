@@ -49,10 +49,8 @@ public class BusinessItemAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d(TAG, "getView: ");
         final ViewHolder holder;
         if (convertView == null) {
-            Log.d(TAG, "getView: 1");
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.business_item, null);
             holder = new ViewHolder();
@@ -64,7 +62,6 @@ public class BusinessItemAdapter extends BaseAdapter{
             holder.rlAddress = (RelativeLayout) convertView.findViewById(R.id.rlAddress);
             convertView.setTag(holder);
         } else {
-            Log.d(TAG, "getView: 2");
             holder = (ViewHolder) convertView.getTag();
         }
         holder.tvBusinessName.setText(getItem(position).getName());
@@ -76,10 +73,6 @@ public class BusinessItemAdapter extends BaseAdapter{
                 CommonUtils.callByDefault(context,holder.tvBusinessTel.getText().toString());
             }
         });
-        if(convertView == null){
-            Log.d(TAG, "getView: null");
-        }
-        Log.d(TAG, "getView: end");
         return convertView;
     }
 

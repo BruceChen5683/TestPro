@@ -41,7 +41,7 @@
                     android:textColor="@color/black"
                     android:background="@null"
                     android:textCursorDrawable="@null"
-                    android:textColorHint="@color/grayLight"
+                    android:textColorHint="@color/edit_color"
                     android:hint="请输入姓名" />
 
             </RelativeLayout>
@@ -72,7 +72,7 @@
                     android:background="@null"
                     android:inputType="phone"
                     android:textCursorDrawable="@null"
-                    android:textColorHint="@color/grayLight"
+                    android:textColorHint="@color/edit_color"
                     android:hint="请输入手机号码" />
             </RelativeLayout>
 
@@ -100,7 +100,7 @@
                     android:textColor="@color/black"
                     android:background="@null"
                     android:textCursorDrawable="@null"
-                    android:textColorHint="@color/grayLight"
+                    android:textColorHint="@color/edit_color"
                     android:hint="请输入身份证号码" />
 
             </RelativeLayout>
@@ -129,7 +129,7 @@
                     android:textColor="@color/black"
                     android:background="@null"
                     android:textCursorDrawable="@null"
-                    android:textColorHint="@color/grayLight"
+                    android:textColorHint="@color/edit_color"
                     android:hint="请输入支付宝账号" />
             </RelativeLayout>
 
@@ -157,7 +157,7 @@
                     android:textColor="@color/black"
                     android:background="@null"
                     android:textCursorDrawable="@null"
-                    android:textColorHint="@color/grayLight"
+                    android:textColorHint="@color/edit_color"
                     android:hint="请输入微信账号" />
             </RelativeLayout>
 

@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -27,8 +28,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -41,10 +44,13 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.ws.sz.R;
 import cn.ws.sz.adater.BusinessPhotoAdapter;
+import cn.ws.sz.adater.ChooseClassifyAdapter;
+import cn.ws.sz.bean.ClassifyBean;
 import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
@@ -58,11 +64,13 @@ import third.volley.PostUploadRequest;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
+import third.wheelviewchoose.OnWheelChangedListener;
+import third.wheelviewchoose.WheelView;
 
 import static cn.ws.sz.utils.Constant.CODE_ACTION_IMAGE_CAPTURE;
 import static cn.ws.sz.utils.Constant.CODE_IMAGE_SELECT_ACTIVITY;
 
-public class MoneyActivity extends AppCompatActivity implements View.OnClickListener{
+public class MoneyActivity extends AppCompatActivity implements View.OnClickListener,OnWheelChangedListener{
 
     private final static String TAG = MoneyActivity.class.getSimpleName();
     private MyGridView postPhoto;
@@ -96,6 +104,25 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText tvSettledName2,etDetailAddress,tvSettledTel2,mainProducts,ad;
 
+    /*
+     *  choose
+     * */
+    private PopupWindow mPopupWindow;
+    private WheelView firstClassifyView;
+    private WheelView secondClassifyView;
+    private List<ClassifyBean> firstClassifyDatas = new ArrayList<>();
+    private List<ClassifyBean> secondClassifyDatas = new ArrayList<>();
+    private String mCurrentFirstClassify,mCurrentSecondClassify;
+    private int mCurrentFirstClassifyItem,mCurrentSecondClassifyItem;
+    private TextView btn_myinfo_sure,btn_myinfo_cancel;
+    private ChooseClassifyAdapter firstClassifyAdapter,secondClassifyAdapter;
+    private final int TEXTSIZE=17;//选择器的字体大小
+    private View rootView;
+    private RelativeLayout rlSettledClassify;//选择分类
+    private TextView tvSettledClassify2;
+
+
+
 
     private Handler handler = new Handler(){
         @Override
@@ -114,15 +141,23 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     };
+
+    public MoneyActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_money);
+
+        rootView = LayoutInflater.from(this).inflate(R.layout.activity_money,null);
+        setContentView(rootView);
 
         gson = new Gson();
         initView();
 
         initDialog();
+
+
     }
 
     private void initView() {
@@ -184,6 +219,10 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         tvSettledTel2 = (EditText) findViewById(R.id.tvSettledTel2);
         mainProducts = (EditText) findViewById(R.id.mainProducts);
         ad = (EditText) findViewById(R.id.ad);
+
+        rlSettledClassify = (RelativeLayout) findViewById(R.id.rlSettledClassify);
+        rlSettledClassify.setOnClickListener(this);
+        tvSettledClassify2 = (TextView) findViewById(R.id.tvSettledClassify2);
 
 
     }
@@ -263,6 +302,17 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.rlAli:
                 changPayConfim(true);
+                break;
+            case R.id.btn_myinfo_cancel:
+                mPopupWindow.dismiss();
+                break;
+            case R.id.btn_myinfo_sure:
+                tvSettledClassify2.setText(mCurrentFirstClassify+"-"+mCurrentSecondClassify);
+                mPopupWindow.dismiss();
+                break;
+            case R.id.rlSettledClassify:
+                initPopupWindow();
+                mPopupWindow.showAtLocation(rootView, Gravity.BOTTOM,0,0);
                 break;
             default:
                 break;
@@ -463,5 +513,101 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         dialogHeight = lp.height;
         lp.alpha = 9f; // 透明度
         dialogWindow.setAttributes(lp);
+    }
+
+
+    public void initPopupWindow(){
+
+        View popupView = LayoutInflater.from(this).inflate(R.layout.popup_classifychoose, null);
+        mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mPopupWindow.setTouchable(true);
+        mPopupWindow.setFocusable(true);
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setAnimationStyle(R.style.popup_choose_bottom);
+
+        firstClassifyView = (WheelView)popupView.findViewById(R.id.provinceView);
+        secondClassifyView = (WheelView)popupView.findViewById(R.id.cityView);
+
+        //确定或者取消
+        btn_myinfo_sure = (TextView)popupView.findViewById(R.id.btn_myinfo_sure);
+        btn_myinfo_cancel = (TextView) popupView.findViewById(R.id.btn_myinfo_cancel);
+        btn_myinfo_cancel.setOnClickListener(this);
+        btn_myinfo_sure.setOnClickListener(this);
+
+        // 设置可见条目数量
+        firstClassifyView.setVisibleItems(7);
+        secondClassifyView.setVisibleItems(7);
+
+        // 添加change事件
+        firstClassifyView.addChangingListener(this);
+        secondClassifyView.addChangingListener(this);
+
+        initpopData();
+
+    }
+
+    private void initpopData() {
+
+
+        firstClassifyDatas = WSApp.firstCategroyList;
+
+        mCurrentFirstClassify = firstClassifyDatas.get(0).getName();
+        firstClassifyAdapter = new ChooseClassifyAdapter(this,firstClassifyDatas);
+        firstClassifyAdapter.setTextSize(TEXTSIZE);
+        firstClassifyView.setViewAdapter(firstClassifyAdapter);
+
+        if(mCurrentFirstClassifyItem != 0){
+            firstClassifyView.setCurrentItem(mCurrentFirstClassifyItem);
+        }
+
+        updateSecondClassifyDate();
+    }
+
+    private void updateSecondClassifyDate() {
+        int pCurrent = firstClassifyView.getCurrentItem();
+        if(firstClassifyDatas.size() > 0){
+            secondClassifyDatas = WSApp.secondCategroyMap.get(firstClassifyDatas.get(pCurrent).getId());
+        }else {
+            secondClassifyDatas.clear();
+        }
+
+        secondClassifyAdapter = new ChooseClassifyAdapter(this,secondClassifyDatas);
+        secondClassifyAdapter.setTextSize(TEXTSIZE);
+        secondClassifyView.setViewAdapter(secondClassifyAdapter);
+
+
+
+        int secondClassifyLenght = secondClassifyDatas.size();
+        if(secondClassifyLenght > 0){
+            if(secondClassifyLenght > mCurrentSecondClassifyItem){
+                mCurrentSecondClassify = secondClassifyDatas.get(mCurrentSecondClassifyItem).getName();
+                secondClassifyView.setCurrentItem(mCurrentSecondClassifyItem);
+            }else {
+                mCurrentSecondClassify = secondClassifyDatas.get(secondClassifyLenght-1).getName();
+                secondClassifyView.setCurrentItem(secondClassifyLenght-1);
+            }
+        }else {
+            mCurrentSecondClassify = "";
+        }
+    }
+
+    /**
+     * Callback method to be invoked when current item changed
+     *
+     * @param wheel    the wheel view whose state has changed
+     * @param oldValue the old value of current item
+     * @param newValue the new value of current item
+     */
+    @Override
+    public void onChanged(WheelView wheel, int oldValue, int newValue) {
+        if(wheel == firstClassifyView){
+            mCurrentFirstClassify = firstClassifyDatas.get(newValue).getName();
+            updateSecondClassifyDate();
+            mCurrentFirstClassifyItem = newValue;
+        }
+        if(wheel == secondClassifyView){
+            mCurrentSecondClassify = secondClassifyDatas.get(newValue).getName();
+            mCurrentSecondClassifyItem = newValue;
+        }
     }
 }

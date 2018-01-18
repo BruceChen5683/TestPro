@@ -127,7 +127,7 @@
             android:padding="10dp"
             android:hint="广告内容，最多200字"
             android:gravity="top"
-            android:textColorHint="@color/grayLight"
+            android:textColorHint="@color/edit_color"
             android:textColor="@color/black"
             android:textCursorDrawable="@null"
             android:background="@drawable/rect_graylight"

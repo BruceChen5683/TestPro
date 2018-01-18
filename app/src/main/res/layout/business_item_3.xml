@@ -25,27 +25,38 @@
         android:orientation="vertical"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:paddingBottom="5dp">
-        <TextView
-            android:id="@+id/tvBusinessName"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="江苏饭店"
-            />
+        android:paddingBottom="5dp"
+        android:weightSum="3">
 
         <RelativeLayout
-            android:id="@+id/rlAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:id="@+id/tvBusinessName"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="江苏饭店"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal">
             <ImageView
                 android:id="@+id/ivSimilarOneAddres"
                 android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/icon_classifyl_location"/>
@@ -66,15 +77,16 @@
 
 
         <RelativeLayout
-            android:id="@+id/rlFixedPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rect_graylist_3"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal">
             <ImageView
                 android:id="@+id/ivSimilarOneFixedPhone"
                 android:paddingLeft="1dp"
                 android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/icon_classifyl_phone"/>
