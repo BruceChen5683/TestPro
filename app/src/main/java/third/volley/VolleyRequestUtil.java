@@ -97,7 +97,6 @@ public class VolleyRequestUtil {
         WSApp.getHttpRequestQueue().cancelAll(tag);
         // 创建当前的POST请求，并将请求内容写入Map中
         postUploadRequest = new PostUploadRequest(Constant.BASEURL + url,fileMap,
-//        stringRequest = new StringRequest(Request.Method.POST, Constant.BASEURL + url,
                 volleyListenerInterface.responseListener(), volleyListenerInterface.errorListener()) {
 
             @Override

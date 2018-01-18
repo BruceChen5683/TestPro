@@ -39,6 +39,7 @@ public class Constant {
     public static final String TAG_MODIFIER_ADWORDS = "modify_ad";
     public static final String TAG_MODIFIER_MAINPRODUCTS= "modify_main_product";
     public static final String TAG_PIC_UPLOAD = "pic_upload";
+    public static final String TAG_AD = "area_ad";
 
 
 
