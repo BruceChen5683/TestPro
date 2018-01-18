@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -26,13 +28,20 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import cn.ws.sz.activity.MainActivity;
+import cn.ws.sz.activity.SplashActivity;
+import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.view.ImageLayout;
+import third.volley.VolleyListenerInterface;
+import third.volley.VolleyRequestUtil;
 
 /**
  * Created by chenjianliang on 2018/1/10.
  */
 
 public class CommonUtils {
+
+    private static final String TAG = CommonUtils.class.getSimpleName();
     public static Bitmap getScaleBitmap(String filePath, int width, int height) {
 
         Bitmap bitmap = null;
@@ -156,5 +165,54 @@ public class CommonUtils {
         activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
+
+    public static void updateData(final Context context){
+        VolleyRequestUtil.RequestGet(context,
+                Constant.URL_CATEGORY + 0,
+                Constant.TAG_CATEGROY,//一级分类tag
+                new VolleyListenerInterface(context,
+                        VolleyListenerInterface.mListener,
+                        VolleyListenerInterface.mErrorListener) {
+                    @Override
+                    public void onMySuccess(String result) {
+                        Log.d(TAG, "onMySuccess: " + result);
+                        ClassifyStatus status = new Gson().fromJson(result,ClassifyStatus.class);
+                        WSApp.firstCategroyList.clear();
+                        WSApp.firstCategroyList.addAll(status.getData());
+                        for (int i = 0;i < WSApp.firstCategroyList.size();i++){
+                            CommonUtils.loadingSecondData(context,WSApp.firstCategroyList.get(i).getId());
+                        }
+                    }
+
+                    @Override
+                    public void onMyError(VolleyError error) {
+                        Log.d(TAG, "onMyError: "+error.getMessage());
+                    }
+                },
+                true);
+    }
+
+    public static void loadingSecondData(Context context,final int id){
+
+        VolleyRequestUtil.RequestGet(context,
+                Constant.URL_CATEGORY + id,
+                Constant.TAG_CATEGROY+id,//不同一级分类tag
+                new VolleyListenerInterface(context,
+                        VolleyListenerInterface.mListener,
+                        VolleyListenerInterface.mErrorListener) {
+                    @Override
+                    public void onMySuccess(String result) {
+                        Log.d(TAG, "onMySuccess: " + result);
+                        ClassifyStatus status = new Gson().fromJson(result,ClassifyStatus.class);
+                        WSApp.secondCategroyMap.put(id,status.getData());
+                    }
+
+                    @Override
+                    public void onMyError(VolleyError error) {
+                        Log.d(TAG, "onMyError: "+error.getMessage());
+                    }
+                },
+                true);
+    }
 
 }

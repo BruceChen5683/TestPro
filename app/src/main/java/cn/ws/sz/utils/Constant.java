@@ -33,6 +33,8 @@ public class Constant {
 
     public static final String URL_UPLOAD_PIC = "/api/merchant/uploadImage";//上传图片
 
+    public static final String URL_QUERY_BUSINESS = "/api/merchant/query";
+
     public static final String TAG_CATEGROY = "categroy";
     public static final String TAG_BUSINESS_LIST = "business_list";//分类
     public static final String TAG_BUSINESS_LIST_SEARCH = "business_list_search";//搜索
@@ -45,6 +47,9 @@ public class Constant {
     public static final String TAG_PIC_UPLOAD = "pic_upload";
     public static final String TAG_AD = "area_ad";
 	public static final String TAG_HOT = "business_hot";
+
+    public static final String TAG_QUERY_BUSINESS = "query_business";
+
 
 
     public static final int MODIFIER_AD_TYPE = 1;

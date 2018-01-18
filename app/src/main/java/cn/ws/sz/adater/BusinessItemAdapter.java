@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,6 +16,7 @@ import java.util.List;
 import cn.ws.sz.R;
 import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.utils.CommonUtils;
+import cn.ws.sz.utils.DeviceUtils;
 
 /**
  * Created by chenjianliang on 2018/1/13.
@@ -65,14 +67,20 @@ public class BusinessItemAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
         holder.tvBusinessName.setText(getItem(position).getName());
-        holder.tvBusinessAddress.setText("银湖北路18号"/*getItem(position).getRegion()*/);
+        holder.tvBusinessAddress.setText(getItem(position).getAddress());
         holder.tvBusinessTel.setText(getItem(position).getCellphone());
+        CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
+
         holder.rlFixedPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CommonUtils.callByDefault(context,holder.tvBusinessTel.getText().toString());
             }
         });
+
+        convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                DeviceUtils.getDeviceScreeHeight(context)/7));
+
         return convertView;
     }
 

@@ -32,6 +32,7 @@ import cn.ws.sz.adater.WsSimpleAdater2;
 import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.ClassifyBean;
+import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.WSApp;
 import third.searchview.ICallBack;
@@ -56,7 +57,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private int firstCategroy = 0;
     private int secondCategroy = 0;
     private int pageId = 0;//页码
-    private int areaId = 110101;//区域
+    private int region = 110101;//区域
     private Gson gson;
 
     private RelativeLayout rlClassify,rlSort;//选择
@@ -79,6 +80,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private final static int TYPE_SORT = 2;
     private final static int TYPE_SEARCH = 3;
     private final static int TYPE_SEARCH_DONE = 4;
+
+
+    private String queryText = "";
+    private Map<String,String> quertyMap = new HashMap<>();
 
 
 
@@ -121,11 +126,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         searchView.setOnClickSearch(new ICallBack() {
             @Override
             public void SearchAciton(String string) {
-                Log.d(TAG, "SearchAciton: "+string);
+                queryText = string;
                 searchView.hideScrollView(true);
                 loadData();
-                changeLayout(TYPE_SEARCH_DONE);
-
 //                Intent intent = new Intent();
 //                intent.putExtra("searchValue",string);
 //                intent.setClass(getActivity(), SearchActivity.class);
@@ -146,16 +149,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
             public void SearchHistroy(String string) {
 
                 searchView.hideScrollView(true);
-
-                Log.d(TAG, "SearchHistroy: "+string);
-//                Intent intent = new Intent();
-//                intent.putExtra("searchValue",string);
-//                intent.setClass(getActivity(), SearchActivity.class);
-//                startActivity(intent);
-
+                queryText = string;
                 loadData();
-                changeLayout(TYPE_SEARCH_DONE);
-
             }
         });
 
@@ -254,10 +249,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     }
 
     private void loadData() {
-            Log.d(TAG, "loadData: " + Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId);
-            VolleyRequestUtil.RequestGet(getActivity(),
-                    Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId,
-                    Constant.TAG_BUSINESS_LIST_SEARCH,//商家列表搜索tag
+        quertyMap.put("region",String.valueOf(region));
+        quertyMap.put("queryText",queryText);
+            VolleyRequestUtil.RequestPost(getActivity(),
+                    Constant.URL_QUERY_BUSINESS,
+                    Constant.TAG_QUERY_BUSINESS,//商家列表搜索tag
+                    quertyMap,
                     new VolleyListenerInterface(getActivity(),
                             VolleyListenerInterface.mListener,
                             VolleyListenerInterface.mErrorListener) {
@@ -265,11 +262,20 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
                         public void onMySuccess(String result) {
                             Log.d(TAG, "onMySuccess: "+ result);
                             BusinessStatus status = gson.fromJson(result,BusinessStatus.class);
+                            Log.d(TAG, "onMySuccess: "+ 1);
+
                             data.clear();
+                            Log.d(TAG, "onMySuccess: "+ 2);
+
                             if(status.getData() != null && status.getData().size() > 0){
+                                Log.d(TAG, "onMySuccess: "+ 3);
+
                                 data.addAll(status.getData());
                             }
+                            Log.d(TAG, "onMySuccess: "+ 4);
+
                             adapter.notifyDataSetChanged();
+                            changeLayout(TYPE_SEARCH_DONE);
                         }
 
                         @Override
@@ -296,6 +302,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     }
 
     private void changeLayout(int type){
+        Log.d(TAG, "changeLayout: type "+type);
         if(type == TYPE_CLASSIFY){
 //            ll_no_search.setVisibility(View.VISIBLE);
             tvClassify.setTextColor(getResources().getColor(R.color.text_red));
