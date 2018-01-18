@@ -1,6 +1,7 @@
 package third.volley;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -22,6 +23,7 @@ public class VolleyRequestUtil {
     public static Context context;
     public static int sTimeOut = 30000;
     public static PostUploadRequest postUploadRequest;
+    private static final String TAG = VolleyRequestUtil.class.getSimpleName();
 
     /*
     * 获取GET请求内容
@@ -35,6 +37,7 @@ public class VolleyRequestUtil {
     public static void RequestGet(Context context, String url, String tag,
                                   VolleyListenerInterface volleyListenerInterface,
                                   boolean timeOutDefaultFlg) {
+        Log.d(TAG, "RequestGet: "+url);
         // 清除请求队列中的tag标记请求
         WSApp.getHttpRequestQueue().cancelAll(tag);
         // 创建当前的请求，获取字符串内容
@@ -66,6 +69,8 @@ public class VolleyRequestUtil {
                                    final Map<String, String> params,
                                    VolleyListenerInterface volleyListenerInterface,
                                    boolean timeOutDefaultFlg) {
+        Log.d(TAG, "RequestPost: "+url);
+
         // 清除请求队列中的tag标记请求
         WSApp.getHttpRequestQueue().cancelAll(tag);
         // 创建当前的POST请求，并将请求内容写入Map中
@@ -93,6 +98,8 @@ public class VolleyRequestUtil {
                                    final Map<String, String[]> fileMap,
                                    VolleyListenerInterface volleyListenerInterface,
                                    boolean timeOutDefaultFlg) {
+        Log.d(TAG, "RequestPostFile: "+url);
+
         // 清除请求队列中的tag标记请求
         WSApp.getHttpRequestQueue().cancelAll(tag);
         // 创建当前的POST请求，并将请求内容写入Map中

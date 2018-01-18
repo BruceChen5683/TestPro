@@ -296,7 +296,7 @@
                     android:numColumns="2"
                     android:padding="5dp"
                     android:scrollbars="none"
-                    android:verticalSpacing="3dp">
+                    android:verticalSpacing="10dp">
                 </cn.ws.sz.view.MyGridView>
 
             </LinearLayout>

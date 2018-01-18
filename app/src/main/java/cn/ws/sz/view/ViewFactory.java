@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 
 import cn.ws.sz.R;
+import cn.ws.sz.utils.CommonUtils;
 
 /**
  * ImageView创建工厂
@@ -31,10 +32,7 @@ public class ViewFactory {
             if (mLayoutInflater != null) {
                 ImageView imageView = (ImageView) mLayoutInflater.inflate(
                         R.layout.view_banner, null);
-//                ImageLoader imageLoader = new ImageLoader(context);
-
-//                imageLoader.DisplayImage(url, imageView);
-                // ImageLoader.getInstance().displayImage(url, imageView);
+                CommonUtils.setImageView(url,imageView);
                 return imageView;
             } else {
                 return null;
@@ -42,7 +40,7 @@ public class ViewFactory {
 
         } catch (Exception e) {
             // TODO: handle exception
-            Log.i("cjl", "ViewFactory---"+e);
+            e.printStackTrace();
             return null;
         }
 
@@ -72,7 +70,7 @@ public class ViewFactory {
             }
 
         } catch (Exception e) {
-            Log.i("cjl", "ViewFactory---"+e);
+            e.printStackTrace();
             return null;
         }
 

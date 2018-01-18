@@ -34,7 +34,7 @@ public abstract class VolleyListenerInterface {
         mListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                Log.e("Volley Response", "response == " + s);
+//                Log.e("Volley Response", "response == " + s);
                 onMySuccess(s);
             }
         };

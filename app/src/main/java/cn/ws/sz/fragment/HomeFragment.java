@@ -61,10 +61,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private final static String TAG = "HomeFragment";
     private  BannerFragment bannerFragment;
     private List<ImageView> views = new ArrayList<ImageView>();
-    private List<ImageView> viewsBanner = new ArrayList<>();
+//    private List<ImageView> viewsBanner = new ArrayList<>();
     private int bannerSize = 0;
     private List<BannerBean> bannerList = new ArrayList<BannerBean>();
-    private int[] bannerImageViews = {R.drawable.banner,R.drawable.banner,R.drawable.banner};
+//    private int[] bannerImageViews = {R.drawable.banner,R.drawable.banner,R.drawable.banner};
     private ImageCycleViewListener imageCycleViewListener;
     private MainActivity activity;
 
@@ -162,7 +162,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
             Log.d(TAG, "initView: 3");
             bannerFragment.setHeight();
-            loadBannerFragment();
+//            loadBannerFragment();
         }
 
         tvArea = (TextView) view.findViewById(R.id.tv_area);
@@ -213,13 +213,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void loadBannerFragment() {
-        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[2]));
-        for (int i = 0; i < 3; i++) {
-            views.add(ViewFactory.getImageView(getActivity(),
-                    bannerImageViews[i]));
-        }
-        // 将第一个ImageView添加进来
-        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[0]));
+//        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[2]));
+//        for (int i = 0; i < 3; i++) {
+//            views.add(ViewFactory.getImageView(getActivity(),
+//                    bannerImageViews[i]));
+//        }
+//        // 将第一个ImageView添加进来
+//        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[0]));
         // 设置循环，在调用setData方法前调用
         bannerFragment.setCycle(true);
         // 在加载数据前设置是否循环
@@ -324,44 +324,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void loadData(){
-//        VolleyRequestUtil.RequestGet(getActivity(),
-//                Constant.URL_AD + region,//广告区域id
-//                Constant.TAG_AD,
-//                new VolleyListenerInterface(getActivity(),
-//                        VolleyListenerInterface.mListener,
-//                        VolleyListenerInterface.mErrorListener) {
-//                    @Override
-//                    public void onMySuccess(String result) {
-//                        Log.d(TAG, "onMySuccess: " + result);
-//                        BannerStatus status = gson.fromJson(result,BannerStatus.class);
-//                        bannerList.clear();
-//                        if(status.getData() != null && status.getData().size() > 0){
-//                            bannerList.addAll(status.getData());
-//                        }
-//                        bannerSize = bannerList.size();
-//
-//                        for (int i = 0;i < bannerSize;i++){
-//                            ImageView temp = new ImageView(getActivity());
-//                            viewsBanner.add(temp);
-//                            CommonUtils.setImageView(bannerList.get(i).getBannerUrl(),viewsBanner.get(i));
-//                        }
-//
-//                        views.add(viewsBanner.get(bannerSize-1));
-//                        for (int i = 0;i < bannerSize;i++){
-//                            views.add(viewsBanner.get(i));
-//                        }
-//                        views.add(viewsBanner.get(0));
-//
-//                        loadBannerFragment();
-//
-//                    }
-//
-//                    @Override
-//                    public void onMyError(VolleyError error) {
-//                        Log.d(TAG, "onMyError: ");
-//                    }
-//                },
-//                true);
+        VolleyRequestUtil.RequestGet(getActivity(),
+                Constant.URL_AD + region,//广告区域id
+                Constant.TAG_AD,
+                new VolleyListenerInterface(getActivity(),
+                        VolleyListenerInterface.mListener,
+                        VolleyListenerInterface.mErrorListener) {
+                    @Override
+                    public void onMySuccess(String result) {
+                        Log.d(TAG, "onMySuccess: " + result);
+                        BannerStatus status = gson.fromJson(result,BannerStatus.class);
+                        bannerList.clear();
+                        if(status.getData() != null && status.getData().size() > 0){
+                            bannerList.addAll(status.getData());
+                        }
+                        bannerSize = bannerList.size();
+
+                        //加载广告
+                        if(bannerSize > 0){
+                            views.add(ViewFactory.getImageView(getActivity(),bannerList.get(bannerSize-1).getBannerUrl()));
+                            for (int i = 0;i < bannerSize;i++){
+                                views.add(ViewFactory.getImageView(getActivity(),bannerList.get(i).getBannerUrl()));
+                            }
+                            views.add(ViewFactory.getImageView(getActivity(),bannerList.get(0).getBannerUrl()));
+
+                            loadBannerFragment();
+                        }
+
+                    }
+
+                    @Override
+                    public void onMyError(VolleyError error) {
+                        Log.d(TAG, "onMyError: ");
+                    }
+                },
+                true);
 
 
 		VolleyRequestUtil.RequestGet(getActivity(),
