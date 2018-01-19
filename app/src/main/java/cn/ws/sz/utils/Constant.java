@@ -8,6 +8,11 @@ public class Constant {
     public static final String BASEURL = "http://39.106.208.193:8080/ws";
 
     public static final int MAX_BUSINESS_PHOTO = 5;
+    public static final int MAX_IDCARD_PHOTO = 2;
+
+    public static final int PHOTO_TYPE_BUSINESS = 1;
+    public static final int PHOTO_TYPE_IDCARD = 2;
+
 
     public static final int CODE_IMAGE_SELECT_ACTIVITY = 1;
     public static final int CODE_ACTION_IMAGE_CAPTURE = 2;

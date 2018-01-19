@@ -10,8 +10,11 @@ import android.widget.ImageView;
 
 import cn.ws.sz.R;
 import cn.ws.sz.activity.MoneyActivity;
+import cn.ws.sz.activity.ProxyActivity;
+import cn.ws.sz.utils.Constant;
 
 import static cn.ws.sz.utils.Constant.MAX_BUSINESS_PHOTO;
+import static cn.ws.sz.utils.Constant.MAX_IDCARD_PHOTO;
 
 /**
  * Created by chenjianliang on 2018/1/10.
@@ -22,9 +25,11 @@ public class BusinessPhotoAdapter extends BaseAdapter{
     private DeleteView deleteView;
     private boolean isShowDelete;// 根据这个变量来判断是否显示删除图标，true是显示，false是不显示
     private int id = -1;
+    private int photoType = Constant.PHOTO_TYPE_BUSINESS;
 
-    public BusinessPhotoAdapter(Context context) {
+    public BusinessPhotoAdapter(Context context,int photoType) {
         this.mContext = context;
+        this.photoType = photoType;
 
     }
 
@@ -39,16 +44,28 @@ public class BusinessPhotoAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        if (MoneyActivity.SelectedImages.size() == MAX_BUSINESS_PHOTO) {
-            return MAX_BUSINESS_PHOTO;
+        if (photoType == Constant.PHOTO_TYPE_BUSINESS){
+            if (MoneyActivity.SelectedImages.size() == MAX_BUSINESS_PHOTO) {
+                return MAX_BUSINESS_PHOTO;
+            }
+            return MoneyActivity.SelectedImages.size() + 1;
+        }else{
+            if (MoneyActivity.SelectedImages.size() == MAX_BUSINESS_PHOTO) {
+                return MAX_BUSINESS_PHOTO;
+            }
+            return ProxyActivity.SelectedImages.size() + 1;
         }
-        return MoneyActivity.SelectedImages.size() + 1;
+
 
     }
 
     @Override
     public Object getItem(int position) {
-        return MoneyActivity.SelectedImages.get(position);
+        if (photoType == Constant.PHOTO_TYPE_BUSINESS) {
+            return MoneyActivity.SelectedImages.get(position);
+        }else {
+            return ProxyActivity.SelectedImages.get(position);
+        }
     }
 
     @Override
@@ -80,16 +97,19 @@ public class BusinessPhotoAdapter extends BaseAdapter{
             }
         });
 
-        if (position ==  MoneyActivity.SelectedImages.size()) {
+        int size = photoType == Constant.PHOTO_TYPE_BUSINESS ? MoneyActivity.SelectedImages.size():ProxyActivity.SelectedImages.size();
+
+        if (position ==  size) {
             holder.businessPhoto.setImageBitmap(BitmapFactory.decodeResource(
                     mContext.getResources(), R.mipmap.my_camera));
             holder.deleteView.setVisibility(View.GONE);
-            if (position == MAX_BUSINESS_PHOTO) {
+            if (position == (photoType == Constant.PHOTO_TYPE_BUSINESS ? MAX_BUSINESS_PHOTO:MAX_IDCARD_PHOTO)) {
                 holder.businessPhoto.setVisibility(View.GONE);
             }
         } else {
-            holder.businessPhoto.setImageBitmap(MoneyActivity.SelectedImages
-                    .get(position).getBitmap());
+            holder.businessPhoto.setImageBitmap(
+                    photoType == Constant.PHOTO_TYPE_BUSINESS ?
+                    MoneyActivity.SelectedImages.get(position).getBitmap():ProxyActivity.SelectedImages.get(position).getBitmap());
         }
 
         return convertView;

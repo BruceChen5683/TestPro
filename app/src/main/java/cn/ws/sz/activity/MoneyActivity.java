@@ -203,7 +203,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         postPhoto = (MyGridView) findViewById(R.id.gvPostPhoto);
         postPhoto.setSelector(new ColorDrawable(Color.TRANSPARENT));
 
-        adapter = new BusinessPhotoAdapter(this);
+        adapter = new BusinessPhotoAdapter(this,Constant.PHOTO_TYPE_BUSINESS);
         postPhoto.setAdapter(adapter);
         postPhoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -279,6 +279,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                     Intent intent = new Intent(MoneyActivity.this, ImageSelectActivity.class);
                     intent.putExtra("isUploadNeeded", "false");
                     intent.putExtra("selectedNum", SelectedImages.size());
+                    intent.putExtra("photoType",Constant.PHOTO_TYPE_BUSINESS);
                     startActivityForResult(intent, CODE_IMAGE_SELECT_ACTIVITY);
                 }
             }

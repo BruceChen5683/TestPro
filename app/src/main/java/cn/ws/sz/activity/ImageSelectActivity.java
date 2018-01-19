@@ -60,6 +60,8 @@ public class ImageSelectActivity extends AppCompatActivity implements OnClickLis
     private int selectedNum;
     private ArrayList<ImageItem> selectedImages = new ArrayList<ImageItem>();
 
+    private int photoType = Constant.PHOTO_TYPE_BUSINESS;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_select);
@@ -70,6 +72,7 @@ public class ImageSelectActivity extends AppCompatActivity implements OnClickLis
         groupName = intent.getStringExtra("groupName");
         isUploadNeeded = intent.getStringExtra("isUploadNeeded");
         selectedNum = intent.getIntExtra("selectedNum", 0);
+        photoType = intent.getIntExtra("photoType",Constant.PHOTO_TYPE_BUSINESS);
         // 初始化view
         initView();
     }
@@ -111,10 +114,12 @@ public class ImageSelectActivity extends AppCompatActivity implements OnClickLis
             public void onItemClick(final ToggleButton toggleButton,
                                     int position, boolean isChecked,Button chooseBt) {
                 if (isChecked) {
-                    if ("false".equals(isUploadNeeded) && (selectedNum + selectedImages.size()) == Constant.MAX_BUSINESS_PHOTO) {
+                    if ("false".equals(isUploadNeeded) &&
+                            (selectedNum + selectedImages.size()) ==
+                                    (photoType == Constant.PHOTO_TYPE_BUSINESS ? Constant.MAX_BUSINESS_PHOTO : Constant.MAX_IDCARD_PHOTO)) {
                         toggleButton.setChecked(false);
                         chooseBt.setVisibility(View.GONE);
-                        Toast.makeText(ImageSelectActivity.this, "最多选择"+Constant.MAX_BUSINESS_PHOTO+"张照片", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ImageSelectActivity.this, "最多选择"+(photoType == Constant.PHOTO_TYPE_BUSINESS ? Constant.MAX_BUSINESS_PHOTO : Constant.MAX_IDCARD_PHOTO)+"张照片", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     chooseBt.setVisibility(View.VISIBLE);
@@ -128,7 +133,7 @@ public class ImageSelectActivity extends AppCompatActivity implements OnClickLis
                         uploadDir.setVisibility(View.GONE);
                         uploadButton.setVisibility(View.GONE);
                         finishButton.setVisibility(View.VISIBLE);
-                        finishButton.setText("完成(" + (selectedNum + selectedImages.size()) + "/" + Constant.MAX_BUSINESS_PHOTO + ")");
+                        finishButton.setText("完成(" + (selectedNum + selectedImages.size()) + "/" + (photoType == Constant.PHOTO_TYPE_BUSINESS ? Constant.MAX_BUSINESS_PHOTO : Constant.MAX_IDCARD_PHOTO) + ")");
                     } else {
                         uploadButton.setText("上传(" + selectedImages.size() + ")");
                     }

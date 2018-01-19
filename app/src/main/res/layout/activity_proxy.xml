@@ -184,25 +184,28 @@
                     style="@style/business_detail_iv_2"
                     android:src="@drawable/ic_star_black_24dp"
                     android:visibility="invisible"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_toRightOf="@+id/star6"
-                    android:src="@mipmap/my_camera"/>
-            </RelativeLayout>
 
-            <!--<RelativeLayout-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--style="@style/personal_summary_5_wrap_nobg">-->
-                <!--<TextView-->
+                <cn.ws.sz.view.MyGridView
+                    android:id="@+id/gvPostPhoto"
+                    android:paddingBottom="10dp"
+                    android:layout_toRightOf="@id/star6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:horizontalSpacing="3dp"
+                    android:numColumns="3"
+                    android:scrollbars="none"
+                    android:verticalSpacing="3dp">
+                </cn.ws.sz.view.MyGridView>
+
+                <!--<ImageView-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
-                    <!--android:gravity="center"-->
-                    <!--android:layout_centerInParent="true"-->
-                    <!--android:text="用热情服务商家，靠才智创造财富！"/>-->
-            <!--</RelativeLayout>-->
+                    <!--android:paddingLeft="10dp"-->
+                    <!--android:paddingBottom="10dp"-->
+                    <!--android:layout_toRightOf="@+id/star6"-->
+                    <!--android:src="@mipmap/my_camera"/>-->
+            </RelativeLayout>
 
             <TextView
                 android:layout_marginTop="15dp"
