@@ -7,9 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
@@ -169,6 +171,8 @@ public class SearchView extends LinearLayout {
 
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
 
+                    Log.d("", "onClick: 4444");
+
                     // 1. 点击搜索按键后，根据输入的搜索字段进行查询
                     // 注：由于此处需求会根据自身情况不同而不同，所以具体逻辑由开发者自己实现，此处仅留出接口
                     if (!(mCallBack == null)){
@@ -183,6 +187,7 @@ public class SearchView extends LinearLayout {
                         insertData(et_search.getText().toString().trim());
                         queryData("");
                     }
+                    et_search.setText("");
                 }
                 return false;
             }
@@ -206,6 +211,9 @@ public class SearchView extends LinearLayout {
             // 输入文本后调用该方法
             @Override
             public void afterTextChanged(Editable s) {
+
+                Log.d("", "onClick: 333");
+
                 // 每次输入后，模糊查询数据库 & 显示
                 // 注：若搜索框为空,则模糊搜索空字符 = 显示所有的搜索历史
                 String tempName = et_search.getText().toString();
@@ -214,6 +222,8 @@ public class SearchView extends LinearLayout {
                 if(iChangeLayout != null){
                     iChangeLayout.change();
                 }
+
+
 
             }
         });
@@ -231,6 +241,8 @@ public class SearchView extends LinearLayout {
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 String name = textView.getText().toString();
                 et_search.setText(name);
+
+                Log.d("", "onClick: 222");
 
                 if(iSearchItemCallBack != null){
                     iSearchItemCallBack.SearchHistroy(name);
@@ -268,6 +280,9 @@ public class SearchView extends LinearLayout {
 
         // 2. 绑定搜索框EditText
         et_search = (EditText) findViewById(R.id.et_search);
+        et_search.setImeOptions(EditorInfo.IME_ACTION_SEND);
+
+
         et_search.setTextSize(textSizeSearch);
         et_search.setTextColor(textColorSearch);
         et_search.setHint(textHintSearch);
@@ -293,6 +308,7 @@ public class SearchView extends LinearLayout {
             @Override
             public void onClick(View v) {
 
+                Log.d("", "onClick: 111");
                 if (!(mCallBack == null)){
                     mCallBack.SearchAciton(et_search.getText().toString());
                 }
@@ -306,6 +322,10 @@ public class SearchView extends LinearLayout {
                     queryData("");
                 }
 
+                et_search.setText("");
+
+
+
             }
         });
 
@@ -316,10 +336,17 @@ public class SearchView extends LinearLayout {
     }
 
     public void hideScrollView(boolean flag){
+        Log.d("", "hideScrollView: "+flag);
         if(flag){
-            search_sv.setVisibility(View.GONE);
+            search_sv.setVisibility(GONE);
+//            tv_clear.setVisibility(GONE);
+
         }else {
-            search_sv.setVisibility(View.VISIBLE);
+            search_sv.setVisibility(VISIBLE);
+            if(adapter.getCount() != 0){
+                tv_clear.setVisibility(VISIBLE);
+            }
+
         }
     }
 
@@ -345,9 +372,12 @@ public class SearchView extends LinearLayout {
         System.out.println(cursor.getCount());
         // 当输入框为空 & 数据库中有搜索记录时，显示 "删除搜索记录"按钮
         if (tempName.equals("") && cursor.getCount() != 0){
+            Log.d("", "queryData: VISIBLE");
             tv_clear.setVisibility(VISIBLE);
         }
         else {
+            Log.d("", "queryData: GONE");
+
             tv_clear.setVisibility(GONE);
         };
 
