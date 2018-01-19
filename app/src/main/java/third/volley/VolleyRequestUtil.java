@@ -124,4 +124,34 @@ public class VolleyRequestUtil {
     }
 
 
+    public static void RequestPostFileParm(Context context, String url, String tag,
+                                       final Map<String, String[]> fileMap,
+                                           final Map<String, String> map,
+                                       VolleyListenerInterface volleyListenerInterface,
+                                       boolean timeOutDefaultFlg) {
+        Log.d(TAG, "RequestPostFile: "+url);
+
+        // 清除请求队列中的tag标记请求
+        WSApp.getHttpRequestQueue().cancelAll(tag);
+        // 创建当前的POST请求，并将请求内容写入Map中
+        postUploadRequest = new PostUploadRequest(Constant.BASEURL + url,fileMap,
+                volleyListenerInterface.responseListener(), volleyListenerInterface.errorListener()) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return map;
+            }
+        };
+        // 为当前请求添加标记
+        postUploadRequest.setTag(tag);
+        // 默认超时时间以及重连次数
+        int myTimeOut = timeOutDefaultFlg ? DefaultRetryPolicy.DEFAULT_TIMEOUT_MS : sTimeOut;
+        postUploadRequest.setRetryPolicy(new DefaultRetryPolicy(myTimeOut,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        // 将当前请求添加到请求队列中
+        WSApp.getHttpRequestQueue().add(postUploadRequest);
+        // 重启当前请求队列
+        WSApp.getHttpRequestQueue().start();
+    }
 }
+

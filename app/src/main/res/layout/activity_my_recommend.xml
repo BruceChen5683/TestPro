@@ -107,9 +107,8 @@
             android:id="@+id/tvTodayRecommend"
             android:layout_toRightOf="@+id/tvTody"
             style="@style/business_detail_tv"
-            android:gravity="center"
             android:textColor="@color/black"
-            android:text="10家"/>
+            android:text="XXX家"/>
     </RelativeLayout>
 
     <View
@@ -120,8 +119,7 @@
         style="@style/personal_summary_5_65">
         <TextView
             android:id="@+id/tvAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/business_detail_iv"
             android:gravity="center"
             android:paddingLeft="30dp"
             android:textColor="@color/black"
@@ -129,11 +127,9 @@
         <TextView
             android:layout_toRightOf="@+id/tvAll"
             android:id="@+id/tvAllRecommend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            style="@style/business_detail_tv"
             android:textColor="@color/black"
-            android:text="100家"/>
+            android:text="XXX家"/>
     </RelativeLayout>
 
 </LinearLayout>

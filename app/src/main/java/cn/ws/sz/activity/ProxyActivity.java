@@ -6,11 +6,18 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import cn.ws.sz.R;
+import cn.ws.sz.utils.CommonUtils;
 
 public class ProxyActivity extends AppCompatActivity {
     private TextView tvTitle;
     private LinearLayout llReturnBack;
+    private Map<String, String[]> fileMap = new HashMap<>();
+    private Map<String,String> parmMap = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +29,12 @@ public class ProxyActivity extends AppCompatActivity {
 
         llReturnBack = (LinearLayout) findViewById(R.id.returnBack);
         llReturnBack.setVisibility(View.VISIBLE);
+
+
+        uploadInfo();
+    }
+
+    private void uploadInfo() {
+
     }
 }

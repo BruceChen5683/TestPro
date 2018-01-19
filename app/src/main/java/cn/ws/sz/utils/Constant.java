@@ -26,6 +26,8 @@ public class Constant {
 
 
     public static final String URL_UPLOAD_BUSINESS_INFO = "/api/merchant/addMerchant";//添加商户
+    public static final String URL_UPLOAD_AGENT_INFO = "/api/agent/addAgent";//添加代理
+
 
     public static final String URL_MODIFIR_ADWORDS = "/api/merchant/changeAd";//修改广告词
     public static final String URL_MODIFIR_MAINPRODUCTS = "/api/merchant/changeMainProducts";//修改广告词
@@ -34,6 +36,9 @@ public class Constant {
     public static final String URL_UPLOAD_PIC = "/api/merchant/uploadImage";//上传图片
 
     public static final String URL_QUERY_BUSINESS = "/api/merchant/query";
+
+    public static final String URL_QUERY_FINDNUM = "/api/merchant/findNum";///api/merchant/findNum/13512345678
+
 
     public static final String TAG_CATEGROY = "categroy";
     public static final String TAG_BUSINESS_LIST = "business_list";//分类
@@ -49,6 +54,9 @@ public class Constant {
 	public static final String TAG_HOT = "business_hot";
 
     public static final String TAG_QUERY_BUSINESS = "query_business";
+
+    public static final String TAG_QUERY_FINDNUM = "query_findnum";
+
 
 
 
