@@ -12,11 +12,20 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,16 +34,20 @@ import java.util.Map;
 
 import cn.ws.sz.R;
 import cn.ws.sz.adater.BusinessPhotoAdapter;
+import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.ImageItem;
 import cn.ws.sz.utils.StringUtils;
+import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.view.MyGridView;
+import third.volley.VolleyListenerInterface;
+import third.volley.VolleyRequestUtil;
 
 import static cn.ws.sz.utils.Constant.CODE_ACTION_IMAGE_CAPTURE;
 import static cn.ws.sz.utils.Constant.CODE_IMAGE_SELECT_ACTIVITY;
 
-public class ProxyActivity extends AppCompatActivity {
+public class ProxyActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = ProxyActivity.class.getSimpleName();
     private TextView tvTitle;
     private LinearLayout llReturnBack;
@@ -46,6 +59,13 @@ public class ProxyActivity extends AppCompatActivity {
     private String randomFileName;
     private boolean isShowDelete = false;
     public static ArrayList<ImageItem> SelectedImages = new ArrayList<ImageItem>();
+    private Gson gson = new Gson();
+    private Button submitMoney;
+
+    private RelativeLayout rlProxyName,rlProxyPhone,rlIdCard,rlAli,rlWeChat;
+    private EditText tvProxyName2,tvProxyPhone2,tvIdCard2,tvAli2,tvWeChat2;
+    private ScrollView scrollView;
+
 
 
 
@@ -56,12 +76,33 @@ public class ProxyActivity extends AppCompatActivity {
 
         initView();
 
-
-
-        uploadInfo();
     }
 
     private void initView(){
+        scrollView = (ScrollView) findViewById(R.id.scrollView);
+
+        rlProxyName = (RelativeLayout) findViewById(R.id.rlProxyName);
+        rlProxyPhone = (RelativeLayout) findViewById(R.id.rlProxyPhone);
+        rlIdCard = (RelativeLayout) findViewById(R.id.rlIdCard);
+        rlAli = (RelativeLayout) findViewById(R.id.rlAli);
+        rlWeChat = (RelativeLayout) findViewById(R.id.rlWeChat);
+        rlProxyName.setOnClickListener(this);
+        rlProxyPhone.setOnClickListener(this);
+        rlIdCard.setOnClickListener(this);
+        rlAli.setOnClickListener(this);
+        rlWeChat.setOnClickListener(this);
+
+        tvProxyName2 = (EditText) findViewById(R.id.tvProxyName2);
+        tvProxyPhone2 = (EditText) findViewById(R.id.tvProxyPhone2);
+        tvIdCard2 = (EditText) findViewById(R.id.tvIdCard2);
+        tvAli2 = (EditText) findViewById(R.id.tvAli2);
+        tvWeChat2 = (EditText) findViewById(R.id.tvWeChat2);
+
+
+
+        submitMoney = (Button) findViewById(R.id.submitMoney);
+        submitMoney.setOnClickListener(this);
+
         tvTitle = (TextView) findViewById(R.id.title_value);
         tvTitle.setText("申请成为地区代理");
 
@@ -110,6 +151,83 @@ public class ProxyActivity extends AppCompatActivity {
 
     private void uploadInfo() {
 
+//        private EditText tvProxyName2,tvProxyPhone2,tvIdCard2,tvAli2,tvWeChat2;
+
+        if(TextUtils.isEmpty(tvProxyName2.getText())){
+            ToastUtil.showLong(this,tvProxyName2.getHint());
+            CommonUtils.showSoftInputFromWindow(this,tvProxyName2);
+            Log.d(TAG, "checkEditText: return");
+            return;
+        }
+        if(TextUtils.isEmpty(tvProxyPhone2.getText())){
+            ToastUtil.showLong(this,tvProxyPhone2.getHint());
+            CommonUtils.showSoftInputFromWindow(this,tvProxyPhone2);
+            Log.d(TAG, "checkEditText: return");
+            return;
+        }
+        if(TextUtils.isEmpty(tvIdCard2.getText())){
+            ToastUtil.showLong(this,tvIdCard2.getHint());
+            CommonUtils.showSoftInputFromWindow(this,tvIdCard2);
+            Log.d(TAG, "checkEditText: return");
+            return;
+        }
+        if(TextUtils.isEmpty(tvAli2.getText())){
+            ToastUtil.showLong(this,tvAli2.getHint());
+            CommonUtils.showSoftInputFromWindow(this,tvAli2);
+            Log.d(TAG, "checkEditText: return");
+            return;
+        }
+        if(TextUtils.isEmpty(tvWeChat2.getText())){
+            ToastUtil.showLong(this,tvWeChat2.getHint());
+            CommonUtils.showSoftInputFromWindow(this,tvWeChat2);
+            Log.d(TAG, "checkEditText: return");
+            return;
+        }
+        if(SelectedImages.size() == 0){
+            ToastUtil.showLong(this,"请上传身份证");
+            showGetPhotoDialog();
+            return;
+        }
+
+
+        fileMap.clear();
+        parmMap.clear();
+        fileMap.put("image", new String[]{SelectedImages.get(0).getImagePath(), SelectedImages.get(0).getImagePath()});
+        parmMap.put("name",tvProxyName2.getText().toString());
+        parmMap.put("idCard",tvIdCard2.getText().toString());
+        parmMap.put("cellphone",tvProxyPhone2.getText().toString());
+        parmMap.put("alipayAccount",tvAli2.getText().toString());
+        parmMap.put("weixinAccount",tvWeChat2.getText().toString());
+
+
+        //发起请求
+
+        VolleyRequestUtil.RequestPostFileParm(this,
+                Constant.URL_UPLOAD_AGENT_INFO,
+                Constant.TAG_AGENT_INFO_UPLOAD,
+                fileMap,
+                parmMap,
+                new VolleyListenerInterface(this,
+                        VolleyListenerInterface.mListener,
+                        VolleyListenerInterface.mErrorListener) {
+                    @Override
+                    public void onMySuccess(String result) {
+                        Log.d(TAG, "onMySuccess: " + result);
+                        UploadStatus status = gson.fromJson(result, UploadStatus.class);
+                        if (status.getErrcode() == 0) {
+                            ToastUtil.showShort(ProxyActivity.this, "代理信息上传成功");
+                        } else {
+                            ToastUtil.showShort(ProxyActivity.this, "代理信息上传失败");
+                        }
+
+                    }
+
+                    @Override
+                    public void onMyError(VolleyError error) {
+                        Log.d(TAG, "onMyError: ");
+                    }
+                },
+                true);
     }
 
 
@@ -169,5 +287,45 @@ public class ProxyActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+            case R.id.submitMoney:
+                uploadInfo();
+                break;
+            case R.id.rlProxyName:onClickEditTextParent((ViewGroup) v);break;
+            case R.id.rlProxyPhone:onClickEditTextParent((ViewGroup) v);break;
+            case R.id.rlIdCard:onClickEditTextParent((ViewGroup) v);break;
+            case R.id.rlAli:onClickEditTextParent((ViewGroup) v);break;
+            case R.id.rlWeChat:onClickEditTextParent((ViewGroup) v);break;
+
+            default:
+                break;
+        }
+    }
+
+    private void onClickEditTextParent(ViewGroup viewGroup){
+        int count = viewGroup.getChildCount();
+        for (int i = 0;i < count;i++){
+            if (viewGroup.getChildAt(i) instanceof EditText){
+                EditText et = (EditText) viewGroup.getChildAt(i);
+                CommonUtils.showSoftInputFromWindow(this,et);
+                return;
+            }
+        }
+    }
+
+    private void checkEditText(EditText editText) {
+        if(TextUtils.isEmpty(editText.getText())){
+            ToastUtil.showLong(this,editText.getHint()+"1111");
+            CommonUtils.showSoftInputFromWindow(this,editText);
+            Log.d(TAG, "checkEditText: return");
+            return;
+        }
+
     }
 }

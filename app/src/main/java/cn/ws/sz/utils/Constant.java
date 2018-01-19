@@ -8,7 +8,7 @@ public class Constant {
     public static final String BASEURL = "http://39.106.208.193:8080/ws";
 
     public static final int MAX_BUSINESS_PHOTO = 5;
-    public static final int MAX_IDCARD_PHOTO = 2;
+    public static final int MAX_IDCARD_PHOTO = 1;
 
     public static final int PHOTO_TYPE_BUSINESS = 1;
     public static final int PHOTO_TYPE_IDCARD = 2;
@@ -51,6 +51,8 @@ public class Constant {
     public static final String TAG_BUSINESS_LIST_SIMILAR = "business_list_similar";//同类
     public static final String TAG_BUSINESS_LIST_2 = "business_list_2";//分类
     public static final String TAG_BUSINESS_INFO_UPLOAD = "business_info_upload";
+    public static final String TAG_AGENT_INFO_UPLOAD = "agent_info_upload";
+
     public static final String TAG_MODIFIER_ADWORDS = "modify_ad";
     public static final String TAG_MODIFIER_MAINPRODUCTS= "modify_main_product";
 
