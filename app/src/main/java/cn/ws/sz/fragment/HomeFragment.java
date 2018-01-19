@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private List<ImageView> views = new ArrayList<ImageView>();
 //    private List<ImageView> viewsBanner = new ArrayList<>();
     private int bannerSize = 0;
-    private List<BannerBean> bannerList = new ArrayList<BannerBean>();
+    private List<BannerBean> bannerList = new ArrayList<>();
 //    private int[] bannerImageViews = {R.drawable.banner,R.drawable.banner,R.drawable.banner};
     private ImageCycleViewListener imageCycleViewListener;
     private MainActivity activity;
@@ -83,6 +84,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 	private StringBuilder adAll = new StringBuilder();
 	private static final int UPDATE_AD_NOTICE = 1;
+
 
 	private Handler adHandler = new Handler(){
 		@Override
@@ -150,13 +152,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         Log.d(TAG, "initView: ");
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Log.d(TAG, "initView: 1");
-            bannerFragment = (BannerFragment) getChildFragmentManager().findFragmentById(R.id.fragment_banner_content);
-//        } else {
-//            Log.d(TAG, "initView: 2");
-//            bannerFragment = (BannerFragment) getChildFragmentManager().findFragmentById(R.id.fragment_banner_content);
-//        }
+        bannerFragment = (BannerFragment) getChildFragmentManager().findFragmentById(R.id.fragment_banner_content);
 
         if (bannerFragment != null) {// null, Version
 
