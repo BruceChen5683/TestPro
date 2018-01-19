@@ -77,6 +77,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
     private ImageLayout rlLogo;
 
     private int type = -1;
+    private ImageView ivLabel;
 
 
 
@@ -143,6 +144,8 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
     private void initView() {
 
+        ivLabel = (ImageView) findViewById(R.id.ivLabel);
+
         rlMainBusiness = (RelativeLayout) findViewById(R.id.rlMainBusiness);
         rlAd = (RelativeLayout) findViewById(R.id.rlAd);
 
@@ -193,6 +196,17 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
             if(!TextUtils.isEmpty(businessBean.getName())){
                 tvBusinessName.setText(businessBean.getName());
             }
+
+            if(!TextUtils.isEmpty(businessBean.getType())){
+                if(businessBean.getType().equals("vip")){
+                    ivLabel.setVisibility(View.VISIBLE);
+                }else {
+                    ivLabel.setVisibility(View.GONE);
+                }
+            }
+
+
+
 
             if(businessBean.getIsHot() != 1){
                 ivHot.setVisibility(View.GONE);

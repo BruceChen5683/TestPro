@@ -262,18 +262,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
                         public void onMySuccess(String result) {
                             Log.d(TAG, "onMySuccess: "+ result);
                             BusinessStatus status = gson.fromJson(result,BusinessStatus.class);
-                            Log.d(TAG, "onMySuccess: "+ 1);
-
                             data.clear();
-                            Log.d(TAG, "onMySuccess: "+ 2);
-
                             if(status.getData() != null && status.getData().size() > 0){
-                                Log.d(TAG, "onMySuccess: "+ 3);
-
                                 data.addAll(status.getData());
                             }
-                            Log.d(TAG, "onMySuccess: "+ 4);
-
                             adapter.notifyDataSetChanged();
                             changeLayout(TYPE_SEARCH_DONE);
                         }
@@ -328,6 +320,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
             }
         }else if(type == TYPE_SEARCH_DONE){
             ll_no_search.setVisibility(View.VISIBLE);
+            llClassify.setVisibility(View.GONE);
+            llSort.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
         }
     }
 }
