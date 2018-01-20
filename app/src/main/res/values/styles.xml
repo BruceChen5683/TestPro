@@ -50,6 +50,31 @@
         <item name="android:paddingTop">20dp</item>
     </style>
 
+    <style name="dialog_ad_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_36</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/text_red</item>
+    </style>
+
+    <style name="dialog_ad_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_110</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">@dimen/dp_8</item>
+        <item name="android:paddingRight">@dimen/dp_8</item>
+        <item name="android:paddingTop">@dimen/dp_16</item>
+    </style>
+
+    <style name="dialog_ad_bottom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_43</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+
     <style name="personal_summary_10_1_noPadiding">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">45dp</item>

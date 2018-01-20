@@ -582,13 +582,13 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         dialogWindow.setWindowAnimations(R.style.dialogAnimation); // 添加动画
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
         lp.x = 0; // 新位置X坐标
-        lp.y = -20; // 新位置Y坐标
+//        lp.y = -20; // 新位置Y坐标
         lp.width = (int) getResources().getDisplayMetrics().widthPixels; // 宽度
 //      lp.alpha = 9f; // 透明度
         root.measure(0, 0);
-        lp.height = getResources().getDisplayMetrics().heightPixels/4;
+        lp.height = getResources().getDisplayMetrics().heightPixels/2;
         dialogHeight = lp.height;
-        lp.alpha = 9f; // 透明度
+        lp.alpha = 0.9f; // 透明度
         dialogWindow.setAttributes(lp);
     }
 

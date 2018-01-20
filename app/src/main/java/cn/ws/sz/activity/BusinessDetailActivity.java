@@ -2,6 +2,7 @@ package cn.ws.sz.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -34,6 +36,7 @@ import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.DeviceUtils;
 import cn.ws.sz.utils.SoftKeyBroadManager;
 import cn.ws.sz.utils.SoftKeyBroadManager.SoftKeyboardStateListener;
 import cn.ws.sz.utils.ToastUtil;
@@ -122,16 +125,15 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
         lp.x = 0; // 新位置X坐标
         lp.y = 0; // 新位置Y坐标
-        lp.width = (int) getResources().getDisplayMetrics().widthPixels; // 宽度
-//      lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度
-//      lp.alpha = 9f; // 透明度
+        lp.width = DeviceUtils.getDeviceScreeWidth(this); // 宽度
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度
         root.measure(0, 0);
-        lp.height = root.getMeasuredHeight();
-
+//        lp.height = root.getMeasuredHeight();
+        Log.d(TAG, "initDialog: "+ getResources().getDimension(R.dimen.dp_720));
+        lp.height = (int) getResources().getDimension(R.dimen.dp_190);
         dialogHeight = lp.height;
-
         Log.d(TAG, "showDialog: lp.height "+ lp.height);
-        lp.alpha = 9f; // 透明度
+        lp.alpha = 1.0f; // 透明度
         dialogWindow.setAttributes(lp);
     }
 
@@ -284,11 +286,11 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         switch (v.getId()) {
             case R.id.rlMainBusiness:
                 type = Constant.MODIFIER_MAIN_PRODUCTS_TYPE;
-                showMainBusinessDialog();
+                showBottomDialog(type);
                 break;
             case R.id.rlAd:
                 type = MODIFIER_AD_TYPE;
-                showAdDialog();
+                showBottomDialog(type);
                 break;
             case R.id.rlModifierAd:
                 Intent intent = new Intent();
@@ -317,39 +319,46 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         }
     }
 
-
-
-
-    private void showMainBusinessDialog() {
+    private void showBottomDialog(final int type) {
         if(adDiaglog != null && !adDiaglog.isShowing()){
             TextView dialogTitle = (TextView) adDiaglog.findViewById(R.id.dialogTitle);
             tvModifier = (TextView) adDiaglog.findViewById(R.id.tvModifier);
+            TextView dialogEt = (TextView) adDiaglog.findViewById(R.id.dialogEt);
 
-            dialogTitle.setText("主营");
-            tvModifier.setText("修改主营内容");
-            EditText dialogEt = (EditText) adDiaglog.findViewById(R.id.dialogEt);
-
-            if(tvTivMainBusiness2 != null && !TextUtils.isEmpty(tvTivMainBusiness2.getText())){
-                dialogEt.setText(tvTivMainBusiness2.getText());
+            if(type == Constant.MODIFIER_AD_TYPE){
+                dialogTitle.setText("广告");
+                tvModifier.setText("修改广告内容");
+                if(tvAd2 != null && !TextUtils.isEmpty(tvAd2.getText())){
+                    dialogEt.setText(tvAd2.getText());
+                }
+            }else {
+                dialogTitle.setText("主营");
+                tvModifier.setText("修改主营内容");
+                if(tvTivMainBusiness2 != null && !TextUtils.isEmpty(tvTivMainBusiness2.getText())){
+                    dialogEt.setText(tvTivMainBusiness2.getText());
+                }
             }
 
-
-            adDiaglog.show();
-        }
-    }
-
-    private void showAdDialog() {
-        if(adDiaglog != null && !adDiaglog.isShowing()){
-            TextView dialogTitle = (TextView) adDiaglog.findViewById(R.id.dialogTitle);
-            tvModifier = (TextView) adDiaglog.findViewById(R.id.tvModifier);
-
-            dialogTitle.setText("广告");
-            tvModifier.setText("修改广告内容");
-            EditText dialogEt = (EditText) adDiaglog.findViewById(R.id.dialogEt);
-
-            if(tvAd2 != null && !TextUtils.isEmpty(tvAd2.getText())){
-                dialogEt.setText(tvAd2.getText());
-            }
+            adDiaglog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            adDiaglog.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                @Override
+                public void onSystemUiVisibilityChange(int visibility) {
+                    int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                            //布局位于状态栏下方
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                            //全屏
+//                            View.SYSTEM_UI_FLAG_FULLSCREEN |
+                            //隐藏导航栏
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                    if (Build.VERSION.SDK_INT >= 19) {
+                        uiOptions |= 0x00001000;
+                    } else {
+                        uiOptions |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+                    }
+                    adDiaglog.getWindow().getDecorView().setSystemUiVisibility(uiOptions);
+                }
+            });
 
             adDiaglog.show();
         }
