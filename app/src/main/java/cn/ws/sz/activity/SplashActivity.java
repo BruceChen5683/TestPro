@@ -65,7 +65,7 @@ public class SplashActivity extends Activity {
                             WSApp.firstCategroyList.addAll(status.getData());
 //                            Log.d(TAG, "onMySuccess: WSApp.firstCategroyList  "+ WSApp.firstCategroyList);
                         for (int i = 0;i < WSApp.firstCategroyList.size();i++){
-                            loadingSecondData(WSApp.firstCategroyList.get(i).getId());
+                            loadingSecondData(i,WSApp.firstCategroyList.get(i).getId());
                         }
 
 
@@ -91,7 +91,7 @@ public class SplashActivity extends Activity {
                 true);
     }
 
-    private void loadingSecondData(final int id){
+    private void loadingSecondData(final int i,final int id){
 
         Log.d(TAG, "loadingData: ");
         VolleyRequestUtil.RequestGet(this,
@@ -102,7 +102,7 @@ public class SplashActivity extends Activity {
                         VolleyListenerInterface.mErrorListener) {
                     @Override
                     public void onMySuccess(String result) {
-//                        Log.d(TAG, "onMySuccess: " + result);
+                        Log.d(TAG, "onMySuccess: " + result);
                         ClassifyStatus status = gson.fromJson(result,ClassifyStatus.class);
                         WSApp.secondCategroyMap.put(id,status.getData());
 
@@ -111,6 +111,7 @@ public class SplashActivity extends Activity {
                     @Override
                     public void onMyError(VolleyError error) {
                         Log.d(TAG, "onMyError: "+error.getMessage());
+//                   TODO     WSApp.firstCategroyList.remove(i);
                     }
                 },
                 true);

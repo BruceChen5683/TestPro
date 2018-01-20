@@ -642,6 +642,8 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateSecondClassifyDate() {
         int pCurrent = firstClassifyView.getCurrentItem();
+
+        ToastUtil.showLong(this,firstClassifyDatas.size()+"");
         if(firstClassifyDatas.size() > 0){
             secondClassifyDatas = WSApp.secondCategroyMap.get(firstClassifyDatas.get(pCurrent).getId());
         }else {

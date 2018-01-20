@@ -34,7 +34,7 @@ public class VolleyRequestUtil {
     * volleyListenerInterface：VolleyListenerInterface接口；
     * timeOutDefaultFlg：是否使用Volley默认连接超时；
     * */
-    public static void RequestGet(Context context, String url, String tag,
+    public static void RequestGet(Context context, String url, final String tag,
                                   VolleyListenerInterface volleyListenerInterface,
                                   boolean timeOutDefaultFlg) {
         Log.d(TAG, "RequestGet: "+url);
@@ -52,7 +52,7 @@ public class VolleyRequestUtil {
         // 将当前请求添加到请求队列中
         WSApp.getHttpRequestQueue().add(stringRequest);
         // 重启当前请求队列
-        WSApp.getHttpRequestQueue().start();
+//        WSApp.getHttpRequestQueue().start();
     }
 
     /*
@@ -120,7 +120,7 @@ public class VolleyRequestUtil {
         // 将当前请求添加到请求队列中
         WSApp.getHttpRequestQueue().add(postUploadRequest);
         // 重启当前请求队列
-        WSApp.getHttpRequestQueue().start();
+//        WSApp.getHttpRequestQueue().start();
     }
 
 
@@ -151,7 +151,7 @@ public class VolleyRequestUtil {
         // 将当前请求添加到请求队列中
         WSApp.getHttpRequestQueue().add(postUploadRequest);
         // 重启当前请求队列
-        WSApp.getHttpRequestQueue().start();
+//        WSApp.getHttpRequestQueue().start();
     }
 }
 
