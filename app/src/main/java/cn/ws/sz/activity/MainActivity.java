@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
         bindView();
-
-
     }
 
     @Override
@@ -142,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.tv_search:
+            case R.id.rlSearch:
                 selected();
                 rlSearch.setSelected(true);
                 if(fragmentSearch == null){

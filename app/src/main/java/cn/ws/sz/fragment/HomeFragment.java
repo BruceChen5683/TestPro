@@ -247,7 +247,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
 
             case R.id.rlSearch:
-                activity.changeFragment(R.id.tv_search);
+                activity.changeFragment(R.id.rlSearch);
                 break;
             case R.id.food:
                 WSApp.classifyId = 0;
