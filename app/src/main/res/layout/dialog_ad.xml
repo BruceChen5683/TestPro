@@ -28,7 +28,7 @@
             android:lineSpacingExtra="@dimen/dp_5"
             android:textCursorDrawable="@null"
             android:textColor="@color/dialog_ad_text_color"
-            android:textSize="@dimen/sp_12"
+            android:textSize="@dimen/sp_14"
             android:maxLength="200"
             android:text="@string/default_ad_content"/>
     </RelativeLayout>

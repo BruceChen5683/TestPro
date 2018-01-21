@@ -16,7 +16,7 @@
         android:id="@+id/tab_menu"
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="@dimen/dp_38"
+        android:layout_height="@dimen/dp_44"
         android:layout_gravity="bottom"
         android:orientation="horizontal">
         <RelativeLayout
@@ -91,8 +91,8 @@
                 android:background="@drawable/circle_white">
                 <ImageView
                     android:id="@+id/dd5"
-                    android:layout_width="@dimen/dp_45"
-                    android:layout_height="@dimen/dp_45"
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_48"
                     android:layout_centerInParent="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/btn_search" />

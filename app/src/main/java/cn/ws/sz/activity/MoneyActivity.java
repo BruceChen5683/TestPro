@@ -602,7 +602,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         lp.x = 0; // 新位置X坐标
         lp.y = 0; // 新位置Y坐标
         lp.width = DeviceUtils.getDeviceScreeWidth(this); // 宽度
-        lp.height = (int) getResources().getDimension(R.dimen.dp_122);
+        lp.height = (int) getResources().getDimension(R.dimen.dp_127);
         dialogHeight = lp.height;
         lp.alpha = 1.0f; // 透明度
         dialogWindow.setAttributes(lp);
