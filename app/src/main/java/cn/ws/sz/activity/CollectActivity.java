@@ -1,5 +1,6 @@
 package cn.ws.sz.activity;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import cn.ws.sz.R;
 import cn.ws.sz.adater.CollectAdapter;
+import cn.ws.sz.utils.Eyes;
 
 public class CollectActivity extends AppCompatActivity {
 
@@ -24,6 +26,7 @@ public class CollectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect);
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
 
         llReturnBack = (LinearLayout) findViewById(R.id.returnBack);
         collect = (ListView) findViewById(R.id.collect);

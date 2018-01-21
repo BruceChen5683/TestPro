@@ -3,6 +3,7 @@ package cn.ws.sz.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import cn.ws.sz.adater.BusinessItemAdapter;
 import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.Eyes;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
 
@@ -45,6 +47,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
 
         tvSearch = (TextView) findViewById(R.id.tvSearch);
         Bundle bundle = getIntent().getExtras();

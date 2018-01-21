@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -27,6 +29,7 @@ import cn.ws.sz.fragment.PersonalFragment;
 import cn.ws.sz.fragment.RecommendFragment;
 import cn.ws.sz.fragment.SearchFragment;
 import cn.ws.sz.service.LocationService;
+import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.WSApp;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
         bindView();
+
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
     }
 
     @Override

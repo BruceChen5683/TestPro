@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import cn.ws.sz.adater.BusinessPhotoAdapter;
 import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ImageItem;
 import cn.ws.sz.utils.StringUtils;
 import cn.ws.sz.utils.ToastUtil;
@@ -73,6 +75,7 @@ public class ProxyActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proxy);
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
 
         initView();
 

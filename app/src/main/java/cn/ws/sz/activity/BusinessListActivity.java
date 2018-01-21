@@ -1,5 +1,6 @@
 package cn.ws.sz.activity;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.WSApp;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
@@ -41,6 +43,8 @@ public class BusinessListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_business_list);
+
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
 
         gson = new Gson();
 

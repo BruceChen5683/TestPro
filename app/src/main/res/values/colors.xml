@@ -17,6 +17,8 @@
     <color name="dialog_pay_small_bg_color">#f8ebd4</color>
     <color name="dialog_pay_small_text_color">#ed9028</color>
 
+    <color name="pay_success_title_bg_color">#eb8133</color>
+
 
 
     <color name="white">#ffffff</color>

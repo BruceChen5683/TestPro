@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.DeviceUtils;
+import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ImageItem;
 import cn.ws.sz.utils.StringUtils;
 import cn.ws.sz.utils.ToastUtil;
@@ -160,6 +162,9 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
         rootView = LayoutInflater.from(this).inflate(R.layout.activity_money,null);
         setContentView(rootView);
+
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
+
 
         gson = new Gson();
         initView();

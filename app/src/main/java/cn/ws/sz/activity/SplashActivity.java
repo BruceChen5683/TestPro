@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Window;
 
@@ -16,6 +17,7 @@ import cn.ws.sz.R;
 import cn.ws.sz.bean.ClassifyBean;
 import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
 import third.volley.VolleyListenerInterface;
@@ -39,6 +41,7 @@ public class SplashActivity extends Activity {
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_splash);
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
 
         gson = new Gson();
 

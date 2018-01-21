@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +26,7 @@ import cn.ws.sz.R;
 import cn.ws.sz.adater.ImageSelectAdapter;
 import cn.ws.sz.utils.AlbumHelper;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ImageItem;
 
 /**
@@ -65,6 +67,10 @@ public class ImageSelectActivity extends AppCompatActivity implements OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_select);
+
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
+
+
         bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         Intent intent = getIntent();
         type = intent.getStringExtra("type");

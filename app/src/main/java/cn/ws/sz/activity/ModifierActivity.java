@@ -1,6 +1,7 @@
 package cn.ws.sz.activity;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,6 +26,7 @@ import cn.ws.sz.bean.ModifierStatus;
 import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ToastUtil;
 import third.citypicker.PickCityActivity;
 import third.volley.VolleyListenerInterface;
@@ -46,6 +48,8 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modifier);
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
+
 
         llReturnBack = (LinearLayout) findViewById(R.id.returnBack);
         llReturnBack.setVisibility(View.VISIBLE);

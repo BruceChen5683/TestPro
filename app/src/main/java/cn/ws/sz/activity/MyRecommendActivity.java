@@ -2,6 +2,7 @@ package cn.ws.sz.activity;
 
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CheckUtils;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
 import third.volley.VolleyListenerInterface;
@@ -48,6 +50,7 @@ public class MyRecommendActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_recommend);
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
 
         initView();
     }

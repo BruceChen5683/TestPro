@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,6 +38,7 @@ import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.DeviceUtils;
+import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.SoftKeyBroadManager;
 import cn.ws.sz.utils.SoftKeyBroadManager.SoftKeyboardStateListener;
 import cn.ws.sz.utils.ToastUtil;
@@ -90,6 +92,9 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
         View rootView = LayoutInflater.from(this).inflate(R.layout.activity_business_detail,null);
         setContentView(rootView);
+
+        Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.monyey_text_color));
+
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
