@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -30,7 +31,8 @@ import cn.ws.sz.utils.WSApp;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView tvHome,tvClassify,tvSearch,tvPersonal,tvRecommand;
+//    private TextView tvHome,tvClassify,tvSearch,tvPersonal,tvRecommand;
+    private RelativeLayout rlHome,rlClassify,rlSearch,rlPersonal,rlRecommand;
     public HomeFragment fragmentHome;
     public ClassifyFragment fragmentClassify;
     public SearchFragment fragmentSearch;
@@ -58,32 +60,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //UI组件初始化与事件绑定
     private void bindView() {
-        tvHome = (TextView) findViewById(R.id.tv_home);
-        tvClassify = (TextView) findViewById(R.id.tv_classify);
-        tvSearch = (TextView) findViewById(R.id.tv_search);
-        tvPersonal = (TextView) findViewById(R.id.tv_personal);
-        tvRecommand = (TextView) findViewById(R.id.tv_recommend);
+
+        rlHome = (RelativeLayout) findViewById(R.id.rlHome);
+        rlClassify = (RelativeLayout) findViewById(R.id.rlClassify);
+        rlSearch = (RelativeLayout) findViewById(R.id.rlSearch);
+        rlPersonal = (RelativeLayout) findViewById(R.id.rlPersonal);
+        rlRecommand = (RelativeLayout) findViewById(R.id.rlRecommand);
+
+//        tvHome = (TextView) findViewById(R.id.tv_home);
+//        tvClassify = (TextView) findViewById(R.id.tv_classify);
+//        tvSearch = (TextView) findViewById(R.id.tv_search);
+//        tvPersonal = (TextView) findViewById(R.id.tv_personal);
+//        tvRecommand = (TextView) findViewById(R.id.tv_recommend);
 
         ly_content = (FrameLayout) findViewById(R.id.fragment_container);
 
-        tvHome.setOnClickListener(this);
-        tvClassify.setOnClickListener(this);
-        tvSearch.setOnClickListener(this);
-        tvPersonal.setOnClickListener(this);
-        tvRecommand.setOnClickListener(this);
+        rlHome.setOnClickListener(this);
+        rlClassify.setOnClickListener(this);
+        rlSearch.setOnClickListener(this);
+        rlPersonal.setOnClickListener(this);
+        rlRecommand.setOnClickListener(this);
 
-        onClick(tvHome);
+        onClick(rlHome);
 
     }
 
 
     //reset textView status
     public void selected(){
-        tvHome.setSelected(false);
-        tvClassify.setSelected(false);
-        tvSearch.setSelected(false);
-        tvPersonal.setSelected(false);
-        tvRecommand.setSelected(false);
+        rlHome.setSelected(false);
+        rlClassify.setSelected(false);
+        rlSearch.setSelected(false);
+        rlPersonal.setSelected(false);
+        rlRecommand.setSelected(false);
     }
 
     //隐藏所有Fragment
@@ -111,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(id){
             case R.id.tv_home:
                 selected();
-                tvHome.setSelected(true);
+                rlHome.setSelected(true);
                 if(fragmentHome == null){
                     fragmentHome = HomeFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentHome);
@@ -122,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.tv_classify:
                 selected();
-                tvClassify.setSelected(true);
+                rlClassify.setSelected(true);
                 if(fragmentClassify == null){
                     fragmentClassify = ClassifyFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentClassify);
@@ -135,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.tv_search:
                 selected();
-                tvSearch.setSelected(true);
+                rlSearch.setSelected(true);
                 if(fragmentSearch == null){
                     fragmentSearch = SearchFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentSearch);
@@ -146,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.tv_personal:
                 selected();
-                tvPersonal.setSelected(true);
+                rlPersonal.setSelected(true);
                 if(fragmentPersonal == null){
                     fragmentPersonal = PersonalFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentPersonal);
@@ -157,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.tv_recommend:
                 selected();
-                tvRecommand.setSelected(true);
+                rlRecommand.setSelected(true);
                 if(fragmentRecommand == null){
                     fragmentRecommand = RecommendFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentRecommand);
@@ -179,9 +188,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         hideAllFragment(transaction);
         switch(v.getId()){
-            case R.id.tv_home:
+            case R.id.rlHome:
                 selected();
-                tvHome.setSelected(true);
+                rlHome.setSelected(true);
                 if(fragmentHome == null){
                     fragmentHome = HomeFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentHome);
@@ -190,9 +199,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
-            case R.id.tv_classify:
+            case R.id.rlClassify:
                 selected();
-                tvClassify.setSelected(true);
+                rlClassify.setSelected(true);
                 if(fragmentClassify == null){
                     fragmentClassify = ClassifyFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentClassify);
@@ -201,9 +210,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
-            case R.id.tv_search:
+            case R.id.rlSearch:
                 selected();
-                tvSearch.setSelected(true);
+                rlSearch.setSelected(true);
                 if(fragmentSearch == null){
                     fragmentSearch = SearchFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentSearch);
@@ -212,9 +221,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
-            case R.id.tv_personal:
+            case R.id.rlPersonal:
                 selected();
-                tvPersonal.setSelected(true);
+                rlPersonal.setSelected(true);
                 if(fragmentPersonal == null){
                     fragmentPersonal = PersonalFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentPersonal);
@@ -223,9 +232,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
-            case R.id.tv_recommend:
+            case R.id.rlRecommand:
                 selected();
-                tvRecommand.setSelected(true);
+                rlRecommand.setSelected(true);
                 if(fragmentRecommand == null){
                     fragmentRecommand = RecommendFragment.newInstance();
                     transaction.add(R.id.fragment_container,fragmentRecommand);
