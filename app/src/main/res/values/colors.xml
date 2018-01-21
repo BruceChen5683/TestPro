@@ -18,6 +18,10 @@
     <color name="dialog_pay_small_text_color">#ed9028</color>
 
     <color name="pay_success_title_bg_color">#eb8133</color>
+    <color name="search_et_bg">#ef585d</color>
+
+    <color name="home_eight_classify_text_clor">#4b4b4b</color>
+    <color name="home_small_line">#e8e9e8</color>
 
 
 

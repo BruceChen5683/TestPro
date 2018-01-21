@@ -2,11 +2,16 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/grayLight"
               android:orientation="vertical"
-              tools:context="cn.ws.sz.fragment.HomeFragment">
+     tools:context="cn.ws.sz.fragment.HomeFragment">
+    <!--whitesmoke-->
 
-    <include layout="@layout/title_search_bar"></include>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dp_24"-->
+        <!--android:background="@color/transparent"></View>-->
+    <include
+        layout="@layout/title_search_bar"></include>
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -17,6 +22,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/whitesmoke"
             android:orientation="vertical">
             <!--广告轮播-->
 
@@ -27,229 +33,200 @@
                 android:layout_height="wrap_content"></fragment>
 
 
-            <!--八大分类-->
             <LinearLayout
-                android:id="@+id/gridView"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <LinearLayout
-                    android:id="@+id/food"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_food"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/food"
-                        android:textColor="#828282"
-                        android:textSize="16sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/supermarket"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_supermarket"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/supermarket"
-                        android:textColor="#828282"
-                        android:textSize="16sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/entertainment"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_entertainment"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/entertainment"
-                        android:textColor="#828282"
-                        android:textSize="16sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/life"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_life"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/life"
-                        android:textColor="#828282"
-                        android:textSize="16sp"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
+                android:orientation="vertical">
+                <!--八大分类-->
                 <LinearLayout
-                    android:id="@+id/wholesale"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_100"
+                    android:background="@color/white"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:weightSum="4">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/food"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_wholesale"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/wholesale"
-                        android:textColor="#828282"
-                        android:textSize="16sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/business"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_business"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/business"
-                        android:textColor="#828282"
-                        android:textSize="16sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/education"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_education"/>
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/dp_10"
                         android:gravity="center"
-                        android:text="@string/education"
-                        android:textColor="#828282"
-                        android:textSize="16sp"/>
-                </LinearLayout>
+                        android:orientation="vertical">
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/icon_home_food"/>
+                        <TextView
+                            style="@style/eight_classify_text"
+                            android:text="@string/food" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/supermarket"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/icon_home_supermarket"/>
+
+                        <TextView
+                            android:text="@string/supermarket"
+                            style="@style/eight_classify_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/entertainment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/icon_home_entertainment"/>
+                        <TextView
+                            android:text="@string/entertainment"
+                            style="@style/eight_classify_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/life"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingRight="@dimen/dp_10"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/icon_home_life"/>
+                        <TextView
+                            style="@style/eight_classify_text"
+                            android:text="@string/life" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/car"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_90"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/wholesale"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/icon_home_car"/>
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/dp_10"
                         android:gravity="center"
-                        android:text="@string/car"
-                        android:textColor="#828282"
-                        android:textSize="16sp"/>
-                </LinearLayout>
+                        android:orientation="vertical">
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/icon_home_wholesale"/>
+
+                        <TextView
+                            style="@style/eight_classify_text"
+                            android:text="@string/wholesale" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/business"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/icon_home_business"/>
+
+                        <TextView
+                            style="@style/eight_classify_text"
+                            android:text="@string/business" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/education"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/icon_home_education"/>
+
+                        <TextView
+                            style="@style/eight_classify_text"
+                            android:text="@string/education" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/car"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingRight="@dimen/dp_10"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/icon_home_car"/>
+
+                        <TextView
+                            style="@style/eight_classify_text"
+                            android:text="@string/car" />
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/home_small_line"></View>
 
             <!--热门商家 广告 小广播-->
 
             <RelativeLayout
                 android:id="@+id/rlNotice"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_height="@dimen/dp_40"
                 android:background="@color/white"
-                android:padding="5dp">
+                android:padding="@dimen/dp_5">
 
                 <ImageView
                     android:id="@+id/ivNotice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="@dimen/dp_10"
                     android:src="@mipmap/icon_home_notice"/>
 
                 <cn.ws.sz.view.MarqueeTextView
@@ -264,6 +241,7 @@
                     android:gravity="center"
                     android:marqueeRepeatLimit="-1"
                     android:singleLine="true"
+                    android:textSize="@dimen/sp_14"
                     android:text="@string/hot_ad"
                     android:textColor="@color/black">
                 </cn.ws.sz.view.MarqueeTextView>
@@ -274,29 +252,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="5dp"
-                android:paddingTop="10dp">
+                android:paddingBottom="@dimen/dp_5"
+                android:paddingTop="@dimen/dp_10">
 
                 <TextView
                     android:id="@+id/tv_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
+                    android:paddingLeft="@dimen/dp_20"
+                    android:paddingTop="@dimen/dp_3"
+                    android:drawablePadding="@dimen/dp_5"
                     android:drawableRight="@mipmap/icon_home_more"
-                    android:padding="5dp"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp_14"
                     android:text="热门商家"
-                    android:textColor="@color/text_red"/>
+                    android:textColor="@color/title_bg"/>
 
                 <cn.ws.sz.view.MyGridView
                     android:id="@+id/gvHot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:horizontalSpacing="10dp"
+                    android:layout_margin="@dimen/dp_8"
+                    android:horizontalSpacing="@dimen/dp_10"
                     android:numColumns="2"
-                    android:padding="5dp"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_5"
                     android:scrollbars="none"
-                    android:verticalSpacing="10dp">
+                    android:verticalSpacing="@dimen/dp_10">
                 </cn.ws.sz.view.MyGridView>
 
             </LinearLayout>

@@ -1,6 +1,7 @@
 package cn.ws.sz.adater;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,11 +61,15 @@ public class BusinesssItem2Adapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tvBusinessName.setText(getItem(position).getName());
+        if (!TextUtils.isEmpty(getItem(position).getName())){
+            holder.tvBusinessName.setText(getItem(position).getName());
+        }else {
+            holder.tvBusinessName.setText("商家地址信息不全，请联系客服");
+        }
 		CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
 
-		convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-				DeviceUtils.getDeviceScreeHeight(context)/4));
+        int h = (int) context.getResources().getDimension(R.dimen.dp_130);
+		convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, h));
 
         return convertView;
     }

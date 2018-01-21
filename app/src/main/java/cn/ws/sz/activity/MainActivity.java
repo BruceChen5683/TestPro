@@ -50,16 +50,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+//
         //定义全屏参数
-        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        //设置当前窗体为全屏显示
-        getWindow().setFlags(flag, flag);
+//        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+//        //设置当前窗体为全屏显示
+//        getWindow().setFlags(flag, flag);
 
         setContentView(R.layout.activity_main);
         bindView();
 
         Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
+
+        Log.d("", "onCreate: :::"+getStatusBarHeight());
+
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     @Override

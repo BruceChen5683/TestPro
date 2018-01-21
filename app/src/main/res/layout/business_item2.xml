@@ -6,37 +6,31 @@
               android:weightSum="4"
     >
 <!--图片+名称-->
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="3">
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/dp_78"
         android:scaleType="fitXY"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"/>
-</RelativeLayout>
+        android:layout_marginLeft="@dimen/dp_7"
+        android:layout_marginRight="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_5"/>
 
     <RelativeLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:background="@color/transparent"
+        android:layout_height="@dimen/dp_52">
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hot1_address"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/black"
-            android:maxLines="1"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:layout_marginRight="@dimen/dp_7"
+            android:textColor="@color/monyey_text_color"
+            android:maxLines="2"
             android:ellipsize="end"/>
 
     </RelativeLayout>
