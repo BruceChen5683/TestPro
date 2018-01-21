@@ -38,9 +38,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/btn_search"
-            android:gravity="center"
-            android:textColor="@drawable/tab_menu_text"
-            android:text="@string/tab_search"/>
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/tv_personal"
