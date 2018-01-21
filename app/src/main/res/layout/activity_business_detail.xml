@@ -250,7 +250,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:visibility="invisible"
                 android:layout_marginTop="5dp"
                 style="@style/personal_summary_5">
                 <ImageView
@@ -270,7 +269,6 @@
 <!--同类商家-->
 
             <ListView
-                android:visibility="invisible"
                 android:layout_marginTop="1dp"
                 android:id="@+id/lvSimilar"
                 android:layout_width="match_parent"

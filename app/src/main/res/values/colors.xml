@@ -13,6 +13,9 @@
     <color name="monyey_text_color">#262626</color>
 
     <color name="dialog_ad_text_color">#282828</color>
+    <color name="dialog_pay_mid_line_color">#dcdcdc</color>
+    <color name="dialog_pay_small_bg_color">#f8ebd4</color>
+    <color name="dialog_pay_small_text_color">#ed9028</color>
 
 
 

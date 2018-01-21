@@ -126,13 +126,8 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         lp.x = 0; // 新位置X坐标
         lp.y = 0; // 新位置Y坐标
         lp.width = DeviceUtils.getDeviceScreeWidth(this); // 宽度
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度
-        root.measure(0, 0);
-//        lp.height = root.getMeasuredHeight();
-        Log.d(TAG, "initDialog: "+ getResources().getDimension(R.dimen.dp_720));
         lp.height = (int) getResources().getDimension(R.dimen.dp_190);
         dialogHeight = lp.height;
-        Log.d(TAG, "showDialog: lp.height "+ lp.height);
         lp.alpha = 1.0f; // 透明度
         dialogWindow.setAttributes(lp);
     }

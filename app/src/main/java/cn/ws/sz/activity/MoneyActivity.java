@@ -56,6 +56,7 @@ import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.DeviceUtils;
 import cn.ws.sz.utils.ImageItem;
 import cn.ws.sz.utils.StringUtils;
 import cn.ws.sz.utils.ToastUtil;
@@ -442,18 +443,6 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-
-//        params.put("name","上传测试");
-//        params.put("region","110101");
-//        params.put("categoryId","63");
-//        params.put("cellphone","13912345678");
-//        params.put("mainProducts","主营业务测试中，游戏代理");
-//        params.put("adWord","自定义广告奥");
-//        params.put("phone","01012345");
-//        params.put("lng","163.78965");
-//        params.put("lat","38.98765");
-//        params.put("address","测试江苏延迟");
-
         params.put("name",tvSettledName2.getText().toString());
         params.put("region","110101");
         params.put("categoryId",String.valueOf(categoryId));
@@ -523,6 +512,30 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     }
     private void showPayDialog() {
         if(dialog != null && !dialog.isShowing()){
+
+
+            dialog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            dialog.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                @Override
+                public void onSystemUiVisibilityChange(int visibility) {
+                    int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                            //布局位于状态栏下方
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                            //全屏
+//                            View.SYSTEM_UI_FLAG_FULLSCREEN |
+                            //隐藏导航栏
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                    if (Build.VERSION.SDK_INT >= 19) {
+                        uiOptions |= 0x00001000;
+                    } else {
+                        uiOptions |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+                    }
+                    dialog.getWindow().getDecorView().setSystemUiVisibility(uiOptions);
+                }
+            });
+
+
             dialog.show();
         }
     }
@@ -582,13 +595,11 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         dialogWindow.setWindowAnimations(R.style.dialogAnimation); // 添加动画
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
         lp.x = 0; // 新位置X坐标
-//        lp.y = -20; // 新位置Y坐标
-        lp.width = (int) getResources().getDisplayMetrics().widthPixels; // 宽度
-//      lp.alpha = 9f; // 透明度
-        root.measure(0, 0);
-        lp.height = getResources().getDisplayMetrics().heightPixels/2;
+        lp.y = 0; // 新位置Y坐标
+        lp.width = DeviceUtils.getDeviceScreeWidth(this); // 宽度
+        lp.height = (int) getResources().getDimension(R.dimen.dp_122);
         dialogHeight = lp.height;
-        lp.alpha = 0.9f; // 透明度
+        lp.alpha = 1.0f; // 透明度
         dialogWindow.setAttributes(lp);
     }
 

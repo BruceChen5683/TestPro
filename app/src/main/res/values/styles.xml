@@ -50,6 +50,8 @@
         <item name="android:paddingTop">20dp</item>
     </style>
 
+
+    <!--对话框  查看广告、主营样式-->
     <style name="dialog_ad_title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_36</item>
@@ -72,6 +74,89 @@
         <item name="android:layout_height">@dimen/dp_43</item>
         <item name="android:addStatesFromChildren">true</item>
         <item name="android:background">@color/white</item>
+    </style>
+
+    <!--对话框支付样式-->
+    <style name="dialog_pay_item_rl">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_42</item>
+        <item name="android:paddingLeft">@dimen/dp_18</item>
+        <item name="android:paddingRight">@dimen/dp_14</item>
+    </style>
+
+    <style name="dialog_pay_left_iv">
+        <item name="android:layout_width">@dimen/dp_34</item>
+        <item name="android:layout_height">@dimen/dp_22</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
+    <style name="dialog_pay_right_iv">
+        <item name="android:layout_width">@dimen/dp_20</item>
+        <item name="android:layout_height">@dimen/dp_12</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
+    <style name="dialog_pay_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:paddingLeft">@dimen/dp_22</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/monyey_text_color</item>
+    </style>
+
+    <style name="dialog_pad_mid_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_1</item>
+        <item name="android:layout_marginLeft">@dimen/dp_14</item>
+        <item name="android:layout_marginRight">@dimen/dp_14</item>
+        <item name="android:background">@color/dialog_pay_mid_line_color</item>
+    </style>
+
+    <style name="dialog_pay_item_rl_small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_12</item>
+        <item name="android:paddingLeft">@dimen/dp_14</item>
+        <item name="android:paddingRight">@dimen/dp_14</item>
+        <item name="android:background">@color/dialog_pay_small_bg_color</item>
+    </style>
+
+    <style name="dialog_pay_item_rl_small_iv">
+        <item name="android:layout_width">@dimen/dp_10</item>
+        <item name="android:layout_height">@dimen/dp_8</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="dialog_pay_item_rl_small_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:paddingLeft">@dimen/dp_6</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/dialog_pay_small_text_color</item>
+        <item name="android:lineSpacingExtra">@dimen/dp_2</item>
+        <item name="android:textSize">@dimen/sp_8</item>
+    </style>
+
+    <style name="dialog_pay_rl_mid">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_25</item>
+        <item name="android:background">@color/title_bg</item>
+    </style>
+
+
+    <style name="dialog_pay_bottom_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textSize">@dimen/sp_12</item>
     </style>
 
 
