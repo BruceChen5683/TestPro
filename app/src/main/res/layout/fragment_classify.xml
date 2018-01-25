@@ -4,59 +4,67 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="cn.ws.sz.fragment.ClassifyFragment"
-    android:background="@color/grayLight">
+    android:background="@drawable/temp_classify_bg_1"
+ >
 
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_24"
+    android:background="@color/transparent"></View>
 
     <include layout="@layout/title_bar"></include>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="3">
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_weight="2"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/dp_100"
             android:layout_height="match_parent"
-            android:paddingTop="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <ListView
                 android:id="@+id/classify_first"
                 android:divider="@color/grayLight"
+                android:scrollbars="none"
                 android:dividerHeight="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
             </ListView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/dp_260"
             android:layout_height="match_parent"
-            android:padding="10dp"
+
+            android:paddingTop="@dimen/dp_10"
+
+            android:paddingLeft="@dimen/dp_9"
+            android:paddingRight="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_10"
+
+            android:background="@color/transparent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
+
                 android:id="@+id/classify_first_ad"
-                android:padding="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/banner"
-                android:orientation="horizontal">
-            </LinearLayout>
+                android:layout_height="@dimen/dp_126"
+                android:src="@drawable/banner"
+                android:scaleType="fitXY">
+            </ImageView>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <GridView
-                    android:paddingTop="10dp"
+                    android:paddingTop="@dimen/dp_10"
                     android:id="@+id/classify_second"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:horizontalSpacing="10dp"
-                    android:verticalSpacing="10dp"
+                    android:horizontalSpacing="@dimen/dp_10"
+                    android:verticalSpacing="@dimen/dp_4"
                     android:numColumns="2"
                     android:gravity="center">
                 </GridView>

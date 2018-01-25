@@ -394,6 +394,14 @@
         <item name="android:paddingBottom">20dp</item>
     </style>
 
+    <style name="classify_first_rl">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:minHeight">@dimen/dp_45</item>
+        <item name="android:height">@dimen/dp_45</item>
+        <item name="android:addStatesFromChildren">true</item>
+    </style>
+
     <style name="personal_summary_3_padding_lr_2">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">130dp</item>
@@ -404,6 +412,19 @@
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingBottom">20dp</item>
     </style>
+
+    <style name="classify_second_rl">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:minHeight">@dimen/dp_38</item>
+        <item name="android:height">@dimen/dp_38</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="android:paddingLeft">@dimen/dp_20</item>
+        <item name="android:paddingRight">@dimen/dp_20</item>
+        <item name="android:paddingTop">@dimen/dp_10</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
+    </style>
+
 
     <style name="personal_summary_4_padding_lr">
         <item name="android:layout_width">fill_parent</item>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -54,11 +55,14 @@ public class WsSimpleAdater extends BaseAdapter{
                     R.layout.sw_simple_layout, null);
             holder = new ViewHolder();
             holder.tv = (TextView) convertView.findViewById(R.id.simpleTV);
+            holder.redLine = convertView.findViewById(R.id.redLine);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.tv.setText(getItem(position).toString());
+
+        holder.redLine.setVisibility(View.VISIBLE);
 
         if(selectedPosition == position){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -76,11 +80,13 @@ public class WsSimpleAdater extends BaseAdapter{
                 convertView.setBackgroundColor(context.getResources().getColor(R.color.white));
                 holder.tv.setTextColor(context.getResources().getColor(R.color.black));
             }
+            holder.redLine.setVisibility(View.INVISIBLE);
         }
         return convertView;
     }
 
     public class ViewHolder{
         TextView tv;
+        View redLine;
     }
 }

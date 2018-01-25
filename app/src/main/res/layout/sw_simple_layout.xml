@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/personal_summary_3_padding_lr"
-    android:background="@drawable/categroy_bg"
-    >
+    style="@style/classify_first_rl">
+    <View
+        android:id="@+id/redLine"
+        android:visibility="visible"
+        android:layout_alignParentLeft="true"
+        android:layout_width="@dimen/dp_2"
+        android:layout_height="@dimen/dp_45"
+        android:background="@color/title_bg"></View>
 
     <TextView
         android:id="@+id/simpleTV"
@@ -10,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:textColor="@drawable/categroy_selector"
         android:ellipsize="end"
         android:maxLines="1"/>
+    <!--android:textColor="@drawable/categroy_selector"-->
+
 </RelativeLayout>

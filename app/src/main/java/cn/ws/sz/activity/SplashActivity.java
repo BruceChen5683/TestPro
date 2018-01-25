@@ -61,7 +61,7 @@ public class SplashActivity extends Activity {
                         VolleyListenerInterface.mErrorListener) {
                     @Override
                     public void onMySuccess(String result) {
-//                        Log.d(TAG, "onMySuccess: " + result);
+                        Log.d(TAG, "onMySuccess: " + result);
                         ClassifyStatus status = gson.fromJson(result,ClassifyStatus.class);
 
                             WSApp.firstCategroyList.clear();
