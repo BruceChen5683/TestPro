@@ -3,14 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="cn.ws.sz.fragment.ClassifyFragment"
-    android:background="@drawable/temp_classify_bg_1"
- >
+    tools:context="cn.ws.sz.fragment.ClassifyFragment">
 
-    <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_24"
-    android:background="@color/transparent"></View>
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/dp_24"-->
+    <!--android:background="@color/transparent"></View>-->
 
     <include layout="@layout/title_bar"></include>
 

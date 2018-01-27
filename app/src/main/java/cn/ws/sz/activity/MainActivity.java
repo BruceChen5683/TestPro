@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 //
-        //定义全屏参数
-        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        //设置当前窗体为全屏显示
-        getWindow().setFlags(flag, flag);
+//        //定义全屏参数
+//        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+//        //设置当前窗体为全屏显示
+//        getWindow().setFlags(flag, flag);
 
         setContentView(R.layout.activity_main);
         bindView();

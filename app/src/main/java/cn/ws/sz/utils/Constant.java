@@ -70,12 +70,12 @@ public class Constant {
     public static final int MODIFIER_AD_TYPE = 1;
     public static final int MODIFIER_MAIN_PRODUCTS_TYPE = 2;
 
-
-
-
-
-
     public static final int HOT_BUSINESS_NUM = 2;
+
+
+    public static final String TEST_AD_URL = "http://news.bioon.com/article/6716755.html";
+
+
 
 
 }

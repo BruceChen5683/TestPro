@@ -415,9 +415,9 @@
 
     <style name="classify_second_rl">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:background">@color/white</item>
-        <item name="android:minHeight">@dimen/dp_38</item>
-        <item name="android:height">@dimen/dp_38</item>
+        <item name="android:background">@drawable/text_rect_white</item>
+        <item name="android:minHeight">@dimen/dp_30</item>
+        <item name="android:height">@dimen/dp_30</item>
         <item name="android:addStatesFromChildren">true</item>
         <item name="android:paddingLeft">@dimen/dp_20</item>
         <item name="android:paddingRight">@dimen/dp_20</item>

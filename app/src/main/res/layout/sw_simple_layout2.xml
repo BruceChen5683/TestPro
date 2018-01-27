@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/personal_summary_4_padding_lr"
-    android:background="@drawable/text_rect_white"
-    >
+    style="@style/classify_second_rl">
 
     <TextView
         android:id="@+id/simpleTV"
@@ -12,6 +10,5 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:ellipsize="end"
-        android:textSize="@dimen/sp_16"
         android:maxLines="1"/>
 </RelativeLayout>
