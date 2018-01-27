@@ -20,6 +20,7 @@ import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
+import gps.LocationFilter;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
 
@@ -75,7 +76,7 @@ public class SplashActivity extends Activity {
                         mHideHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+                                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 SplashActivity.this.finish();
                             }

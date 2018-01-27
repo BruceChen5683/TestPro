@@ -70,7 +70,8 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.AfterPayActivity" />
         <activity android:name=".activity.CollectActivity" />
-        <activity android:name=".activity.LookHistroryActivity"></activity>
+        <activity android:name=".activity.LookHistroryActivity"/>
+        <activity android:name="gps.LocationFilter"/>
     </application>
 
 </manifest>

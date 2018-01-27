@@ -64,6 +64,7 @@ import cn.ws.sz.utils.StringUtils;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
 import cn.ws.sz.view.MyGridView;
+import gps.LocationFilter;
 import third.volley.PostUploadRequest;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyListenerInterface;
@@ -362,7 +363,10 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                 onClickEditTextParent((ViewGroup) v);
                 break;
             case R.id.rlSettledCoordinate:
-                onClickEditTextParent((ViewGroup) v);
+//                onClickEditTextParent((ViewGroup) v);
+                Intent intent = new Intent();
+                intent.setClass(MoneyActivity.this, LocationFilter.class);
+                startActivity(intent);
                 break;
             case R.id.rlSettledPhone:
                 onClickEditTextParent((ViewGroup) v);

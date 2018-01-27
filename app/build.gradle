@@ -3,6 +3,18 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.2"
+
+    //配置keystore签名
+    signingConfigs {
+        release {
+            storeFile file("/Users/chenjianliang/wanshang.jks")
+            storePassword "123456"
+            keyAlias "app"
+            keyPassword "123456"
+        }
+    }
+
+
     defaultConfig {
         applicationId "cn.ws.sz"
         minSdkVersion 16
@@ -14,7 +26,13 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.release
         }
     }
 
