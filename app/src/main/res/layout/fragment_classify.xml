@@ -95,16 +95,23 @@
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
 
-                    <GridView
-                        android:paddingTop="10dp"
-                        android:id="@+id/classify_second_detail"
+                    <third.PullToRefreshView
+                        android:id="@+id/classify_second_pull_refresh_view"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:horizontalSpacing="10dp"
-                        android:verticalSpacing="10dp"
-                        android:numColumns="2"
-                        android:gravity="center">
-                    </GridView>
+                        android:layout_height="match_parent">
+                        <GridView
+                            android:paddingTop="10dp"
+                            android:id="@+id/classify_second_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:horizontalSpacing="10dp"
+                            android:verticalSpacing="10dp"
+                            android:numColumns="2"
+                            android:gravity="center">
+                        </GridView>
+                    </third.PullToRefreshView>
+
+
 
                 </LinearLayout>
             </FrameLayout>

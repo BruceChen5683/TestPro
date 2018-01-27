@@ -29,6 +29,7 @@ import cn.ws.sz.activity.SearchActivity;
 import cn.ws.sz.adater.BusinessItemAdapter;
 import cn.ws.sz.adater.WsSimpleAdater;
 import cn.ws.sz.adater.WsSimpleAdater2;
+import cn.ws.sz.adater.WsSimpleAdater2_Search;
 import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.ClassifyBean;
@@ -70,7 +71,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private ListView classifyFirstLV;
     private GridView classifySecondGV;
     private WsSimpleAdater firstAdapter;
-    private WsSimpleAdater2 secondAdapter;
+    private WsSimpleAdater2_Search secondAdapter;
     private List<ClassifyBean> tmpList = new ArrayList<ClassifyBean>();
     private List<String> secondData = new ArrayList<String>();
 
@@ -206,7 +207,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
 
 
         classifySecondGV = (GridView) view.findViewById(R.id.classify_second);
-        secondAdapter = new WsSimpleAdater2(getActivity(),secondData);
+        secondAdapter = new WsSimpleAdater2_Search(getActivity(),secondData);
         classifySecondGV.setAdapter(secondAdapter);
 
         updateSecondData(firstCategroy);

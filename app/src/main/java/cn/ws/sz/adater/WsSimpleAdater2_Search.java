@@ -1,7 +1,6 @@
 package cn.ws.sz.adater;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,13 @@ import cn.ws.sz.bean.ClassifyBean;
  * Created by chenjianliang on 2018/1/13.
  */
 
-public class WsSimpleAdater2 extends BaseAdapter{
+public class WsSimpleAdater2_Search extends BaseAdapter{
 
     private Context context;
-    private List<ClassifyBean> data;
+    private List<String> data;
 //    private int selectedPosition = -1;// 选中的位置
 
-    public WsSimpleAdater2(Context context, List<ClassifyBean> data){
+    public WsSimpleAdater2_Search(Context context, List<String> data){
         this.context = context;
         this.data = data;
     }
@@ -38,7 +37,7 @@ public class WsSimpleAdater2 extends BaseAdapter{
     }
 
     @Override
-    public ClassifyBean getItem(int position) {
+    public Object getItem(int position) {
         return data.get(position);
     }
 
@@ -59,7 +58,7 @@ public class WsSimpleAdater2 extends BaseAdapter{
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tv.setText(getItem(position).getName());
+        holder.tv.setText(getItem(position).toString());
 
         return convertView;
     }

@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.ws.sz.R;
@@ -34,16 +35,17 @@ import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.ClassifyBean;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.WSApp;
+import third.PullToRefreshView;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
 
 
-public class ClassifyFragment extends Fragment{
+public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterRefreshListener{
 
     private final static String TAG = "ClassifyFragment";
     private ListView classifyFirstLV;
     private GridView classifySecondGV,classifySecondGVDetail;
-    private List<String> secondData = new ArrayList<String>();
+    private List<ClassifyBean> secondData = new ArrayList<ClassifyBean>();
     private List<ClassifyBean> tmpList = new ArrayList<ClassifyBean>();
 
     private List<BusinessBean> classifySecondDetaildata = new ArrayList<BusinessBean>();
@@ -60,11 +62,14 @@ public class ClassifyFragment extends Fragment{
     private LinearLayout ll_classify_second;
     private TextView tv_classify_second_back,tv_classify_second_title;
 
-    private int firstCategroy = 0;
     private int secondCategroy = 0;
-    private int pageId = 0;//页码
+    private int pageId = 1;//页码  从1开始，0切勿使用
     private int areaId = 110101;//区域
+    private boolean bLoadMore = false;
     private Gson gson;
+
+    private PullToRefreshView pullToRefreshView;
+    private boolean actionDone = true;//下拉刷新是否结束
 
     public ClassifyFragment() {
         // Required empty public constructor
@@ -151,6 +156,12 @@ public class ClassifyFragment extends Fragment{
         firstAdapter.notifyDataSetChanged();
 
 
+        pullToRefreshView = (PullToRefreshView) view.findViewById(R.id.classify_second_pull_refresh_view);
+        pullToRefreshView.setOnHeaderRefreshListener(this);
+        pullToRefreshView.setOnFooterRefreshListener(this);
+        pullToRefreshView.setLastUpdated(new Date().toLocaleString());
+        pullToRefreshView.onFooterRefreshComplete();
+
         classifySecondGV = (GridView) view.findViewById(R.id.classify_second);
         secondAdapter = new WsSimpleAdater2(getActivity(),secondData);
         classifySecondGV.setAdapter(secondAdapter);
@@ -172,7 +183,12 @@ public class ClassifyFragment extends Fragment{
 
         classifySecondGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                secondCategroy = secondAdapter.getItem(position).getId();
+                Log.d(TAG, "onItemClick: secondCategroy "+secondCategroy);
+                pageId = 1;
+                bLoadMore = false;
 
                 hideSecondGridView(true,position);
             }
@@ -206,8 +222,6 @@ public class ClassifyFragment extends Fragment{
                 startActivity(intent);
             }
         });
-        loadData();
-
 
     }
 
@@ -215,9 +229,7 @@ public class ClassifyFragment extends Fragment{
         tmpList = WSApp.secondCategroyMap.get(WSApp.firstCategroyList.get(id).getId());
         secondData.clear();
         if(tmpList != null){
-            for (int i =0;i < tmpList.size();i++){
-                secondData.add(tmpList.get(i).getName());
-            }
+            secondData.addAll(tmpList);
         }
         secondAdapter.notifyDataSetChanged();
     }
@@ -239,9 +251,10 @@ public class ClassifyFragment extends Fragment{
                 classifySecondGV.setVisibility(View.INVISIBLE);
             }
             if(ll_classify_second != null){
+                loadData(bLoadMore,secondCategroy,pageId,areaId);
                 ll_classify_second.setVisibility(View.VISIBLE);
                 if(tv_classify_second_title != null){
-                    tv_classify_second_title.setText(secondData.get(position));
+                    tv_classify_second_title.setText(secondData.get(position).getName());
                 }
             }
         }else {
@@ -255,23 +268,38 @@ public class ClassifyFragment extends Fragment{
 
     }
 
-    private void loadData() {
+    private void loadData(final boolean loadMore,final int mSecondCategroy,final int mPageId,final int mAreaId) {
 
-        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId);
+        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId);
         VolleyRequestUtil.RequestGet(getActivity(),
-                Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId,
+                Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId,
                 Constant.TAG_BUSINESS_LIST_2,//商家列表tag
                 new VolleyListenerInterface(getActivity(),
                         VolleyListenerInterface.mListener,
                         VolleyListenerInterface.mErrorListener) {
                     @Override
                     public void onMySuccess(String result) {
+
+
+                        Log.d(TAG, "onMySuccess: "+result);
+
                         BusinessStatus status = gson.fromJson(result,BusinessStatus.class);
-                        classifySecondDetaildata.clear();
+                        if(!loadMore){
+                            classifySecondDetaildata.clear();
+                        }
                         if(status.getData() != null && status.getData().size() > 0){
+                            actionDone = true;
                             classifySecondDetaildata.addAll(status.getData());
+                        }else{
+
                         }
                         classifySecondDetailAdapter.notifyDataSetChanged();
+                        if(mPageId <= 1){
+                            pullToRefreshView.onHeaderRefreshComplete("更新于:"+new Date().toLocaleString());
+                        }else{
+                            pullToRefreshView.onFooterRefreshComplete();
+                        }
+
                     }
 
                     @Override
@@ -282,4 +310,23 @@ public class ClassifyFragment extends Fragment{
                 true);
     }
 
+    @Override
+    public void onFooterRefresh(PullToRefreshView view) {
+        Log.d(TAG, "onFooterRefresh: ");
+
+        if(actionDone){
+            pageId++;
+            actionDone = false;
+        }
+        bLoadMore = true;
+        loadData(bLoadMore,secondCategroy,pageId,areaId);
+    }
+
+    @Override
+    public void onHeaderRefresh(PullToRefreshView view) {
+        Log.d(TAG, "onHeaderRefresh: ");
+        pageId = 1;
+        bLoadMore = false;
+        loadData(bLoadMore,secondCategroy,pageId,areaId);
+    }
 }
