@@ -25,7 +25,10 @@ import java.util.List;
 import java.util.Map;
 
 import cn.ws.sz.R;
+import cn.ws.sz.bean.AreaBean;
+import cn.ws.sz.bean.CityBean;
 import cn.ws.sz.bean.ClassifyBean;
+import cn.ws.sz.bean.ProvinceBean;
 import cn.ws.sz.service.LocationService;
 
 /**
@@ -37,6 +40,15 @@ public class WSApp extends Application{
     public final static List<ClassifyBean> firstCategroyList = new ArrayList<>();
     public final static Map<Integer,List<ClassifyBean>> secondCategroyMap = new HashMap<>();
     public static int classifyId = 0;
+
+    public final static List<ProvinceBean> provinces = new ArrayList<>();//省
+    public final static Map<Integer,List<CityBean>> citysMap = new HashMap<>();//省 市
+    public final static Map<Integer,CityBean> citys = new HashMap<>();//市
+
+    public final static Map<Integer,List<AreaBean>> areasMap = new HashMap<>();//市 区
+//    public final static List<CityBean> citys = new ArrayList<>();
+//    public final static List<AreaBean> areas = new ArrayList<>();
+
 
     public LocationService locationService;
     public Vibrator vibrator;
@@ -53,6 +65,8 @@ public class WSApp extends Application{
         locationService = new LocationService(getApplicationContext());
         vibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
         SDKInitializer.initialize(getApplicationContext());
+
+        SharedPreferencesUtil.getInstance(getApplicationContext(),"ws_sp");
 
 
     }
