@@ -29,6 +29,9 @@ public class Constant {
     public static final String URL_BUSINESS_LIST = "/api/merchant/getListByCategory/";//  /api/merchant/getListByCategory/0/0/110101 获取商户列表 17是二级分类的id 1是页码
     public static final String URL_HOT = "/api/merchant/getHotList/";// + aredId
 
+    public static final String URL_DETAIL = "/api/merchant/detail/";// /api/merchant/detail/10
+
+
 
     public static final String URL_UPLOAD_BUSINESS_INFO = "/api/merchant/addMerchant";//添加商户
     public static final String URL_UPLOAD_AGENT_INFO = "/api/agent/addAgent";//添加代理
@@ -45,6 +48,7 @@ public class Constant {
     public static final String URL_QUERY_FINDNUM = "/api/merchant/findNum";///api/merchant/findNum/13512345678
 
     public static final String URL_SEND_MSG = "/api/msg/sendMsg";// /api/msg/sendMsg/18611759864
+
 
 
     public static final String TAG_CATEGROY = "categroy";

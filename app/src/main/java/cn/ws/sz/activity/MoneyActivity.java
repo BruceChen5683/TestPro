@@ -105,9 +105,32 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     public static final int MSG_PAY_SUCCESS = 1;
     public static final int MSG_PAY_FAIL = 2;
 
+    private int mImageSize = 0;
+
     private Gson gson;
 
     private EditText tvSettledName2,etDetailAddress,tvSettledTel2,mainProducts,ad;
+    private StringBuilder imageIdStr = new StringBuilder();
+
+    private static final int UPLOAD_PIC_SUCCESS = 200;
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case UPLOAD_PIC_SUCCESS:
+                    Log.d(TAG, "handleMessage: "+mImageSize);
+                    Log.d(TAG, "handleMessage: ");
+                    if(mImageSize == SelectedImages.size()){
+                        addMerchant();
+                    }else {
+
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     /*
      *  choose
@@ -408,8 +431,11 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         uploadImage();
         Log.d(TAG, "payAction: ");
 
-        //check
+//        addMerchant();
 
+    }
+
+    private void addMerchant() {
         if(categoryId == -1){
             ToastUtil.showLong(this,"请选择商家所属的分类");
             hideDialog();
@@ -462,51 +488,65 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         params.put("lng","163.78965");
         params.put("lat","38.98765");
         params.put("address",etDetailAddress.getText().toString());
+        imageIdStr.deleteCharAt(imageIdStr.length()-1);
+        params.put("imageIdStr",imageIdStr.toString());
 
         Log.d(TAG, "payAction: --------uploadBusinessInfo");
         uploadBusinessInfo(params);
-
-//        handler.sendEmptyMessageDelayed(MSG_PAY_SUCCESS,1000);
     }
 
     private void uploadImage() {
 
 
+        mImageSize = 0;
         for (int i = 0; i < SelectedImages.size(); i++) {
 
             Log.d(TAG, "uploadImage: " + SelectedImages.get(i).getImagePath());
             paramsImg.clear();
             paramsImg.put("pic", new String[]{SelectedImages.get(i).getImagePath(), SelectedImages.get(i).getImagePath()});
-
             //发起请求
-
-            VolleyRequestUtil.RequestPostFile(this,
-                    Constant.URL_UPLOAD_PIC,
-                    Constant.TAG_PIC_UPLOAD + i,
-                    paramsImg,
-                    new VolleyListenerInterface(this,
-                            VolleyListenerInterface.mListener,
-                            VolleyListenerInterface.mErrorListener) {
-                        @Override
-                        public void onMySuccess(String result) {
-                            Log.d(TAG, "onMySuccess: " + result);
-                            UploadStatus status = gson.fromJson(result, UploadStatus.class);
-                            if (status.getErrcode() == 0) {
-                                ToastUtil.showShort(MoneyActivity.this, "商家信息上传成功");
-                            } else {
-                                ToastUtil.showShort(MoneyActivity.this, "商家信息上传失败");
-                            }
-
-                        }
-
-                        @Override
-                        public void onMyError(VolleyError error) {
-                            Log.d(TAG, "onMyError: ");
-                        }
-                    },
-                    true);
+            uploadImage(i,paramsImg);
         }
 
+    }
+
+    private void uploadImage(final int i,final Map<String,String[]> paramsImg){
+        VolleyRequestUtil.RequestPostFile(this,
+                Constant.URL_UPLOAD_PIC,
+                Constant.TAG_PIC_UPLOAD + i,
+                paramsImg,
+                new VolleyListenerInterface(this,
+                        VolleyListenerInterface.mListener,
+                        VolleyListenerInterface.mErrorListener) {
+                    @Override
+                    public void onMySuccess(String result) {
+                        Log.d(TAG, "onMySuccess: " + result);
+                        UploadStatus status = gson.fromJson(result, UploadStatus.class);
+
+                        mImageSize++;
+                        if(mHandler != null){
+                            mHandler.removeMessages(UPLOAD_PIC_SUCCESS);
+                            mHandler.sendEmptyMessage(UPLOAD_PIC_SUCCESS);
+                        }
+
+                        if (status.getErrcode() == 0) {
+                            imageIdStr.append(status.getData());
+                            imageIdStr.append(",");
+                            ToastUtil.showShort(MoneyActivity.this, "商家图片信息上传成功");
+                        } else {
+                            ToastUtil.showShort(MoneyActivity.this, "商家图片上传失败");
+                        }
+
+                    }
+
+                    @Override
+                    public void onMyError(VolleyError error) {
+                        mImageSize++;
+
+                        Log.d(TAG, "onMyError: ");
+                    }
+                },
+                true);
     }
 
 
