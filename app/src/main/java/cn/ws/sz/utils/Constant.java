@@ -44,6 +44,8 @@ public class Constant {
 
     public static final String URL_QUERY_FINDNUM = "/api/merchant/findNum";///api/merchant/findNum/13512345678
 
+    public static final String URL_SEND_MSG = "/api/msg/sendMsg";// /api/msg/sendMsg/18611759864
+
 
     public static final String TAG_CATEGROY = "categroy";
     public static final String TAG_BUSINESS_LIST = "business_list";//分类
@@ -61,8 +63,9 @@ public class Constant {
 	public static final String TAG_HOT = "business_hot";
 
     public static final String TAG_QUERY_BUSINESS = "query_business";
-
     public static final String TAG_QUERY_FINDNUM = "query_findnum";
+    public static final String TAG_SEND_MSG = "send_yzm";
+
 
 
 

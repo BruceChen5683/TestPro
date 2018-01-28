@@ -1,6 +1,8 @@
 package cn.ws.sz.activity;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,12 +24,15 @@ import java.util.Objects;
 import cn.ws.sz.R;
 import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.bean.BusinessStatus;
+import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.bean.ModifierStatus;
 import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ToastUtil;
+import cn.ws.sz.utils.WSApp;
+import third.autosize.dp.Main;
 import third.citypicker.PickCityActivity;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
@@ -39,10 +44,26 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
     private LinearLayout llReturnBack;
     private BusinessBean businessBean;
     private Button btnSure,btnCancel,btnVerity;
-    private EditText etAd;
+    private EditText etAd,etVer;
     private Map<String,String> parms = new HashMap<>();
+    private String phoneNum = "";
+    private String yzm = "";
     private Gson gson = new Gson();
     private int type = Constant.MODIFIER_AD_TYPE;
+    private boolean bGetYam = true;
+    private static final int RE_GET_MSG = 1;
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case RE_GET_MSG:
+                    bGetYam = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +78,7 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
         tvAddres = (TextView) findViewById(R.id.tvAddres);
         tvTel = (TextView) findViewById(R.id.tvTel);
         etAd = (EditText) findViewById(R.id.etAd);
+        etVer = (EditText) findViewById(R.id.etVer);
         tvTitle = (TextView) findViewById(R.id.title_value);
 
 
@@ -73,8 +95,11 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
                 }
 
                 if(!TextUtils.isEmpty(businessBean.getPhone())){
-                    tvTel.setText(businessBean.getPhone());
+                    phoneNum = businessBean.getPhone();
+                    tvTel.setText(phoneNum);
                 }
+            }else{//数据无法修改 返回
+
             }
 
             type = bundle.getInt("type");
@@ -97,6 +122,7 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
         btnSure.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         btnSure.setOnClickListener(this);
+        btnVerity.setOnClickListener(this);
 
 
     }
@@ -106,7 +132,7 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnSure:
-                check();
+//                check();
                 modifierAd();
                 break;
             case R.id.btnCancel:
@@ -114,7 +140,11 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.yzm:
-
+                if(bGetYam){
+                    getYzm();
+                }else {
+                    ToastUtil.showShort(this,"请一分钟后重新获取");
+                }
                 break;
 
             default:
@@ -122,7 +152,17 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void check() {
+//    private void check() {
+//
+//
+//    }
+
+    private void checkYam() {
+
+    }
+
+    private void modifierAd(){
+
         if(TextUtils.isEmpty(etAd.getText())){
             if(type == Constant.MODIFIER_AD_TYPE){
                 ToastUtil.showShort(this,"请输入新广告内容");
@@ -132,7 +172,19 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        checkYam();
+
+        if(TextUtils.isEmpty(etVer.getText())){
+            ToastUtil.showShort(this,"请输入验证码");
+            return;
+        }
+
+        Log.d(TAG, "modifierAd: "+yzm);
+        Log.d(TAG, "modifierAd: "+etVer.getText().toString());
+
+        if(!yzm.equals(etVer.getText().toString())){
+            ToastUtil.showShort(this,"验证码输入错误");
+            return;
+        }
 
         if(type == Constant.MODIFIER_AD_TYPE){
             parms.put("adWord",etAd.getText().toString());
@@ -142,13 +194,7 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
 
         parms.put("id",businessBean.getId()+"");
 
-    }
 
-    private void checkYam() {
-
-    }
-
-    private void modifierAd(){
         VolleyRequestUtil.RequestPost(this,
                 type == Constant.MODIFIER_AD_TYPE ? Constant.URL_MODIFIR_ADWORDS : Constant.URL_MODIFIR_MAINPRODUCTS,
                 type == Constant.MODIFIER_AD_TYPE ? Constant.TAG_MODIFIER_ADWORDS: Constant.TAG_MODIFIER_MAINPRODUCTS,
@@ -177,6 +223,36 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onMyError(VolleyError error) {
                         Log.d(TAG, "onMyError: ");
+                    }
+                },
+                true);
+    }
+
+    private void getYzm(){
+
+        VolleyRequestUtil.RequestGet(this,
+                Constant.URL_SEND_MSG + "/" + businessBean.getPhone(),
+                Constant.TAG_SEND_MSG,
+                new VolleyListenerInterface(this,
+                        VolleyListenerInterface.mListener,
+                        VolleyListenerInterface.mErrorListener) {
+                    @Override
+                    public void onMySuccess(String result) {
+                        Log.d(TAG, "onMySuccess: " + result);
+                        ModifierStatus status = gson.fromJson(result,ModifierStatus.class);
+                        if(status.getErrcode() == 0){
+                            ToastUtil.showShort(ModifierActivity.this,"验证码发送成功");
+                            yzm = status.getData();
+                            bGetYam = false;
+                            mHandler.sendEmptyMessageDelayed(RE_GET_MSG,60000);
+                        }else {
+                            ToastUtil.showShort(ModifierActivity.this,"验证码获取失败,请勿连续获取");
+                        }
+                    }
+
+                    @Override
+                    public void onMyError(VolleyError error) {
+                        ToastUtil.showShort(ModifierActivity.this,"验证码获取失败,请检查网络");
                     }
                 },
                 true);
