@@ -15,6 +15,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
@@ -40,7 +41,7 @@ public class LocationFilter extends AppCompatActivity {
 	private static final String TAG = LocationFilter.class.getSimpleName();
 	private MapView mMapView = null;
 	private BaiduMap mBaiduMap;
-	private Button reset,start;
+	private Button sure,reset;
 	private LocationService locService;
 	private LinkedList<LocationEntity> locationList = new LinkedList<LocationEntity>(); // 存放历史定位结果的链表，最大存放当前结果的前5次定位结果
 
@@ -49,20 +50,57 @@ public class LocationFilter extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
+		Log.d(TAG, "onCreate: ");
 		setContentView(R.layout.locationfilter);
 		mMapView = (MapView) findViewById(R.id.bmapView);
-		reset = (Button) findViewById(R.id.clear);
-		start = (Button) findViewById(R.id.set);
+		sure = (Button) findViewById(R.id.sure);
+		reset = (Button) findViewById(R.id.reset);
 
 		mBaiduMap = mMapView.getMap();
 		mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
 		mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(15));
+		mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
+			@Override
+			public void onMapClick(LatLng latLng) {
+				Log.d(TAG, "onMapClick: "+latLng);
+
+				LatLng point = new LatLng(latLng.latitude, latLng.longitude);
+				Log.d(TAG, "handleMessage: "+point);
+				// 构建Marker图标
+				BitmapDescriptor bitmap = null;
+//				if (iscal == 0) {
+					bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_mark); // 非推算结果
+//				} else {
+//					bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_focuse_mark); // 推算结果
+//				}
+
+				// 构建MarkerOption，用于在地图上添加Marker
+				OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
+				// 在地图上添加Marker，并显示
+				mBaiduMap.clear();
+				mBaiduMap.addOverlay(option);
+				mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(point));
+
+			}
+
+			@Override
+			public boolean onMapPoiClick(MapPoi mapPoi) {
+				Log.d(TAG, "onMapPoiClick: "+mapPoi.getPosition());
+				return false;
+			}
+		});
 		locService = ((WSApp) getApplication()).locationService;
 		LocationClientOption mOption = locService.getDefaultLocationClientOption();
 		mOption.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
 		mOption.setCoorType("bd09ll");
 		locService.setLocationOption(mOption);
 		locService.registerListener(listener);
+		if(locService.isStart()){
+			Log.d(TAG, "onCreate: start");
+		}else {
+			Log.d(TAG, "onCreate: not start");
+		}
 		locService.start();
 	}
 
@@ -73,8 +111,6 @@ public class LocationFilter extends AppCompatActivity {
 
 		@Override
 		public void onReceiveLocation(BDLocation location) {
-			// TODO Auto-generated method stub
-
 			Log.d(TAG, "onReceiveLocation: "+location.getLatitude()+"----------"+location.getLongitude());
 			if (location != null && (location.getLocType() == 161 || location.getLocType() == 66)) {
 				Message locMsg = locHander.obtainMessage();
@@ -100,6 +136,18 @@ public class LocationFilter extends AppCompatActivity {
 	 * @return Bundle
 	 */
 	private Bundle Algorithm(BDLocation location) {
+
+		Log.d(TAG, "Algorithm: "+location.getAddress());
+		Log.d(TAG, "Algorithm: "+location.getLongitude());
+		Log.d(TAG, "Algorithm: "+location.getLatitude());
+		Log.d(TAG, "Algorithm: "+location.getAdCode());
+		Log.d(TAG, "Algorithm: "+location.getCity());
+		Log.d(TAG, "Algorithm: "+location.getAddrStr());
+		Log.d(TAG, "Algorithm: "+location.getBuildingName());
+		Log.d(TAG, "Algorithm: "+location.getDistrict());
+		Log.d(TAG, "Algorithm: "+location.getStreet());
+
+
 		Bundle locData = new Bundle();
 		double curSpeed = 0;
 		if (locationList.isEmpty() || locationList.size() < 2) {
@@ -147,8 +195,7 @@ public class LocationFilter extends AppCompatActivity {
 
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			super.handleMessage(msg);
+			Log.d(TAG, "handleMessage: ");
 			try {
 				BDLocation location = msg.getData().getParcelable("loc");
 				Log.d(TAG, "handleMessage: "+location);
@@ -158,20 +205,21 @@ public class LocationFilter extends AppCompatActivity {
 					Log.d(TAG, "handleMessage: "+point);
 					// 构建Marker图标
 					BitmapDescriptor bitmap = null;
-					if (iscal == 0) {
+//					if (iscal == 0) {
 						bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_mark); // 非推算结果
-					} else {
-						bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_focuse_mark); // 推算结果
-					}
+//					} else {
+//						bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_focuse_mark); // 推算结果
+//					}
 
 					// 构建MarkerOption，用于在地图上添加Marker
 					OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
 					// 在地图上添加Marker，并显示
+					mBaiduMap.clear();
 					mBaiduMap.addOverlay(option);
 					mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(point));
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 	};
@@ -179,6 +227,7 @@ public class LocationFilter extends AppCompatActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		Log.d(TAG, "onDestroy: ");
 		// 在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
 		locService.unregisterListener(listener);
 		locService.stop();
@@ -188,30 +237,24 @@ public class LocationFilter extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		Log.d(TAG, "onResume: ");
 		// 在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
 		mMapView.onResume();
+		sure.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				LocationFilter.this.finish();
+			}
+		});
+		
 		reset.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (mBaiduMap != null)
-					mBaiduMap.clear();
+				locService.start();
 			}
 		});
 
-		start.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d(TAG, "onClick: start");
-				if(!locService.isStart()){
-					Log.d(TAG, "onClick: start 1");
-					mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-					mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(15));
-					locService.start();
-				}
-			}
-		});
 	}
 
 	@Override
@@ -232,4 +275,28 @@ public class LocationFilter extends AppCompatActivity {
 		BDLocation location;
 		long time;
 	}
+	
+	
+//	private void getInfoFromLal(final LatLng point){
+//		GeoCoder gc = GeoCoder.newInstance();
+//		gc.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+//		gc.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
+//
+//			@Override
+//			public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+//				pb.setVisibility(View.GONE);
+//				if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+//					Log.e("发起反地理编码请求", "未能找到结果");
+//				} else {
+//					infoText.setText("经度："+point.latitudeE6+"，纬度"+point.latitudeE6
+//							+"\n"+result.getAddress());
+//				}
+//			}
+//
+//			@Override
+//			public void onGetGeoCodeResult(GeoCodeResult result) {
+//
+//			}
+//		});
+//	}
 }

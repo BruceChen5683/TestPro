@@ -72,6 +72,14 @@
         <activity android:name=".activity.CollectActivity" />
         <activity android:name=".activity.LookHistroryActivity"/>
         <activity android:name="gps.LocationFilter"/>
+
+
+        <!-- 声明service组件 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
     </application>
 
 </manifest>

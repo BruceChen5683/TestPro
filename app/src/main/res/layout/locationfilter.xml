@@ -10,13 +10,13 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/clear"
+            android:id="@+id/sure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="清除定位" />
+            android:text="确认" />
 
         <Button
-            android:id="@+id/set"
+            android:id="@+id/reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="重新定位"/>
