@@ -1,5 +1,7 @@
 package cn.ws.sz.utils;
 
+import third.ACache;
+
 /**
  * Created by chenjianliang on 2018/1/9.
  */
@@ -50,6 +52,8 @@ public class Constant {
 
     public static final String URL_SEND_MSG = "/api/msg/sendMsg";// /api/msg/sendMsg/18611759864
 
+    public static final String PRE_PAY = "/api/pay/toPay";
+
 
 
     public static final String TAG_CATEGROY = "categroy";
@@ -75,6 +79,11 @@ public class Constant {
     public static final String TAG_CITY = "city";// + 省份id
     public static final String TAG_AREA = "area";// +城市id
 
+    public static final String TAG_ALIPAY = "aliPay";//支付宝支付
+
+    public static final int PROVINCES_CITY_DISTRICT_TIME = ACache.TIME_DAY * 180;//省市区   信息更新时间
+
+
 
 
 
@@ -88,6 +97,9 @@ public class Constant {
     public static final String TEST_AD_URL = "http://news.bioon.com/article/6716755.html";
 
 
-	public static final String CITY_DATA = "china_city_data.json";
+
+    public static final String CACHE_PROVINCES = "all_provinces";
+    public static final String CACHE_PROVINCE_CITY = "provinces_";
+    public static final String CACHE_CITY_AREA = "citys_";
 
 }
