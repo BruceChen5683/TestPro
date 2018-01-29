@@ -96,11 +96,12 @@ public class CommonUtils {
     }
 
     public static  void callByDefault(Context context,String phone) {
-        Intent intentPhone = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ToastUtil.showShort(context,"请到设置中，允许万商获取拨打电话权限");
-            return;
-        }
+        Intent intentPhone = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
+		intentPhone.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+//            ToastUtil.showShort(context,"请到设置中，允许万商获取拨打电话权限");
+//            return;
+//        }
         context.startActivity(intentPhone);
     }
 
