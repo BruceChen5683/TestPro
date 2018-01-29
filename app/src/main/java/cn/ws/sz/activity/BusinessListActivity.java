@@ -69,9 +69,9 @@ public class BusinessListActivity extends AppCompatActivity {
 
     private void loadData() {
 
-        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId);
+        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId + "/"+0);
         VolleyRequestUtil.RequestGet(this,
-                Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId,
+                Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId + "/"+0,
                 Constant.TAG_BUSINESS_LIST,//商家列表tag
                 new VolleyListenerInterface(this,
                         VolleyListenerInterface.mListener,

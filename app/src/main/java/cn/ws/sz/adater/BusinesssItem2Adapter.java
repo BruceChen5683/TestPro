@@ -17,6 +17,7 @@ import java.util.List;
 import cn.ws.sz.R;
 import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.utils.CommonUtils;
+import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.DeviceUtils;
 
 /**
@@ -66,7 +67,13 @@ public class BusinesssItem2Adapter extends BaseAdapter{
         }else {
             holder.tvBusinessName.setText("商家地址信息不全，请联系客服");
         }
-		CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
+
+        String url = getItem(position).getLogoUrl();
+        if(url.startsWith("http")){
+			CommonUtils.setImageView(url,holder.imageView);
+		}else {
+			CommonUtils.setImageView(Constant.BASEURL + url,holder.imageView);
+		}
 
         int h = (int) context.getResources().getDimension(R.dimen.dp_130);
 		convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, h));

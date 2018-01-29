@@ -241,7 +241,12 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
             }
 
             if(!TextUtils.isEmpty(businessBean.getLogoUrl())){
-                CommonUtils.setImageView2(businessBean.getLogoUrl(),rlLogo);
+				if(businessBean.getLogoUrl().startsWith("http")){//
+					CommonUtils.setImageView2(businessBean.getLogoUrl(),rlLogo);
+				}else{
+					CommonUtils.setImageView2(Constant.BASEURL+businessBean.getLogoUrl(),rlLogo);
+				}
+
             }
 
         }
@@ -249,9 +254,9 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
     private void loadData() {
 
-        Log.d(TAG, "loadData: "+ Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId);
+        Log.d(TAG, "loadData: "+ Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId + "/"+0);
         VolleyRequestUtil.RequestGet(this,
-                Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId,
+                Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId  + "/"+0,
                 Constant.TAG_BUSINESS_LIST_SIMILAR,//商家列表tag
                 new VolleyListenerInterface(this,
                         VolleyListenerInterface.mListener,

@@ -270,9 +270,9 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
 
     private void loadData(final boolean loadMore,final int mSecondCategroy,final int mPageId,final int mAreaId) {
 
-        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId);
+        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0);
         VolleyRequestUtil.RequestGet(getActivity(),
-                Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId,
+                Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0,
                 Constant.TAG_BUSINESS_LIST_2,//商家列表tag
                 new VolleyListenerInterface(getActivity(),
                         VolleyListenerInterface.mListener,
