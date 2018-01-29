@@ -18,6 +18,7 @@ public class Constant {
     public static final int CODE_ACTION_IMAGE_CAPTURE = 2;
     public static final int CODE_CITY_PICERK_ACTIVITY = 3;
     public static final int CODE_MODIFIER_ACTIVITY = 4;
+	public static final int CODE_LOCATIONFILTER_ACTIVITY = 5;
 
     public static final String URL_CATEGORY = "/api/category/list/";//分类接口  +  分类id (一级分类0 二级分类使用一级分类id)
 

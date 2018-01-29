@@ -74,6 +74,7 @@ import third.wheelviewchoose.WheelView;
 
 import static cn.ws.sz.utils.Constant.CODE_ACTION_IMAGE_CAPTURE;
 import static cn.ws.sz.utils.Constant.CODE_IMAGE_SELECT_ACTIVITY;
+import static cn.ws.sz.utils.Constant.CODE_LOCATIONFILTER_ACTIVITY;
 
 public class MoneyActivity extends AppCompatActivity implements View.OnClickListener,OnWheelChangedListener{
 
@@ -101,6 +102,9 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
     public static ArrayList<ImageItem> SelectedImages = new ArrayList<ImageItem>();
 
+	private TextView tvSettledCoordinate2;
+	private String lat = "",lng = "";
+
 
     public static final int MSG_PAY_SUCCESS = 1;
     public static final int MSG_PAY_FAIL = 2;
@@ -119,7 +123,6 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
             switch (msg.what){
                 case UPLOAD_PIC_SUCCESS:
                     Log.d(TAG, "handleMessage: "+mImageSize);
-                    Log.d(TAG, "handleMessage: ");
                     if(mImageSize == SelectedImages.size()){
                         addMerchant();
                     }else {
@@ -219,6 +222,8 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         rlSettledTel.setOnClickListener(this);
         llMainPoructs.setOnClickListener(this);
         llAd.setOnClickListener(this);
+
+		tvSettledCoordinate2 = (TextView) findViewById(R.id.tvSettledCoordinate2);
 
 
 
@@ -323,25 +328,38 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(resultCode == RESULT_OK){
-            if(requestCode == CODE_IMAGE_SELECT_ACTIVITY){
-                ArrayList<ImageItem> selectData = (ArrayList<ImageItem>) data.getSerializableExtra("data");
-                for (int i = 0; i < selectData.size(); i++) {
-                    Bitmap bitmap = CommonUtils.getScaleBitmap(selectData.get(i).getImagePath(), 200, 200);
-                    selectData.get(i).setBitmap(bitmap);
-                }
-                SelectedImages.addAll(selectData);
-                adapter.notifyDataSetChanged();
-            }else if(requestCode == CODE_ACTION_IMAGE_CAPTURE){
-                Log.d(TAG, "onActivityResult: CODE_ACTION_IMAGE_CAPTURE");
-                String picPath = Environment.getExternalStorageDirectory() + File.separator + randomFileName;
-                ImageItem imageItem = new ImageItem();
-                imageItem.setImagePath(picPath);
-                Bitmap bitmap = CommonUtils.getScaleBitmap(picPath, 200, 200);
-                imageItem.setBitmap(bitmap);
-                SelectedImages.add(imageItem);
-                adapter.notifyDataSetChanged();
-                randomFileName = "";
-            }
+			switch (requestCode){
+				case CODE_IMAGE_SELECT_ACTIVITY:
+					ArrayList<ImageItem> selectData = (ArrayList<ImageItem>) data.getSerializableExtra("data");
+					for (int i = 0; i < selectData.size(); i++) {
+						Bitmap bitmap = CommonUtils.getScaleBitmap(selectData.get(i).getImagePath(), 200, 200);
+						selectData.get(i).setBitmap(bitmap);
+					}
+					SelectedImages.addAll(selectData);
+					adapter.notifyDataSetChanged();
+					break;
+				case CODE_ACTION_IMAGE_CAPTURE:
+					Log.d(TAG, "onActivityResult: CODE_ACTION_IMAGE_CAPTURE");
+					String picPath = Environment.getExternalStorageDirectory() + File.separator + randomFileName;
+					ImageItem imageItem = new ImageItem();
+					imageItem.setImagePath(picPath);
+					Bitmap bitmap = CommonUtils.getScaleBitmap(picPath, 200, 200);
+					imageItem.setBitmap(bitmap);
+					SelectedImages.add(imageItem);
+					adapter.notifyDataSetChanged();
+					randomFileName = "";
+					break;
+				case CODE_LOCATIONFILTER_ACTIVITY:
+//					data.getStringExtra("latitude");
+//					data.getStringExtra("longitude");
+					lat = data.getStringExtra("latitude");
+					lng = data.getStringExtra("longitude");
+					tvSettledCoordinate2.setText(lat+","+lng);
+					break;
+				default:
+					Log.d(TAG, "onActivityResult: requestCode "+requestCode);
+					break;
+			}
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -389,7 +407,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 //                onClickEditTextParent((ViewGroup) v);
                 Intent intent = new Intent();
                 intent.setClass(MoneyActivity.this, LocationFilter.class);
-                startActivity(intent);
+				startActivityForResult(intent,CODE_LOCATIONFILTER_ACTIVITY);
                 break;
             case R.id.rlSettledPhone:
                 onClickEditTextParent((ViewGroup) v);
@@ -485,8 +503,11 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         params.put("mainProducts",mainProducts.getText().toString());
         params.put("adWord",ad.getText().toString());
         params.put("phone","01012345");
-        params.put("lng","163.78965");
-        params.put("lat","38.98765");
+		if(!TextUtils.isEmpty(lng) && !TextUtils.isEmpty(lat)){
+			params.put("lng",lng);
+			params.put("lat",lat);
+		}
+
         params.put("address",etDetailAddress.getText().toString());
         imageIdStr.deleteCharAt(imageIdStr.length()-1);
         params.put("imageIdStr",imageIdStr.toString());

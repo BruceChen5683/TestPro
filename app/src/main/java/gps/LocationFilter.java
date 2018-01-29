@@ -1,5 +1,6 @@
 package gps;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,6 +29,7 @@ import java.util.LinkedList;
 import cn.ws.sz.R;
 import cn.ws.sz.service.LocationService;
 import cn.ws.sz.utils.WSApp;
+import third.citypicker.PickCityActivity;
 
 /***
  * 定位滤波demo，实际定位场景中，可能会存在很多的位置抖动，此示例展示了一种对定位结果进行的平滑优化处理
@@ -44,6 +46,8 @@ public class LocationFilter extends AppCompatActivity {
 	private Button sure,reset;
 	private LocationService locService;
 	private LinkedList<LocationEntity> locationList = new LinkedList<LocationEntity>(); // 存放历史定位结果的链表，最大存放当前结果的前5次定位结果
+
+	private LatLng mLatLng;
 
 
 	@Override
@@ -64,7 +68,7 @@ public class LocationFilter extends AppCompatActivity {
 			@Override
 			public void onMapClick(LatLng latLng) {
 				Log.d(TAG, "onMapClick: "+latLng);
-
+				mLatLng = new LatLng(latLng.latitude,latLng.longitude);
 				LatLng point = new LatLng(latLng.latitude, latLng.longitude);
 				Log.d(TAG, "handleMessage: "+point);
 				// 构建Marker图标
@@ -112,6 +116,7 @@ public class LocationFilter extends AppCompatActivity {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 			Log.d(TAG, "onReceiveLocation: "+location.getLatitude()+"----------"+location.getLongitude());
+			mLatLng = new LatLng(location.getLatitude(),location.getLongitude());
 			if (location != null && (location.getLocType() == 161 || location.getLocType() == 66)) {
 				Message locMsg = locHander.obtainMessage();
 				Bundle locData;
@@ -244,6 +249,12 @@ public class LocationFilter extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
+				Intent mIntent = new Intent();
+				mIntent.putExtra("latitude",mLatLng.latitude+"" );
+				mIntent.putExtra("longitude",mLatLng.longitude+"" );
+				// 设置结果，并进行传送
+				LocationFilter.this.setResult(RESULT_OK, mIntent);
+
 				LocationFilter.this.finish();
 			}
 		});
