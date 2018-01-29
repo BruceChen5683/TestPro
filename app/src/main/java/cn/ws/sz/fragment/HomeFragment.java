@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.ws.sz.R;
+import cn.ws.sz.activity.BannerActivity;
 import cn.ws.sz.activity.BusinessDetailActivity;
 import cn.ws.sz.activity.MainActivity;
 import cn.ws.sz.activity.SplashActivity;
@@ -66,7 +67,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private int bannerSize = 0;
     private List<BannerBean> bannerList = new ArrayList<>();
 //    private int[] bannerImageViews = {R.drawable.banner,R.drawable.banner,R.drawable.banner};
-    private ImageCycleViewListener imageCycleViewListener;
+    private ImageCycleViewListener imageCycleViewListener;//广告点击监听
     private MainActivity activity;
 
     private TextView tvArea = null;
@@ -224,6 +225,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onImageClick(int postion, View imageView) {
+                Log.d(TAG, "onImageClick: "+postion);
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), BannerActivity.class);
+                intent.putExtra("redict_url",bannerList.get(postion-1).getRedictUrl());
+                startActivity(intent);
 
             }
         };
@@ -381,7 +387,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 				true);
 
     }
-
-
 
 }
