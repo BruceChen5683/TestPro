@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -15,7 +16,6 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,15 +33,9 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,7 +47,6 @@ import cn.ws.sz.R;
 import cn.ws.sz.adater.BusinessPhotoAdapter;
 import cn.ws.sz.adater.ChooseClassifyAdapter;
 import cn.ws.sz.bean.ClassifyBean;
-import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
@@ -65,8 +58,6 @@ import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
 import cn.ws.sz.view.MyGridView;
 import gps.LocationFilter;
-import third.volley.PostUploadRequest;
-import third.volley.VolleyListenerInterface;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
 import third.wheelviewchoose.OnWheelChangedListener;
@@ -149,7 +140,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     private ChooseClassifyAdapter firstClassifyAdapter,secondClassifyAdapter;
     private final int TEXTSIZE=17;//选择器的字体大小
     private View rootView;
-    private RelativeLayout rlSettledClassify;//选择分类
+    private RelativeLayout rlSettledClassify;//选择分类,商家地址
     private TextView tvSettledClassify2;
     private int categoryId = -1;
 
@@ -286,7 +277,9 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         ad = (EditText) findViewById(R.id.ad);
 
         rlSettledClassify = (RelativeLayout) findViewById(R.id.rlSettledClassify);
+		rlSettledAddres = (RelativeLayout) findViewById(R.id.rlSettledAddres);
         rlSettledClassify.setOnClickListener(this);
+		rlSettledAddres.setOnClickListener(this);
         tvSettledClassify2 = (TextView) findViewById(R.id.tvSettledClassify2);
 
 
@@ -393,11 +386,11 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                 initPopupWindow();
                 mPopupWindow.showAtLocation(rootView, Gravity.BOTTOM,0,0);
                 break;
+			case R.id.rlSettledAddres:
+
+				break;
 
             case R.id.rlSettledName:
-                onClickEditTextParent((ViewGroup) v);
-                break;
-            case R.id.rlSettledAddres:
                 onClickEditTextParent((ViewGroup) v);
                 break;
             case R.id.rlSettledAddres2:

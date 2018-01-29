@@ -88,6 +88,6 @@ public class Constant {
     public static final String TEST_AD_URL = "http://news.bioon.com/article/6716755.html";
 
 
-
+	public static final String CITY_DATA = "china_city_data.json";
 
 }

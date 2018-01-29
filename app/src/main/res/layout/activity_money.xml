@@ -89,17 +89,14 @@
                     android:layout_toRightOf="@+id/star2"
                     android:text="@string/settled_addres"
                     android:textColor="@color/black" />
-                <EditText
+                <TextView
                     android:id="@+id/tvSettledAddresss2"
                     style="@style/business_detail_tv"
                     android:layout_toRightOf="@+id/tvSettledAddresss1"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:background="@null"
-                    android:textCursorDrawable="@null"
-                    android:textColorHint="@color/edit_color"
-                    android:textColor="@color/black"
-                    android:hint="请输入商家的地址" />
+                    android:textColor="@color/edit_color"
+                    android:text="请输入商家的地址" />
                 <ImageView
                     style="@style/business_detail_iv_right"
                     android:src="@mipmap/btn_classifyl_go"/>
