@@ -331,6 +331,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
                 new String[] { "name" },
                 new int[] { android.R.id.text1 }));
 
+        lvSortChoice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                changeLayout(TYPE_SORT);
+
+            }
+        });
+
 
         classifyFirstLV.setSelection(2);
         firstAdapter.setSelectedPosition(2);
