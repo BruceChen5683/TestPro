@@ -34,13 +34,13 @@ public class LookHistroryActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.title_value);
         tvTitle.setText("我的足迹");
 
-        data.add("香格里拉大酒店");
-        data.add("和平饭店");
-        data.add("皇家娱乐KTV");
-        data.add("孟非小面");
-        data.add("望湘园");
-        adapter = new CollectAdapter(this,data);
-        collect.setAdapter(adapter);
+//        data.add("香格里拉大酒店");
+//        data.add("和平饭店");
+//        data.add("皇家娱乐KTV");
+//        data.add("孟非小面");
+//        data.add("望湘园");
+//        adapter = new CollectAdapter(this,data);
+//        collect.setAdapter(adapter);
     }
 
 }

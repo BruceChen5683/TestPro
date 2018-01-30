@@ -12,6 +12,8 @@ import java.util.List;
 
 import cn.ws.sz.R;
 import cn.ws.sz.adater.BusinesssItem3Adapter;
+import cn.ws.sz.bean.BusinessBean;
+import cn.ws.sz.bean.CollectHistroyBean;
 
 /**
  * Created by chenjianliang on 2018/1/17.
@@ -20,8 +22,8 @@ import cn.ws.sz.adater.BusinesssItem3Adapter;
 public class CollectAdapter extends BaseAdapter{
 
     private Context context;
-    private List<String> data;
-    public CollectAdapter(Context context, List<String> data){
+    private List<CollectHistroyBean> data;
+    public CollectAdapter(Context context, List<CollectHistroyBean> data){
         this.context = context;
         this.data = data;
     }
@@ -32,7 +34,7 @@ public class CollectAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {
+    public CollectHistroyBean getItem(int position) {
         return data.get(position);
     }
 
@@ -54,7 +56,7 @@ public class CollectAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tvBusinessName.setText(data.get(position));
+        holder.tvBusinessName.setText(data.get(position).getName());
 
         return convertView;
     }

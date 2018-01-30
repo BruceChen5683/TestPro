@@ -35,6 +35,8 @@ import cn.ws.sz.R;
 import cn.ws.sz.adater.BusinessItemAdapter;
 import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.bean.BusinessStatus;
+import cn.ws.sz.bean.CollectHistoryBeanCollections;
+import cn.ws.sz.bean.CollectHistroyBean;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.DeviceUtils;
@@ -43,6 +45,7 @@ import cn.ws.sz.utils.SoftKeyBroadManager;
 import cn.ws.sz.utils.SoftKeyBroadManager.SoftKeyboardStateListener;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.view.ImageLayout;
+import third.ACache;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
 
@@ -84,11 +87,15 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
     private int type = -1;
     private ImageView ivLabel;
 
+	private ACache mACache;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+		mACache = ACache.get(this);
 
         View rootView = LayoutInflater.from(this).inflate(R.layout.activity_business_detail,null);
         setContentView(rootView);
@@ -309,7 +316,17 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
                 this.finish();
                 break;
             case R.id.rlCollect:
-                ToastUtil.showShort(this, "收藏成功!");
+				Log.d(TAG, "onClick: rlCollect");
+				CollectHistoryBeanCollections collectHistoryBeanCollections;
+				if(mACache.getAsObject("collect") == null){
+					Log.d(TAG, "onClick: 1");
+					collectHistoryBeanCollections = new CollectHistoryBeanCollections();
+				}else{
+					Log.d(TAG, "onClick: 2");
+					collectHistoryBeanCollections = new CollectHistoryBeanCollections().setCollectHistoryBeanCollections((CollectHistoryBeanCollections) mACache.getAsObject("collect"));
+				}
+				collectHistoryBeanCollections.addOrRemoveCollectHistroyBean(new CollectHistroyBean(businessBean.getId(),businessBean.getName()));
+				mACache.put("collect",collectHistoryBeanCollections,ACache.TIME_DAY*10);
                 break;
             case R.id.rlFixedPhone:
                 tel = (String) tvFixedPhone.getText();
