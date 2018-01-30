@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -34,6 +36,7 @@ import java.util.Random;
 import cn.ws.sz.R;
 import cn.ws.sz.adater.BusinessItemAdapter;
 import cn.ws.sz.bean.BusinessBean;
+import cn.ws.sz.bean.BusinessDetailStatus;
 import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.CollectHistoryBeanCollections;
 import cn.ws.sz.bean.CollectHistroyBean;
@@ -76,6 +79,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
     private int areaId = 110101;//区域
     private Gson gson;
     private BusinessBean businessBean = null;
+	private int merchantId = 1;
     private  SoftKeyBroadManager mManager;
     private Dialog adDiaglog;
 
@@ -88,32 +92,37 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
     private ImageView ivLabel;
 
 	private ACache mACache;
+	private final static int UPDATE_MERCHANT = 1;
+
+	private Handler uiHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			//根据bundle更新数据
+			setBusinessBeanToUi();
+		}
+	};
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 		mACache = ACache.get(this);
-
         View rootView = LayoutInflater.from(this).inflate(R.layout.activity_business_detail,null);
         setContentView(rootView);
-
         Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.monyey_text_color));
-
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            businessBean = (BusinessBean) bundle.get("BusinessBean");
+			merchantId = bundle.getInt(Constant.KEY_EXTRA_MERCHANT_ID,1);
         }
 
         gson = new Gson();
 
         initView();
 
-        loadData();
-
+		loadBusinessData();
+        loadSimilarData();
 
         mManager =new SoftKeyBroadManager(rootView);
         mManager.addSoftKeyboardStateListener(this);
@@ -122,7 +131,30 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
     }
 
-    private void initDialog() {
+	private void loadBusinessData() {
+		VolleyRequestUtil.RequestGet(this,
+				Constant.URL_DETAIL + merchantId,
+				Constant.TAG_DETAIL,//商家列表tag
+				new VolleyListenerInterface(this,
+						VolleyListenerInterface.mListener,
+						VolleyListenerInterface.mErrorListener) {
+					@Override
+					public void onMySuccess(String result) {
+						Log.d(TAG, "onMySuccess: "+result);
+						BusinessDetailStatus status = gson.fromJson(result,BusinessDetailStatus.class);
+						businessBean = status.getData();
+						uiHandler.sendEmptyMessage(UPDATE_MERCHANT);
+					}
+
+					@Override
+					public void onMyError(VolleyError error) {
+						Log.d(TAG, "onMyError: ");
+					}
+				},
+				true);
+	}
+
+	private void initDialog() {
         adDiaglog = new Dialog(this, R.style.recommend_dialog);
         adDiaglog.setCancelable(true);
         adDiaglog.setCanceledOnTouchOutside(true);
@@ -194,13 +226,20 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
         lvSimilar.setOnItemClickListener(this);
 
-        //根据bundle更新数据
-        setBusinessBeanToUi();
-
-
     }
 
     private void setBusinessBeanToUi() {
+
+		CollectHistoryBeanCollections collectHistoryBeanCollections;
+		if(mACache.getAsObject(Constant.CACHE_HISTROY) == null){
+			collectHistoryBeanCollections = new CollectHistoryBeanCollections();
+		}else{
+			collectHistoryBeanCollections = new CollectHistoryBeanCollections().setCollectHistoryBeanCollections((CollectHistoryBeanCollections) mACache.getAsObject(Constant.CACHE_HISTROY));
+		}
+		CollectHistroyBean tempCHB = new CollectHistroyBean(businessBean.getId(),businessBean.getName());
+		collectHistoryBeanCollections.addCollectHistroyBean(tempCHB);
+		mACache.put(Constant.CACHE_HISTROY,collectHistoryBeanCollections,ACache.TIME_DAY*10);
+
         if(businessBean != null){
             if(!TextUtils.isEmpty(businessBean.getName())){
                 tvBusinessName.setText(businessBean.getName());
@@ -213,9 +252,6 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
                     ivLabel.setVisibility(View.GONE);
                 }
             }
-
-
-
 
             if(businessBean.getIsHot() != 1){
                 ivHot.setVisibility(View.GONE);
@@ -259,9 +295,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private void loadData() {
-
-        Log.d(TAG, "loadData: "+ Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId + "/"+0);
+    private void loadSimilarData() {
         VolleyRequestUtil.RequestGet(this,
                 Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId  + "/"+0,
                 Constant.TAG_BUSINESS_LIST_SIMILAR,//商家列表tag
@@ -312,21 +346,23 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
                 startActivityForResult(intent,Constant.CODE_MODIFIER_ACTIVITY);
                 break;
             case R.id.rlBack:
-                Log.d(TAG, "onClick: ");
                 this.finish();
                 break;
             case R.id.rlCollect:
-				Log.d(TAG, "onClick: rlCollect");
 				CollectHistoryBeanCollections collectHistoryBeanCollections;
-				if(mACache.getAsObject("collect") == null){
-					Log.d(TAG, "onClick: 1");
+				if(mACache.getAsObject(Constant.CACHE_COLLECT) == null){
 					collectHistoryBeanCollections = new CollectHistoryBeanCollections();
 				}else{
-					Log.d(TAG, "onClick: 2");
-					collectHistoryBeanCollections = new CollectHistoryBeanCollections().setCollectHistoryBeanCollections((CollectHistoryBeanCollections) mACache.getAsObject("collect"));
+					collectHistoryBeanCollections = new CollectHistoryBeanCollections().setCollectHistoryBeanCollections((CollectHistoryBeanCollections) mACache.getAsObject(Constant.CACHE_COLLECT));
 				}
-				collectHistoryBeanCollections.addOrRemoveCollectHistroyBean(new CollectHistroyBean(businessBean.getId(),businessBean.getName()));
-				mACache.put("collect",collectHistoryBeanCollections,ACache.TIME_DAY*10);
+				CollectHistroyBean tempCHB = new CollectHistroyBean(businessBean.getId(),businessBean.getName());
+				if(collectHistoryBeanCollections.containsCollectHistroyBean(tempCHB)){
+					ToastUtil.showShort(this,"取消收藏");
+				}else {
+					ToastUtil.showShort(this,"收藏成功");
+				}
+				collectHistoryBeanCollections.addOrRemoveCollectHistroyBean(tempCHB);
+				mACache.put(Constant.CACHE_COLLECT,collectHistoryBeanCollections,ACache.TIME_DAY*10);
                 break;
             case R.id.rlFixedPhone:
                 tel = (String) tvFixedPhone.getText();
@@ -389,7 +425,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent();
-        intent.putExtra("BusinessBean",data.get(position));
+        intent.putExtra(Constant.KEY_EXTRA_MERCHANT_ID,data.get(position).getId());
         intent.setClass(this, BusinessDetailActivity.class);
         startActivity(intent);
 

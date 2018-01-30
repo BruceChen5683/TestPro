@@ -221,7 +221,7 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
                     Log.e(TAG, "onItemClick: "+"eeee" );
                 }
                 Intent intent = new Intent();
-                intent.putExtra("BusinessBean",classifySecondDetaildata.get(position));
+                intent.putExtra(Constant.KEY_EXTRA_MERCHANT_ID,classifySecondDetaildata.get(position).getId());
                 intent.setClass(getActivity(), BusinessDetailActivity.class);
                 startActivity(intent);
             }

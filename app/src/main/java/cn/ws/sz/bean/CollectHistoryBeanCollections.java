@@ -29,15 +29,29 @@ public class CollectHistoryBeanCollections implements Serializable{
 		return collectHistroyBeans;
 	}
 
-	public void addOrRemoveCollectHistroyBean(CollectHistroyBean item){
-		Log.d(TAG, "addOrRemoveCollectHistroyBean: ");
+	public boolean containsCollectHistroyBean(CollectHistroyBean item){
 		if(this.collectHistroyBeans.contains(item)){
-			Log.d(TAG, "addOrRemoveCollectHistroyBean: 3");
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	public void addCollectHistroyBean(CollectHistroyBean item){
+		if(this.collectHistroyBeans.contains(item)){
+			return;
+		}
+		if(this.collectHistroyBeans.size() == Constant.MAX_COLLECT){
+			this.collectHistroyBeans.remove(0);
+		}
+		this.collectHistroyBeans.add(item);
+	}
+
+	public void addOrRemoveCollectHistroyBean(CollectHistroyBean item){
+		if(this.collectHistroyBeans.contains(item)){
 			this.collectHistroyBeans.remove(item);
 		}else{
-			Log.d(TAG, "addOrRemoveCollectHistroyBean: 4");
 			if(this.collectHistroyBeans.size() == Constant.MAX_COLLECT){
-				Log.d(TAG, "addOrRemoveCollectHistroyBean: ---5 remove");
 				this.collectHistroyBeans.remove(0);
 			}
 			this.collectHistroyBeans.add(item);

@@ -80,6 +80,7 @@ public class Constant {
     public static final String TAG_AREA = "area";// +城市id
 
     public static final String TAG_ALIPAY = "aliPay";//支付宝支付
+	public static final String TAG_DETAIL = "detail";//商户详情
 
     public static final int PROVINCES_CITY_DISTRICT_TIME = ACache.TIME_DAY * 90;//省市区   信息更新时间
     public static final int CATEGROYS_TIME = ACache.TIME_DAY * 15;//分类信息  更新时间
@@ -100,10 +101,15 @@ public class Constant {
     public static final String CACHE_CITY_AREA = "citys_";//+id
     public static final String CACHE_FIRST_CATEGROYS = "first_categroy";
     public static final String CACHE_SECOND_CATEGROYS = "second_categroy";
+	public static final String CACHE_COLLECT = "collect";
+	public static final String CACHE_HISTROY = "histroy";
+
 
 	public static final int MAX_HISTROY = 20;
 	public static final int MAX_COLLECT = 20;
 
 	public static final String DIR_WS_CRASH = "WanShangCrash";
+
+	public static final String KEY_EXTRA_MERCHANT_ID = "merchantId";
 
 }
