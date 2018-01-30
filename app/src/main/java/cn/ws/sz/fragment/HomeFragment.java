@@ -200,7 +200,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent();
                 intent.putExtra("BusinessBean",hotList.get(position));
                 intent.setClass(getActivity(), BusinessDetailActivity.class);
-                startActivity(intent);
+                getActivity().startActivity(intent);
             }
         });
 
@@ -229,7 +229,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), BannerActivity.class);
                 intent.putExtra("redict_url",bannerList.get(postion-1).getRedictUrl());
-                startActivity(intent);
+                getActivity().startActivity(intent);
 
             }
         };
@@ -323,7 +323,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         VolleyListenerInterface.mErrorListener) {
                     @Override
                     public void onMySuccess(String result) {
-                        Log.d(TAG, "onMySuccess: " + result);
+//                        Log.d(TAG, "onMySuccess: " + result);
                         BannerStatus status = gson.fromJson(result,BannerStatus.class);
                         bannerList.clear();
                         if(status.getData() != null && status.getData().size() > 0){
@@ -360,7 +360,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 						VolleyListenerInterface.mErrorListener) {
 					@Override
 					public void onMySuccess(String result) {
-						Log.d(TAG, "onMySuccess: " + result);
+//						Log.d(TAG, "onMySuccess: " + result);
 						BusinessStatus status = gson.fromJson(result,BusinessStatus.class);
 						hotList.clear();
 						if(status.getData() != null && status.getData().size() > 0){

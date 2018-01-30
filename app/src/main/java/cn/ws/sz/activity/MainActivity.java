@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void changeFragment(int id){
+        Log.d("MainActivity", "changeFragment: ");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         hideAllFragment(transaction);
         switch(id){

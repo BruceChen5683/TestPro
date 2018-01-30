@@ -41,20 +41,22 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
         setContentView(R.layout.activity_splash);
         Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
-
         gson = new Gson();
         mCache = ACache.get(this);
+        loadData();
+    }
 
-        loadingData();
-
-        loadingProviceData();
-
-
+    private void loadData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                loadingData();
+                loadingProviceData();
+            }
+        },"loadingAreasAndCategroys").start();
     }
 
     private void loadingProviceData() {
@@ -75,6 +77,8 @@ public class SplashActivity extends Activity {
 
                         @Override
                         public void onMyError(VolleyError error) {
+                            Log.e(TAG, "onMyError: "+error.getMessage());
+
                             ToastUtil.showLong(SplashActivity.this,"加载数据失败，请检查网络");
                         }
                     },
@@ -133,7 +137,7 @@ public class SplashActivity extends Activity {
     }
 
     private void parseCitys(String result, int id,boolean save) {
-        Log.d(TAG, "parseCitys " + "*****"+id + "******"+result);
+//        Log.d(TAG, "parseCitys " + "*****"+id + "******"+result);
         CityStatus status = gson.fromJson(result,CityStatus.class);
         WSApp.citysMap.put(id,status.getData());
         if(save){
@@ -166,6 +170,8 @@ public class SplashActivity extends Activity {
 
                         @Override
                         public void onMyError(VolleyError error) {
+                            Log.e(TAG, "onMyError: "+error.getMessage());
+
                             ToastUtil.showLong(SplashActivity.this,"加载数据失败，请检查网络");
                         }
                     },
@@ -178,7 +184,7 @@ public class SplashActivity extends Activity {
     }
 
     private void parseAreas(String result, int id,boolean save) {
-        Log.d(TAG, "parseAreas : " + result);
+//        Log.d(TAG, "parseAreas : " + result);
 
         AreaStatus status = gson.fromJson(result,AreaStatus.class);
         if(status.getData() != null){
@@ -191,75 +197,102 @@ public class SplashActivity extends Activity {
 
     private void loadingData(){
 
-        Log.d(TAG, "loadingData: ");
-        VolleyRequestUtil.RequestGet(this,
-                Constant.URL_CATEGORY + 0,
-                Constant.TAG_CATEGROY,//一级分类tag
-                new VolleyListenerInterface(this,
-                        VolleyListenerInterface.mListener,
-                        VolleyListenerInterface.mErrorListener) {
-                    @Override
-                    public void onMySuccess(String result) {
-                        Log.d(TAG, "onMySuccess: " + result);
-                        ClassifyStatus status = gson.fromJson(result,ClassifyStatus.class);
+        String firsCategroys = mCache.getAsString(Constant.CACHE_FIRST_CATEGROYS);
+        if(firsCategroys == null){
+            Log.d(TAG, "loadingData: ");
+            VolleyRequestUtil.RequestGet(this,
+                    Constant.URL_CATEGORY + 0,
+                    Constant.TAG_CATEGROY,//一级分类tag
+                    new VolleyListenerInterface(this,
+                            VolleyListenerInterface.mListener,
+                            VolleyListenerInterface.mErrorListener) {
+                        @Override
+                        public void onMySuccess(String result) {
+                            parseFirstCategroy(result,true);
 
-                            WSApp.firstCategroyList.clear();
-                            WSApp.firstCategroyList.addAll(status.getData());
-//                            Log.d(TAG, "onMySuccess: WSApp.firstCategroyList  "+ WSApp.firstCategroyList);
-                        for (int i = 0;i < WSApp.firstCategroyList.size();i++){
-                            loadingSecondData(WSApp.firstCategroyList.get(i).getId());
                         }
 
+                        @Override
+                        public void onMyError(VolleyError error) {
+                            Log.e(TAG, "onMyError: "+error.getMessage());
+                            ToastUtil.showLong(SplashActivity.this,"加载数据失败，请检查网络");
 
-                        mHideHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                SplashActivity.this.finish();
-                            }
-                        },AUTO_HIDE_DELAY_MILLIS);
-
-
-                    }
-
-                    @Override
-                    public void onMyError(VolleyError error) {
-
-                        ToastUtil.showLong(SplashActivity.this,"加载数据失败，请检查网络");
-
-                    }
-                },
-                true);
+                        }
+                    },
+                    true);
+        }else {
+            parseFirstCategroy(firsCategroys,false);
+        }
     }
 
     private void loadingSecondData(final int id){
 
-        Log.d(TAG, "loadingData: ");
-        VolleyRequestUtil.RequestGet(this,
-                Constant.URL_CATEGORY + id,
-                Constant.TAG_CATEGROY+id,//不同一级分类tag
-                new VolleyListenerInterface(this,
-                        VolleyListenerInterface.mListener,
-                        VolleyListenerInterface.mErrorListener) {
-                    @Override
-                    public void onMySuccess(String result) {
-                        Log.d(TAG, "onMySuccess: " + result);
-                        ClassifyStatus status = gson.fromJson(result,ClassifyStatus.class);
-                        WSApp.secondCategroyMap.put(id,status.getData());
+        String secondCategroys = mCache.getAsString(Constant.CACHE_SECOND_CATEGROYS+id);
+        if(secondCategroys == null){
+            Log.d(TAG, "loadingSecondData: ");
+            VolleyRequestUtil.RequestGet(this,
+                    Constant.URL_CATEGORY + id,
+                    Constant.TAG_CATEGROY+id,//不同一级分类tag
+                    new VolleyListenerInterface(this,
+                            VolleyListenerInterface.mListener,
+                            VolleyListenerInterface.mErrorListener) {
+                        @Override
+                        public void onMySuccess(String result) {
+                            parseSecondCategroy(result, id,true);
+                        }
 
-                    }
+                        @Override
+                        public void onMyError(VolleyError error) {
+                            Log.d(TAG, "onMyError: "+error.getMessage());
+                            //TODO     WSApp.firstCategroyList.remove(i);
+                        }
+                    },
+                    true);
+        }else{
+            parseSecondCategroy(secondCategroys,id,false);
+        }
 
-                    @Override
-                    public void onMyError(VolleyError error) {
-                        Log.d(TAG, "onMyError: "+error.getMessage());
-//                   TODO     WSApp.firstCategroyList.remove(i);
-                    }
-                },
-                true);
     }
 
 
+    private void parseFirstCategroy(String result,boolean save) {
+        ClassifyStatus status = gson.fromJson(result,ClassifyStatus.class);
+        if(status.getData() != null){
+            if(save){
+                mCache.put(Constant.CACHE_FIRST_CATEGROYS,result,Constant.CATEGROYS_TIME);
+            }
+        }
 
+        Log.d(TAG, "parseFirstCategroy: "+status.getData().size());
+
+        Log.d(TAG, "parseFirstCategroy: clear");
+        WSApp.firstCategroyList.clear();
+        WSApp.firstCategroyList.addAll(status.getData());
+
+        for (int i = 0;i < WSApp.firstCategroyList.size();i++){
+            loadingSecondData(WSApp.firstCategroyList.get(i).getId());
+        }
+        startMainActivity();
+    }
+
+    private void parseSecondCategroy(String result, int id,boolean save) {
+        ClassifyStatus status = gson.fromJson(result,ClassifyStatus.class);
+        if(save){
+            mCache.put(Constant.CACHE_SECOND_CATEGROYS+id,result,Constant.CATEGROYS_TIME);
+        }
+        WSApp.secondCategroyMap.put(id,status.getData());
+    }
+
+
+    private void startMainActivity(){
+        mHideHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                SplashActivity.this.finish();
+            }
+        },AUTO_HIDE_DELAY_MILLIS);
+    }
 
 }

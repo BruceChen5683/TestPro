@@ -16,4 +16,10 @@
         android:text="神州万商......"
         android:gravity="center"/>
 
+    <Button
+        android:id="@+id/testPay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="支付测试" />
+
 </LinearLayout>

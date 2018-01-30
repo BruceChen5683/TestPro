@@ -137,6 +137,7 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
             classifyFirstLV.setSelection(firstCategroyId);
             firstAdapter.setSelectedPosition(firstCategroyId);
             firstAdapter.notifyDataSetChanged();
+            Log.d(TAG, "onHiddenChanged: 1");
             updateSecondData(firstCategroyId);
         }
     }
@@ -166,6 +167,7 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
         secondAdapter = new WsSimpleAdater2(getActivity(),secondData);
         classifySecondGV.setAdapter(secondAdapter);
 
+        Log.d(TAG, "initView: 2");
         updateSecondData(firstCategroyId);
 
         classifyFirstLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -177,6 +179,7 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
 
                 hideSecondGridView(false,-1);
 
+                Log.d(TAG, "onItemClick: 3");
                 updateSecondData(position);
             }
         });
@@ -226,6 +229,9 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
     }
 
     public void updateSecondData(int id){
+
+        Log.d(TAG, "updateSecondData: "+WSApp.firstCategroyList.size());
+
         tmpList = WSApp.secondCategroyMap.get(WSApp.firstCategroyList.get(id).getId());
         secondData.clear();
         if(tmpList != null){

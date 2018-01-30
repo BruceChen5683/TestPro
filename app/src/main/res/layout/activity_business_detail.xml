@@ -11,7 +11,7 @@
     <cn.ws.sz.view.ImageLayout
         android:id="@+id/rlLogo"
         style="@style/personal_summary_150_no_bg"
-        android:background="@drawable/business_logo_tmp">
+        android:background="@drawable/default_ws">
 
         <RelativeLayout
             android:id="@+id/rlBack"

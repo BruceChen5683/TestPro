@@ -167,53 +167,53 @@ public class CommonUtils {
     }
 
 
-    public static void updateData(final Context context){
-        VolleyRequestUtil.RequestGet(context,
-                Constant.URL_CATEGORY + 0,
-                Constant.TAG_CATEGROY,//一级分类tag
-                new VolleyListenerInterface(context,
-                        VolleyListenerInterface.mListener,
-                        VolleyListenerInterface.mErrorListener) {
-                    @Override
-                    public void onMySuccess(String result) {
-                        Log.d(TAG, "onMySuccess: " + result);
-                        ClassifyStatus status = new Gson().fromJson(result,ClassifyStatus.class);
-                        WSApp.firstCategroyList.clear();
-                        WSApp.firstCategroyList.addAll(status.getData());
-                        for (int i = 0;i < WSApp.firstCategroyList.size();i++){
-                            CommonUtils.loadingSecondData(context,WSApp.firstCategroyList.get(i).getId());
-                        }
-                    }
+//    public static void updateData(final Context context){
+//        VolleyRequestUtil.RequestGet(context,
+//                Constant.URL_CATEGORY + 0,
+//                Constant.TAG_CATEGROY,//一级分类tag
+//                new VolleyListenerInterface(context,
+//                        VolleyListenerInterface.mListener,
+//                        VolleyListenerInterface.mErrorListener) {
+//                    @Override
+//                    public void onMySuccess(String result) {
+//                        Log.d(TAG, "onMySuccess: " + result);
+//                        ClassifyStatus status = new Gson().fromJson(result,ClassifyStatus.class);
+//                        WSApp.firstCategroyList.clear();
+//                        WSApp.firstCategroyList.addAll(status.getData());
+//                        for (int i = 0;i < WSApp.firstCategroyList.size();i++){
+//                            CommonUtils.loadingSecondData(context,WSApp.firstCategroyList.get(i).getId());
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onMyError(VolleyError error) {
+//                        Log.d(TAG, "onMyError: "+error.getMessage());
+//                    }
+//                },
+//                true);
+//    }
 
-                    @Override
-                    public void onMyError(VolleyError error) {
-                        Log.d(TAG, "onMyError: "+error.getMessage());
-                    }
-                },
-                true);
-    }
-
-    public static void loadingSecondData(Context context,final int id){
-
-        VolleyRequestUtil.RequestGet(context,
-                Constant.URL_CATEGORY + id,
-                Constant.TAG_CATEGROY+id,//不同一级分类tag
-                new VolleyListenerInterface(context,
-                        VolleyListenerInterface.mListener,
-                        VolleyListenerInterface.mErrorListener) {
-                    @Override
-                    public void onMySuccess(String result) {
-                        Log.d(TAG, "onMySuccess: " + result);
-                        ClassifyStatus status = new Gson().fromJson(result,ClassifyStatus.class);
-                        WSApp.secondCategroyMap.put(id,status.getData());
-                    }
-
-                    @Override
-                    public void onMyError(VolleyError error) {
-                        Log.d(TAG, "onMyError: "+error.getMessage());
-                    }
-                },
-                true);
-    }
+//    public static void loadingSecondData(Context context,final int id){
+//
+//        VolleyRequestUtil.RequestGet(context,
+//                Constant.URL_CATEGORY + id,
+//                Constant.TAG_CATEGROY+id,//不同一级分类tag
+//                new VolleyListenerInterface(context,
+//                        VolleyListenerInterface.mListener,
+//                        VolleyListenerInterface.mErrorListener) {
+//                    @Override
+//                    public void onMySuccess(String result) {
+//                        Log.d(TAG, "onMySuccess: " + result);
+//                        ClassifyStatus status = new Gson().fromJson(result,ClassifyStatus.class);
+//                        WSApp.secondCategroyMap.put(id,status.getData());
+//                    }
+//
+//                    @Override
+//                    public void onMyError(VolleyError error) {
+//                        Log.d(TAG, "onMyError: "+error.getMessage());
+//                    }
+//                },
+//                true);
+//    }
 
 }
