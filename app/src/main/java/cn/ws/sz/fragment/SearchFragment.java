@@ -481,6 +481,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
 //                listView.setVisibility(View.GONE);
             }
         }else if(type == TYPE_SEARCH_DONE){
+			searchView.hideScrollView(true);
             ll_no_search.setVisibility(View.VISIBLE);
             llClassify.setVisibility(View.GONE);
             llSort.setVisibility(View.GONE);

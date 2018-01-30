@@ -141,7 +141,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 		region = Integer.valueOf( DataHelper.getInstance().getAreaId());
 
 		int cityLength = city.length();
-		Log.d(TAG, "onResume: "+cityLength);
 		lp = (RelativeLayout.LayoutParams) rl_left_titlel.getLayoutParams();
 		if(cityLength > 6){
 			cityLength = 6;
@@ -154,7 +153,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private void initView(View view) {
         Log.d(TAG, "initView: ");
-
 		rl_left_titlel = (RelativeLayout) view.findViewById(R.id.rl_left_title);
 
 		bannerFragment = (BannerFragment) getChildFragmentManager().findFragmentById(R.id.fragment_banner_content);

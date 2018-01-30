@@ -308,7 +308,7 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
 
                     @Override
                     public void onMyError(VolleyError error) {
-                        Log.d(TAG, "onMyError: ");
+                        Log.d(TAG, "onMyError: "+error.getMessage());
                     }
                 },
                 true);

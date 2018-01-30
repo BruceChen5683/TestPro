@@ -45,8 +45,14 @@ import java.util.Map;
 
 import cn.ws.sz.R;
 import cn.ws.sz.adater.BusinessPhotoAdapter;
+import cn.ws.sz.adater.ChooseAreaAdapter;
+import cn.ws.sz.adater.ChooseCityAdapter;
 import cn.ws.sz.adater.ChooseClassifyAdapter;
+import cn.ws.sz.adater.ChooseProvinceAdapter;
+import cn.ws.sz.bean.AreaBean;
+import cn.ws.sz.bean.CityBean;
 import cn.ws.sz.bean.ClassifyBean;
+import cn.ws.sz.bean.ProvinceBean;
 import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
@@ -75,6 +81,9 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     private BusinessPhotoAdapter adapter;
     private String randomFileName;
     private boolean isShowDelete = false;
+	private final static int WINDOW_CLASSIFY = 1;
+	private final static int WINDOW_AREA = 2;
+	private int windowType = 0;
 
     private TextView tvTitle;
     private LinearLayout llReturnBack;
@@ -133,16 +142,24 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     private PopupWindow mPopupWindow;
     private WheelView firstClassifyView;
     private WheelView secondClassifyView;
-    private List<ClassifyBean> firstClassifyDatas = new ArrayList<>();
+	private WheelView provinceView,cityView,areaView;
+	private List<ClassifyBean> firstClassifyDatas = new ArrayList<>();
     private List<ClassifyBean> secondClassifyDatas = new ArrayList<>();
-    private String mCurrentFirstClassify,mCurrentSecondClassify;
-    private int mCurrentFirstClassifyItem,mCurrentSecondClassifyItem;
+	private List<ProvinceBean> provinceBeanList = new ArrayList<>();
+	private List<CityBean> cityBeanList = new ArrayList<>();
+	private List<AreaBean> areaBeanList = new ArrayList<>();
+
+    private String mCurrentFirstClassify,mCurrentSecondClassify,mCurrentProvince,mCurrentCity,mCurrentArea;
+    private int mCurrentFirstClassifyItem,mCurrentSecondClassifyItem,mCurrentProvinceItem,mCurrentCityItem,mCurrentAreaItem;
     private TextView btn_myinfo_sure,btn_myinfo_cancel;
     private ChooseClassifyAdapter firstClassifyAdapter,secondClassifyAdapter;
+	private ChooseProvinceAdapter chooseProvinceAdapter;
+	private ChooseCityAdapter chooseCityAdapter;
+	private ChooseAreaAdapter chooseAreaAdapter;
     private final int TEXTSIZE=17;//选择器的字体大小
     private View rootView;
     private RelativeLayout rlSettledClassify;//选择分类,商家地址
-    private TextView tvSettledClassify2;
+    private TextView tvSettledClassify2,tvSettledAddresss2;
     private int categoryId = -1;
 
     private RelativeLayout rlSettledName,rlSettledAddres,rlSettledAddres2,rlSettledCoordinate,rlSettledPhone,rlSettledTel;
@@ -178,19 +195,12 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         rootView = LayoutInflater.from(this).inflate(R.layout.activity_money,null);
         setContentView(rootView);
-
         Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
-
-
         gson = new Gson();
         initView();
-
         initDialog();
-
-
     }
 
     private void initView() {
@@ -282,6 +292,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         rlSettledClassify.setOnClickListener(this);
 		rlSettledAddres.setOnClickListener(this);
         tvSettledClassify2 = (TextView) findViewById(R.id.tvSettledClassify2);
+		tvSettledAddresss2 = (TextView) findViewById(R.id.tvSettledAddresss2);
 
 
     }
@@ -347,7 +358,10 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 //					data.getStringExtra("latitude");
 //					data.getStringExtra("longitude");
 					lat = data.getStringExtra("latitude");
+					lat = lat.substring(lat.lastIndexOf("."+1,6));
 					lng = data.getStringExtra("longitude");
+					lng = lng.substring(lng.lastIndexOf("."+1,6));
+
 					tvSettledCoordinate2.setText(lat+","+lng);
 					break;
 				default:
@@ -380,15 +394,22 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                 mPopupWindow.dismiss();
                 break;
             case R.id.btn_myinfo_sure:
-                tvSettledClassify2.setText(mCurrentFirstClassify+"-"+mCurrentSecondClassify);
+            	if(windowType == WINDOW_CLASSIFY){
+                	tvSettledClassify2.setText(mCurrentFirstClassify+"-"+mCurrentSecondClassify);
+            	}else if(windowType == WINDOW_AREA){
+					tvSettledAddresss2.setText(mCurrentProvince+"-"+mCurrentCity+"-"+mCurrentArea);
+				}
                 mPopupWindow.dismiss();
                 break;
             case R.id.rlSettledClassify:
+				windowType = WINDOW_CLASSIFY;
                 initPopupWindow();
                 mPopupWindow.showAtLocation(rootView, Gravity.BOTTOM,0,0);
                 break;
 			case R.id.rlSettledAddres:
-
+				windowType = WINDOW_AREA;
+				initAreaPopupWindow();
+				mPopupWindow.showAtLocation(rootView, Gravity.BOTTOM,0,0);
 				break;
 
             case R.id.rlSettledName:
@@ -398,6 +419,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                 onClickEditTextParent((ViewGroup) v);
                 break;
             case R.id.rlSettledCoordinate:
+				Log.d(TAG, "onClick: ");
 //                onClickEditTextParent((ViewGroup) v);
                 Intent intent = new Intent();
                 intent.setClass(MoneyActivity.this, LocationFilter.class);
@@ -669,84 +691,177 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
 
     public void initPopupWindow(){
-
         View popupView = LayoutInflater.from(this).inflate(R.layout.popup_classifychoose, null);
         mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setFocusable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setAnimationStyle(R.style.popup_choose_bottom);
-
         firstClassifyView = (WheelView)popupView.findViewById(R.id.provinceView);
         secondClassifyView = (WheelView)popupView.findViewById(R.id.cityView);
-
         //确定或者取消
         btn_myinfo_sure = (TextView)popupView.findViewById(R.id.btn_myinfo_sure);
         btn_myinfo_cancel = (TextView) popupView.findViewById(R.id.btn_myinfo_cancel);
         btn_myinfo_cancel.setOnClickListener(this);
         btn_myinfo_sure.setOnClickListener(this);
-
         // 设置可见条目数量
         firstClassifyView.setVisibleItems(7);
         secondClassifyView.setVisibleItems(7);
-
         // 添加change事件
         firstClassifyView.addChangingListener(this);
         secondClassifyView.addChangingListener(this);
-
         initpopData();
-
     }
 
+    public void initAreaPopupWindow(){
+		View popupView = LayoutInflater.from(this).inflate(R.layout.popup_city_choose, null);
+		mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+		mPopupWindow.setTouchable(true);
+		mPopupWindow.setFocusable(true);
+		mPopupWindow.setOutsideTouchable(true);
+		mPopupWindow.setAnimationStyle(R.style.popup_choose_bottom);
+
+		provinceView = (WheelView)popupView.findViewById(R.id.provinceView);
+		cityView = (WheelView)popupView.findViewById(R.id.cityView);
+		areaView = (WheelView)popupView.findViewById(R.id.areaView);
+
+		//确定或者取消
+		btn_myinfo_sure = (TextView)popupView.findViewById(R.id.btn_myinfo_sure);
+		btn_myinfo_cancel = (TextView) popupView.findViewById(R.id.btn_myinfo_cancel);
+		btn_myinfo_cancel.setOnClickListener(this);
+		btn_myinfo_sure.setOnClickListener(this);
+		// 设置可见条目数量
+		provinceView.setVisibleItems(7);
+		cityView.setVisibleItems(7);
+		areaView.setVisibleItems(7);
+		// 添加change事件
+		provinceView.addChangingListener(this);
+		cityView.addChangingListener(this);
+		areaView.addChangingListener(this);
+		initAreaData();
+	}
+
     private void initpopData() {
-
-
         firstClassifyDatas.clear();
 		firstClassifyDatas.addAll(DataHelper.getInstance().getFirstCategroyList());
-
         mCurrentFirstClassify = firstClassifyDatas.get(0).getName();
         firstClassifyAdapter = new ChooseClassifyAdapter(this,firstClassifyDatas);
         firstClassifyAdapter.setTextSize(TEXTSIZE);
         firstClassifyView.setViewAdapter(firstClassifyAdapter);
-
         if(mCurrentFirstClassifyItem != 0){
             firstClassifyView.setCurrentItem(mCurrentFirstClassifyItem);
         }
-
         updateSecondClassifyDate();
     }
 
+    private void initAreaData(){
+		provinceBeanList.clear();
+		provinceBeanList.addAll(WSApp.provinces);
+		mCurrentProvince = provinceBeanList.get(0).getProvince();
+		chooseProvinceAdapter = new ChooseProvinceAdapter(this,provinceBeanList);
+		chooseProvinceAdapter.setTextSize(TEXTSIZE);
+		provinceView.setViewAdapter(chooseProvinceAdapter);
+		if(mCurrentProvinceItem != 0){
+			provinceView.setCurrentItem(mCurrentProvinceItem);
+		}
+		updateCityData();
+	}
+
+	private void updateCityData(){
+		int pCurrent = provinceView.getCurrentItem();
+		Log.d(TAG, "updateCityData: pCurrent "+pCurrent);
+		if(provinceBeanList.size() > 0){
+			cityBeanList =  WSApp.citysMap.get(provinceBeanList.get(pCurrent).getId());// DataHelper.getInstance().getSecondCategroyMap().get(firstClassifyDatas.get(pCurrent).getId());
+		}else {
+			cityBeanList.clear();
+		}
+
+		if(cityBeanList != null){
+
+			chooseCityAdapter = new ChooseCityAdapter(this,cityBeanList);
+			chooseCityAdapter.setTextSize(TEXTSIZE);
+			cityView.setViewAdapter(chooseCityAdapter);
+
+			int cityLength = cityBeanList.size();
+			if(cityLength > 0){
+				if(cityLength > mCurrentCityItem){
+					mCurrentCity = cityBeanList.get(mCurrentCityItem).getCity();
+//				categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
+					cityView.setCurrentItem(mCurrentCityItem);
+				}else {
+					mCurrentCity = cityBeanList.get(cityLength-1).getCity();
+//				categoryId = secondClassifyDatas.get(cityLength-1).getId();
+					cityView.setCurrentItem(cityLength-1);
+				}
+			}else {
+//			mCurrentCity = "";
+			}
+
+			updateAreaData();
+		}
+
+
+	}
+
+	private void updateAreaData(){
+		int pCurrent = cityView.getCurrentItem();
+		ToastUtil.showLong(this,cityBeanList.size()+"");
+		if(cityBeanList.size() > 0){
+			areaBeanList =  WSApp.areasMap.get(cityBeanList.get(pCurrent).getId());// DataHelper.getInstance().getSecondCategroyMap().get(firstClassifyDatas.get(pCurrent).getId());
+		}else {
+			areaBeanList.clear();
+		}
+		chooseAreaAdapter = new ChooseAreaAdapter(this,areaBeanList);
+		chooseAreaAdapter.setTextSize(TEXTSIZE);
+		areaView.setViewAdapter(chooseAreaAdapter);
+
+		int areaLength = areaBeanList.size();
+		if(areaLength > 0){
+			if(areaLength > mCurrentAreaItem){
+				mCurrentArea = areaBeanList.get(mCurrentAreaItem).getArea();
+//				categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
+				areaView.setCurrentItem(mCurrentAreaItem);
+			}else {
+				mCurrentArea = areaBeanList.get(areaLength-1).getArea();
+//				categoryId = secondClassifyDatas.get(cityLength-1).getId();
+				areaView.setCurrentItem(areaLength-1);
+			}
+		}else {
+//			mCurrentCity = "";
+		}
+	}
+
     private void updateSecondClassifyDate() {
-        int pCurrent = firstClassifyView.getCurrentItem();
+		int pCurrent = firstClassifyView.getCurrentItem();
 
-        ToastUtil.showLong(this,firstClassifyDatas.size()+"");
-        if(firstClassifyDatas.size() > 0){
-            secondClassifyDatas =  DataHelper.getInstance().getSecondCategroyMap().get(firstClassifyDatas.get(pCurrent).getId());
-        }else {
-            secondClassifyDatas.clear();
-        }
+		ToastUtil.showLong(this,firstClassifyDatas.size()+"");
+		if(firstClassifyDatas.size() > 0){
+			secondClassifyDatas =  DataHelper.getInstance().getSecondCategroyMap().get(firstClassifyDatas.get(pCurrent).getId());
+		}else {
+			secondClassifyDatas.clear();
+		}
 
-        secondClassifyAdapter = new ChooseClassifyAdapter(this,secondClassifyDatas);
-        secondClassifyAdapter.setTextSize(TEXTSIZE);
-        secondClassifyView.setViewAdapter(secondClassifyAdapter);
+		secondClassifyAdapter = new ChooseClassifyAdapter(this,secondClassifyDatas);
+		secondClassifyAdapter.setTextSize(TEXTSIZE);
+		secondClassifyView.setViewAdapter(secondClassifyAdapter);
 
 
 
-        int secondClassifyLenght = secondClassifyDatas.size();
-        if(secondClassifyLenght > 0){
-            if(secondClassifyLenght > mCurrentSecondClassifyItem){
-                mCurrentSecondClassify = secondClassifyDatas.get(mCurrentSecondClassifyItem).getName();
-                categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
-                secondClassifyView.setCurrentItem(mCurrentSecondClassifyItem);
-            }else {
-                mCurrentSecondClassify = secondClassifyDatas.get(secondClassifyLenght-1).getName();
-                categoryId = secondClassifyDatas.get(secondClassifyLenght-1).getId();
-                secondClassifyView.setCurrentItem(secondClassifyLenght-1);
-            }
-        }else {
-            mCurrentSecondClassify = "";
-        }
-    }
+		int secondClassifyLenght = secondClassifyDatas.size();
+		if(secondClassifyLenght > 0){
+			if(secondClassifyLenght > mCurrentSecondClassifyItem){
+				mCurrentSecondClassify = secondClassifyDatas.get(mCurrentSecondClassifyItem).getName();
+				categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
+				secondClassifyView.setCurrentItem(mCurrentSecondClassifyItem);
+			}else {
+				mCurrentSecondClassify = secondClassifyDatas.get(secondClassifyLenght-1).getName();
+				categoryId = secondClassifyDatas.get(secondClassifyLenght-1).getId();
+				secondClassifyView.setCurrentItem(secondClassifyLenght-1);
+			}
+		}else {
+			mCurrentSecondClassify = "";
+		}
+	}
 
     /**
      * Callback method to be invoked when current item changed
@@ -766,5 +881,22 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
             mCurrentSecondClassify = secondClassifyDatas.get(newValue).getName();
             mCurrentSecondClassifyItem = newValue;
         }
+
+		if(wheel == provinceView){
+			mCurrentProvince = provinceBeanList.get(newValue).getProvince();
+			updateCityData();
+			mCurrentProvinceItem = newValue;
+		}
+
+		if(wheel == cityView){
+			mCurrentCity = cityBeanList.get(newValue).getCity();
+			updateAreaData();
+			mCurrentCityItem = newValue;
+		}
+
+		if(wheel == areaView){
+			mCurrentArea = areaBeanList.get(newValue).getArea();
+			mCurrentAreaItem = newValue;
+		}
     }
 }
