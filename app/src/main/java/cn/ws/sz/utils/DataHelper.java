@@ -17,6 +17,9 @@ public class DataHelper {
 	private List<ClassifyBean> firstCategroyList = new ArrayList<>();
 	private Map<Integer,List<ClassifyBean>> secondCategroyMap = new HashMap<>();
 
+	private String city = "";
+	private String areaId = "";
+
 	public DataHelper(){
 
 	}
@@ -47,5 +50,21 @@ public class DataHelper {
 
 	public void putSecondCategroyMap(Integer integer,List<ClassifyBean> list) {
 		this.secondCategroyMap.put(integer,list);
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(String areaId) {
+		this.areaId = areaId;
 	}
 }

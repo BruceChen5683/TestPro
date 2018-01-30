@@ -30,6 +30,7 @@ import java.util.Map;
 import cn.ws.sz.R;
 import cn.ws.sz.bean.AreaBean;
 import cn.ws.sz.service.LocationService;
+import cn.ws.sz.utils.DataHelper;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
 import me.yokeyword.indexablerv.EntityWrapper;
@@ -184,11 +185,11 @@ public class PickCityActivity extends AppCompatActivity {
         adapter.setOnItemContentClickListener(new IndexableAdapter.OnItemContentClickListener<CityEntity>() {
             @Override
             public void onItemClick(View v, int originalPosition, int currentPosition, CityEntity entity) {
-                if (originalPosition >= 0) {
-                    ToastUtil.showShort(PickCityActivity.this, "选中:" + entity.getName() + "  当前位置:" + currentPosition + "  原始所在数组位置:" + originalPosition);
-                } else {
-                    ToastUtil.showShort(PickCityActivity.this, "选中Header:" + entity.getName() + "  当前位置:" + currentPosition);
-                }
+//                if (originalPosition >= 0) {
+//                    ToastUtil.showShort(PickCityActivity.this, "选中:" + entity.getName() + "  当前位置:" + currentPosition + "  原始所在数组位置:" + originalPosition);
+//                } else {
+//                    ToastUtil.showShort(PickCityActivity.this, "选中Header:" + entity.getName() + "  当前位置:" + currentPosition);
+//                }
                 if(!gpsCity.get(0).getName().equals(entity.getName())){
                     gpsCity.get(0).setName(entity.getName());
                     gpsHeaderAdapter.notifyDataSetChanged();
@@ -200,9 +201,7 @@ public class PickCityActivity extends AppCompatActivity {
         adapter.setOnItemTitleClickListener(new IndexableAdapter.OnItemTitleClickListener() {
             @Override
             public void onItemClick(View v, int currentPosition, String indexTitle) {
-
-                ToastUtil.showShort(PickCityActivity.this, "选中:" + indexTitle + "  当前位置:" + currentPosition);
-
+//                ToastUtil.showShort(PickCityActivity.this, "选中:" + indexTitle + "  当前位置:" + currentPosition);
             }
         });
 
@@ -225,31 +224,20 @@ public class PickCityActivity extends AppCompatActivity {
         Log.d(TAG, "onResume: ");
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+	@Override
+	protected void onPause() {
+		super.onPause();
+		DataHelper.getInstance().setCity(gpsCity.get(0).getName());
+		DataHelper.getInstance().setAreaId(areaCode);
+	}
 
-        outState.putString("city",gpsCity.get(0).getName() );
-        outState.putString("areaId",areaCode);
-    }
-
-    @Override
+	@Override
     protected void onDestroy() {
 
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
-
-
         locationService.unregisterListener(mListener);
         locationService.stop();
-
-//        Intent mIntent = new Intent();
-//        mIntent.putExtra("city",gpsCity.get(0).getName() );
-//        mIntent.putExtra("areaId",areaCode);
-//        // 设置结果，并进行传送
-//        PickCityActivity.this.setResult(RESULT_OK, mIntent);
-//        PickCityActivity.this.finish();
-
     }
 
     // 更新数据点击事件

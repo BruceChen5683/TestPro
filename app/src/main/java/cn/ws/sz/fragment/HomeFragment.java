@@ -46,6 +46,7 @@ import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.DataHelper;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
 import cn.ws.sz.view.MarqueeTextView;
@@ -81,7 +82,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private Gson gson = new Gson();
     private int region = 110101;//default
+	private String city = "东城区";
 	private List<BusinessBean> hotList = new ArrayList<>();
+	private RelativeLayout rl_left_titlel;
+	private RelativeLayout.LayoutParams lp;
 
 	private StringBuilder adAll = new StringBuilder();
 	private static final int UPDATE_AD_NOTICE = 1;
@@ -110,26 +114,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if(savedInstanceState != null){
-            String city = savedInstanceState.getString("city");
-            String areaId = savedInstanceState.getString("areaId");
-            Log.d("", "onActivityCreated: "+city);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        if(savedInstanceState != null){
-            String city = savedInstanceState.getString("city");
-            String areaId = savedInstanceState.getString("areaId");
-            Log.d("", "onCreateView: "+city);
-        }
-
 
         Log.d(TAG, "onCreateView: "+ getActivity());
         activity = (MainActivity) getActivity();
@@ -143,35 +129,37 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(TAG, "onAttach: ");
-    }
-
-    @Override
-    public void onAttachFragment(Fragment childFragment) {
-        super.onAttachFragment(childFragment);
-        Log.d(TAG, "onAttachFragment: ");
-    }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: ");
-    }
+		if(TextUtils.isEmpty(DataHelper.getInstance().getCity()) || TextUtils.isEmpty(DataHelper.getInstance().getAreaId())){
+			return;
+		}
+		city = DataHelper.getInstance().getCity();
+		region = Integer.valueOf( DataHelper.getInstance().getAreaId());
+
+		int cityLength = city.length();
+		Log.d(TAG, "onResume: "+cityLength);
+		lp = (RelativeLayout.LayoutParams) rl_left_titlel.getLayoutParams();
+		if(cityLength > 6){
+			cityLength = 6;
+		}
+		lp.width = cityLength * ((int) getResources().getDimension(R.dimen.dp_32));
+		rl_left_titlel.setLayoutParams(lp);
+		tvArea.setText(city);
+	}
 
 
     private void initView(View view) {
-
-
         Log.d(TAG, "initView: ");
 
-        bannerFragment = (BannerFragment) getChildFragmentManager().findFragmentById(R.id.fragment_banner_content);
+		rl_left_titlel = (RelativeLayout) view.findViewById(R.id.rl_left_title);
+
+		bannerFragment = (BannerFragment) getChildFragmentManager().findFragmentById(R.id.fragment_banner_content);
 
         if (bannerFragment != null) {// null, Version
-
-            Log.d(TAG, "initView: 3");
             bannerFragment.setHeight();
 //            loadBannerFragment();
         }
@@ -214,7 +202,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent();
                 intent.putExtra("BusinessBean",hotList.get(position));
                 intent.setClass(getActivity(), BusinessDetailActivity.class);
-                getActivity().startActivity(intent);
+                startActivity(intent);
             }
         });
 
@@ -319,13 +307,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         Log.d(TAG, "onActivityResult: resultCode "+resultCode);
         if(resultCode == RESULT_OK){
              if(requestCode == Constant.CODE_CITY_PICERK_ACTIVITY){
-                 Log.d(TAG, "onActivityResult: " + data.getStringExtra("city"));
-                 String city = data.getStringExtra("city");
-                 region = Integer.valueOf(data.getStringExtra("areaId"));
-                 Log.d(TAG, "onActivityResult: region"+region);
-                 if (!TextUtils.isEmpty(city)){
-                    tvArea.setText(data.getStringExtra("city"));
-                 }
+//                 Log.d(TAG, "onActivityResult: " + data.getStringExtra("city"));
+//                 String city = data.getStringExtra("city");
+//                 region = Integer.valueOf(data.getStringExtra("areaId"));
+//                 Log.d(TAG, "onActivityResult: region"+region);
+//                 if (!TextUtils.isEmpty(city)){
+//                    tvArea.setText(data.getStringExtra("city"));
+//                 }
              }
         }
     }
