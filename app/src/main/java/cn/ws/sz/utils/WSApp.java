@@ -1,10 +1,12 @@
 package cn.ws.sz.utils;
 
+import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Vibrator;
+import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -52,6 +54,9 @@ public class WSApp extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+
+		CrashHandler crashHandler = CrashHandler.getInstance();
+		crashHandler.init(getApplicationContext());
         queue = Volley.newRequestQueue(getApplicationContext());
         initImageloader(getApplicationContext());
 
