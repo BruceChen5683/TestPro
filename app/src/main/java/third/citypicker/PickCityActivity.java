@@ -156,6 +156,10 @@ public class PickCityActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+				locationService.unregisterListener(mListener);
+				locationService.stop();
+
                 Intent mIntent = new Intent();
                 mIntent.putExtra("city",gpsCity.get(0).getName() );
                 mIntent.putExtra("areaId",areaCode);

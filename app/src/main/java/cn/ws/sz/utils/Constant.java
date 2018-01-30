@@ -85,10 +85,6 @@ public class Constant {
     public static final int CATEGROYS_TIME = ACache.TIME_DAY * 15;//分类信息  更新时间
 
 
-
-
-
-
     public static final int MODIFIER_AD_TYPE = 1;
     public static final int MODIFIER_MAIN_PRODUCTS_TYPE = 2;
 
@@ -105,5 +101,7 @@ public class Constant {
     public static final String CACHE_FIRST_CATEGROYS = "first_categroy";
     public static final String CACHE_SECOND_CATEGROYS = "second_categroy";
 
+	public static final int MAX_HISTROY = 20;
+	public static final int MAX_COLLECT = 20;
 
 }
