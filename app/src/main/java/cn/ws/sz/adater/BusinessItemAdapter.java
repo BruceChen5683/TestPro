@@ -16,6 +16,7 @@ import java.util.List;
 import cn.ws.sz.R;
 import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.utils.CommonUtils;
+import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.DeviceUtils;
 
 /**
@@ -69,7 +70,13 @@ public class BusinessItemAdapter extends BaseAdapter{
         holder.tvBusinessName.setText(getItem(position).getName());
         holder.tvBusinessAddress.setText(getItem(position).getAddress());
         holder.tvBusinessTel.setText(getItem(position).getCellphone());
-        CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
+		String logoUrl = getItem(position).getLogoUrl();
+		if(logoUrl.startsWith("http")){
+			CommonUtils.setImageView(logoUrl,holder.imageView);
+		}else {
+			CommonUtils.setImageView(Constant.BASEURL + logoUrl,holder.imageView);
+		}
+
 
         holder.rlFixedPhone.setOnClickListener(new View.OnClickListener() {
             @Override

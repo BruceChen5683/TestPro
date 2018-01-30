@@ -230,11 +230,6 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
     }
 
     public void updateSecondData(int id){
-
-
-        Log.d(TAG, "updateSecondData: "+ DataHelper.getInstance().getFirstCategroyList().size()+"-----------"+id);
-		DataHelper.getInstance().getFirstCategroyList().get(id);
-
         tmpList =  DataHelper.getInstance().getSecondCategroyMap().get(DataHelper.getInstance().getFirstCategroyList().get(id).getId());
         secondData.clear();
         if(tmpList != null){

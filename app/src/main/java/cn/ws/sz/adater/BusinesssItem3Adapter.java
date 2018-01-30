@@ -15,6 +15,7 @@ import java.util.List;
 import cn.ws.sz.R;
 import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.utils.CommonUtils;
+import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.DeviceUtils;
 
 /**
@@ -68,7 +69,12 @@ public class BusinesssItem3Adapter extends BaseAdapter{
             holder.tvAddress.setText("默认上海浦东新区张江高科");
         }
         holder.tvCellPhone.setText(getItem(position).getCellphone());
-        CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
+		String logoUrl = getItem(position).getLogoUrl();
+		if(logoUrl.startsWith("")){
+			CommonUtils.setImageView(logoUrl,holder.imageView);
+		}else {
+			CommonUtils.setImageView(Constant.BASEURL+logoUrl,holder.imageView);
+		}
 
 
         convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,

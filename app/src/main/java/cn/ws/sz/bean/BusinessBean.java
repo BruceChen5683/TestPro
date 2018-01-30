@@ -40,7 +40,7 @@ public class BusinessBean implements Serializable{
     private String region;
     private int categoryId;
     private String cellphone;
-    private String logoUrl;
+    private String logoUrl = "";
     private String referee;
     private String refereeCellphone;
     private String attendDate;
