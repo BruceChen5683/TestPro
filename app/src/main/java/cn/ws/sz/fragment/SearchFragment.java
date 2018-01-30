@@ -428,19 +428,40 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     private void changeLayout(int type){
         Log.d(TAG, "changeLayout: type "+type);
         if(type == TYPE_CLASSIFY){
-//            ll_no_search.setVisibility(View.VISIBLE);
-            tvClassify.setTextColor(getResources().getColor(R.color.text_red));
-            tvSort.setTextColor(getResources().getColor(R.color.black));
-            llClassify.setVisibility(View.VISIBLE);
-            llSort.setVisibility(View.GONE);
-            listView.setVisibility(View.GONE);
+
+            if(llClassify.getVisibility() == View.VISIBLE){
+                //            ll_no_search.setVisibility(View.VISIBLE);
+                tvClassify.setTextColor(getResources().getColor(R.color.black));
+                tvSort.setTextColor(getResources().getColor(R.color.black));
+                llClassify.setVisibility(View.GONE);
+                llSort.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+            }else{
+                //            ll_no_search.setVisibility(View.VISIBLE);
+                tvClassify.setTextColor(getResources().getColor(R.color.text_red));
+                tvSort.setTextColor(getResources().getColor(R.color.black));
+                llClassify.setVisibility(View.VISIBLE);
+                llSort.setVisibility(View.GONE);
+                listView.setVisibility(View.GONE);
+            }
+
         }else if(type == TYPE_SORT){
-//            ll_no_search.setVisibility(View.VISIBLE);
-            tvClassify.setTextColor(getResources().getColor(R.color.black));
-            tvSort.setTextColor(getResources().getColor(R.color.text_red));
-            llClassify.setVisibility(View.GONE);
-            llSort.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.GONE);
+            if(llSort.getVisibility() == View.VISIBLE){
+                //            ll_no_search.setVisibility(View.VISIBLE);
+                tvClassify.setTextColor(getResources().getColor(R.color.black));
+                tvSort.setTextColor(getResources().getColor(R.color.black));
+                llClassify.setVisibility(View.GONE);
+                llSort.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+            }else{
+                //            ll_no_search.setVisibility(View.VISIBLE);
+                tvClassify.setTextColor(getResources().getColor(R.color.black));
+                tvSort.setTextColor(getResources().getColor(R.color.text_red));
+                llClassify.setVisibility(View.GONE);
+                llSort.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+            }
+
         }else if(type == TYPE_SEARCH){
             searchView.hideScrollView(false);
             if(ll_no_search.getVisibility() != View.GONE){
