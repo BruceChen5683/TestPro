@@ -104,4 +104,6 @@ public class Constant {
 	public static final int MAX_HISTROY = 20;
 	public static final int MAX_COLLECT = 20;
 
+	public static final String DIR_WS_CRASH = "WanShangCrash";
+
 }
