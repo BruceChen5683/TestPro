@@ -237,7 +237,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 			collectHistoryBeanCollections = new CollectHistoryBeanCollections().setCollectHistoryBeanCollections((CollectHistoryBeanCollections) mACache.getAsObject(Constant.CACHE_HISTROY));
 		}
 		CollectHistroyBean tempCHB = new CollectHistroyBean(businessBean.getId(),businessBean.getName());
-		collectHistoryBeanCollections.addCollectHistroyBean(tempCHB);
+		collectHistoryBeanCollections.addHistroyBean(tempCHB);
 		mACache.put(Constant.CACHE_HISTROY,collectHistoryBeanCollections,ACache.TIME_DAY*10);
 
         if(businessBean != null){
@@ -361,7 +361,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 				}else {
 					ToastUtil.showShort(this,"收藏成功");
 				}
-				collectHistoryBeanCollections.addOrRemoveCollectHistroyBean(tempCHB);
+				collectHistoryBeanCollections.addOrRemoveCollectBean(tempCHB);
 				mACache.put(Constant.CACHE_COLLECT,collectHistoryBeanCollections,ACache.TIME_DAY*10);
                 break;
             case R.id.rlFixedPhone:

@@ -37,17 +37,17 @@ public class CollectHistoryBeanCollections implements Serializable{
 		}
 	}
 
-	public void addCollectHistroyBean(CollectHistroyBean item){
+	public void addHistroyBean(CollectHistroyBean item){
 		if(this.collectHistroyBeans.contains(item)){
 			return;
 		}
-		if(this.collectHistroyBeans.size() == Constant.MAX_COLLECT){
+		if(this.collectHistroyBeans.size() == Constant.MAX_HISTROY){
 			this.collectHistroyBeans.remove(0);
 		}
 		this.collectHistroyBeans.add(item);
 	}
 
-	public void addOrRemoveCollectHistroyBean(CollectHistroyBean item){
+	public void addOrRemoveCollectBean(CollectHistroyBean item){
 		if(this.collectHistroyBeans.contains(item)){
 			this.collectHistroyBeans.remove(item);
 		}else{

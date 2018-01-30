@@ -55,8 +55,8 @@ public class WSApp extends Application{
     public void onCreate() {
         super.onCreate();
 
-//		CrashHandler crashHandler = CrashHandler.getInstance();
-//		crashHandler.init(getApplicationContext());
+		CrashHandler crashHandler = CrashHandler.getInstance();
+		crashHandler.init(getApplicationContext());
         queue = Volley.newRequestQueue(getApplicationContext());
         initImageloader(getApplicationContext());
 
