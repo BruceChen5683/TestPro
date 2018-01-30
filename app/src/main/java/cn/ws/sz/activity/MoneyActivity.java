@@ -50,6 +50,7 @@ import cn.ws.sz.bean.ClassifyBean;
 import cn.ws.sz.bean.UploadStatus;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.DataHelper;
 import cn.ws.sz.utils.DeviceUtils;
 import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ImageItem;
@@ -700,7 +701,8 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     private void initpopData() {
 
 
-        firstClassifyDatas = WSApp.firstCategroyList;
+        firstClassifyDatas.clear();
+		firstClassifyDatas.addAll(DataHelper.getInstance().getFirstCategroyList());
 
         mCurrentFirstClassify = firstClassifyDatas.get(0).getName();
         firstClassifyAdapter = new ChooseClassifyAdapter(this,firstClassifyDatas);
@@ -719,7 +721,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
         ToastUtil.showLong(this,firstClassifyDatas.size()+"");
         if(firstClassifyDatas.size() > 0){
-            secondClassifyDatas = WSApp.secondCategroyMap.get(firstClassifyDatas.get(pCurrent).getId());
+            secondClassifyDatas =  DataHelper.getInstance().getSecondCategroyMap().get(firstClassifyDatas.get(pCurrent).getId());
         }else {
             secondClassifyDatas.clear();
         }

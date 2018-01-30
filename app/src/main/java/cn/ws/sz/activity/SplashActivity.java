@@ -18,6 +18,7 @@ import cn.ws.sz.bean.CityStatus;
 import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.bean.ProvinceStatus;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.DataHelper;
 import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
@@ -266,11 +267,10 @@ public class SplashActivity extends Activity {
         Log.d(TAG, "parseFirstCategroy: "+status.getData().size());
 
         Log.d(TAG, "parseFirstCategroy: clear");
-        WSApp.firstCategroyList.clear();
-        WSApp.firstCategroyList.addAll(status.getData());
+		DataHelper.getInstance().setFirstCategroyList(status.getData());
 
-        for (int i = 0;i < WSApp.firstCategroyList.size();i++){
-            loadingSecondData(WSApp.firstCategroyList.get(i).getId());
+        for (int i = 0;i < DataHelper.getInstance().getFirstCategroyList().size();i++){
+            loadingSecondData(DataHelper.getInstance().getFirstCategroyList().get(i).getId());
         }
         startMainActivity();
     }
@@ -280,7 +280,7 @@ public class SplashActivity extends Activity {
         if(save){
             mCache.put(Constant.CACHE_SECOND_CATEGROYS+id,result,Constant.CATEGROYS_TIME);
         }
-        WSApp.secondCategroyMap.put(id,status.getData());
+		DataHelper.getInstance().putSecondCategroyMap(id,status.getData());
     }
 
 

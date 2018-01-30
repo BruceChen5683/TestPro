@@ -38,6 +38,7 @@ import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.ClassifyBean;
 import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.DataHelper;
 import cn.ws.sz.utils.WSApp;
 import third.PullToRefreshView;
 import third.searchview.ICallBack;
@@ -367,8 +368,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     private List<String> getFirstData() {
         List<String> data = new ArrayList<String>();
         data.add("所有分类");
-        for (int i = 0; i < WSApp.firstCategroyList.size(); i++){
-            data.add(WSApp.firstCategroyList.get(i).getName());
+        for (int i = 0; i < DataHelper.getInstance().getFirstCategroyList().size(); i++){
+            data.add(DataHelper.getInstance().getFirstCategroyList().get(i).getName());
         }
         return data;
     }
@@ -377,10 +378,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
         if(id == 0){
             return;
         }
-        tmpList = WSApp.secondCategroyMap.get(WSApp.firstCategroyList.get(id-1).getId());
+        tmpList =  DataHelper.getInstance().getSecondCategroyMap().get(DataHelper.getInstance().getFirstCategroyList().get(id-1).getId());
         secondData.clear();
         if(tmpList != null){
-            secondData.add("所有"+WSApp.firstCategroyList.get(id-1).getName());
+            secondData.add("所有"+DataHelper.getInstance().getFirstCategroyList().get(id-1).getName());
             for (int i =0;i < tmpList.size();i++){
                 secondData.add(tmpList.get(i).getName());
             }

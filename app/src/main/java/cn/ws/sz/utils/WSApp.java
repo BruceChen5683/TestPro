@@ -37,8 +37,6 @@ import cn.ws.sz.service.LocationService;
 
 public class WSApp extends Application{
     public static RequestQueue queue;
-    public final static List<ClassifyBean> firstCategroyList = new ArrayList<>();
-    public final static Map<Integer,List<ClassifyBean>> secondCategroyMap = new HashMap<>();
     public static int classifyId = 0;
 
     public final static List<ProvinceBean> provinces = new ArrayList<>();//省
@@ -46,8 +44,6 @@ public class WSApp extends Application{
     public final static Map<Integer,CityBean> citys = new HashMap<>();//市
 
     public final static Map<Integer,List<AreaBean>> areasMap = new HashMap<>();//市 区
-//    public final static List<CityBean> citys = new ArrayList<>();
-//    public final static List<AreaBean> areas = new ArrayList<>();
 
 
     public LocationService locationService;
@@ -57,9 +53,6 @@ public class WSApp extends Application{
     public void onCreate() {
         super.onCreate();
         queue = Volley.newRequestQueue(getApplicationContext());
-//        firstCategroyList = new ArrayList<ClassifyBean>();
-//        secondCategroyMap = new HashMap<Integer, List<ClassifyBean>>();
-
         initImageloader(getApplicationContext());
 
         locationService = new LocationService(getApplicationContext());

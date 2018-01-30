@@ -81,7 +81,7 @@ public class BannerActivity extends AppCompatActivity {
                 webView.goBack();   //返回上一页面
                 return true;
             } else {
-                System.exit(0);     //退出程序
+                this.finish(); //退出程序
             }
 
         }

@@ -34,6 +34,7 @@ import cn.ws.sz.bean.BusinessBean;
 import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.ClassifyBean;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.DataHelper;
 import cn.ws.sz.utils.WSApp;
 import third.PullToRefreshView;
 import third.volley.VolleyListenerInterface;
@@ -230,9 +231,11 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
 
     public void updateSecondData(int id){
 
-        Log.d(TAG, "updateSecondData: "+WSApp.firstCategroyList.size());
 
-        tmpList = WSApp.secondCategroyMap.get(WSApp.firstCategroyList.get(id).getId());
+        Log.d(TAG, "updateSecondData: "+ DataHelper.getInstance().getFirstCategroyList().size()+"-----------"+id);
+		DataHelper.getInstance().getFirstCategroyList().get(id);
+
+        tmpList =  DataHelper.getInstance().getSecondCategroyMap().get(DataHelper.getInstance().getFirstCategroyList().get(id).getId());
         secondData.clear();
         if(tmpList != null){
             secondData.addAll(tmpList);
@@ -244,8 +247,8 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
 
     private List<String> getFirstData(){
         List<String> data = new ArrayList<String>();
-            for (int i =0;i < WSApp.firstCategroyList.size();i++){
-                data.add(WSApp.firstCategroyList.get(i).getName());
+            for (int i =0;i < DataHelper.getInstance().getFirstCategroyList().size();i++){
+                data.add(DataHelper.getInstance().getFirstCategroyList().get(i).getName());
             }
         return data;
 
