@@ -112,11 +112,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if(savedInstanceState != null){
+            String city = savedInstanceState.getString("city");
+            String areaId = savedInstanceState.getString("areaId");
+            Log.d("", "onActivityCreated: "+city);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if(savedInstanceState != null){
+            String city = savedInstanceState.getString("city");
+            String areaId = savedInstanceState.getString("areaId");
+            Log.d("", "onCreateView: "+city);
+        }
+
 
         Log.d(TAG, "onCreateView: "+ getActivity());
         activity = (MainActivity) getActivity();
@@ -147,6 +160,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         super.onResume();
         Log.d(TAG, "onResume: ");
     }
+
 
     private void initView(View view) {
 
@@ -249,7 +263,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.tv_area:
                 intent.setClass(getActivity(), PickCityActivity.class);
-                startActivityForResult(intent, Constant.CODE_CITY_PICERK_ACTIVITY);
+                getActivity().startActivityForResult(intent, Constant.CODE_CITY_PICERK_ACTIVITY);
                 break;
 
             case R.id.rlSearch:
@@ -302,11 +316,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: ");
+        Log.d(TAG, "onActivityResult: resultCode "+resultCode);
         if(resultCode == RESULT_OK){
              if(requestCode == Constant.CODE_CITY_PICERK_ACTIVITY){
                  Log.d(TAG, "onActivityResult: " + data.getStringExtra("city"));
                  String city = data.getStringExtra("city");
+                 region = Integer.valueOf(data.getStringExtra("areaId"));
+                 Log.d(TAG, "onActivityResult: region"+region);
                  if (!TextUtils.isEmpty(city)){
                     tvArea.setText(data.getStringExtra("city"));
                  }

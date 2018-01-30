@@ -45,9 +45,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FrameLayout ly_content;
     private FragmentManager fragmentManager;
 
+    private String city;
+    private String areaId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(savedInstanceState != null){
+            city = savedInstanceState.getString("city");
+            areaId = savedInstanceState.getString("areaId");
+            Log.d("", "onCreate: "+city);
+        }
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 //
