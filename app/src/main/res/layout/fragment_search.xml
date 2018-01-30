@@ -125,7 +125,7 @@
                 </ListView>
             </LinearLayout>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -142,7 +142,53 @@
                         android:numColumns="2"
                         android:gravity="center">
                     </GridView>
-            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_classify_second"
+                    android:paddingTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_classify_second_back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"
+                            android:text="返回"
+                            android:drawableLeft="@mipmap/btn_classifyl_return" />
+
+                        <TextView
+                            android:id="@+id/tv_classify_second_title"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+
+                    <third.PullToRefreshView
+                        android:id="@+id/classify_second_pull_refresh_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <GridView
+                            android:paddingTop="10dp"
+                            android:id="@+id/classify_second_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:horizontalSpacing="10dp"
+                            android:verticalSpacing="10dp"
+                            android:numColumns="2"
+                            android:gravity="center">
+                        </GridView>
+                    </third.PullToRefreshView>
+
+                </LinearLayout>
+            </FrameLayout>
 
         </LinearLayout>
 

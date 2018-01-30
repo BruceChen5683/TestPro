@@ -20,13 +20,16 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.ws.sz.R;
+import cn.ws.sz.activity.BusinessDetailActivity;
 import cn.ws.sz.activity.SearchActivity;
 import cn.ws.sz.adater.BusinessItemAdapter;
+import cn.ws.sz.adater.BusinesssItem3Adapter;
 import cn.ws.sz.adater.WsSimpleAdater;
 import cn.ws.sz.adater.WsSimpleAdater2;
 import cn.ws.sz.adater.WsSimpleAdater2_Search;
@@ -36,6 +39,7 @@ import cn.ws.sz.bean.ClassifyBean;
 import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.WSApp;
+import third.PullToRefreshView;
 import third.searchview.ICallBack;
 import third.searchview.IChangeLayout;
 import third.searchview.ISearchItemCallBack;
@@ -45,7 +49,7 @@ import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
 
 
-public class SearchFragment extends Fragment implements View.OnClickListener{
+public class SearchFragment extends Fragment implements View.OnClickListener,PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterRefreshListener{
     private final static String TAG = SearchFragment.class.getSimpleName();
     private SearchView searchView;
 
@@ -61,6 +65,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private int region = 110101;//区域
     private Gson gson;
 
+    private int areaId = 110101;//区域
+    private boolean bLoadMore = false;
+
+    private PullToRefreshView pullToRefreshView;
+    private boolean actionDone = true;//下拉刷新是否结束
+
     private RelativeLayout rlClassify,rlSort;//选择
     private TextView tvClassify,tvSort;
 
@@ -69,11 +79,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
 
 
     private ListView classifyFirstLV;
-    private GridView classifySecondGV;
+    private GridView classifySecondGV,classifySecondGVDetail;
     private WsSimpleAdater firstAdapter;
     private WsSimpleAdater2_Search secondAdapter;
+    private BusinesssItem3Adapter classifySecondDetailAdapter;
+
     private List<ClassifyBean> tmpList = new ArrayList<ClassifyBean>();
     private List<String> secondData = new ArrayList<String>();
+    private List<BusinessBean> classifySecondDetaildata = new ArrayList<BusinessBean>();
 
 
 
@@ -85,6 +98,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
 
     private String queryText = "";
     private Map<String,String> quertyMap = new HashMap<>();
+
+
+    private LinearLayout ll_classify_second;
+    private TextView tv_classify_second_back,tv_classify_second_title;
 
 
 
@@ -164,8 +181,122 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
 
 
         initRlSort(view);
+
+
+        pullToRefreshView = (PullToRefreshView) view.findViewById(R.id.classify_second_pull_refresh_view);
+        pullToRefreshView.setOnHeaderRefreshListener(this);
+        pullToRefreshView.setOnFooterRefreshListener(this);
+        pullToRefreshView.setLastUpdated(new Date().toLocaleString());
+        pullToRefreshView.onFooterRefreshComplete();
+
+        classifySecondGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                secondCategroy = 17;
+                Log.d(TAG, "onItemClick: secondCategroy "+secondCategroy);
+                pageId = 1;
+                bLoadMore = false;
+
+                hideSecondGridView(true,position);
+            }
+        });
+
+
+        ll_classify_second = (LinearLayout) view.findViewById(R.id.ll_classify_second);
+        ll_classify_second.setVisibility(View.INVISIBLE);
+        tv_classify_second_back = (TextView) ll_classify_second.findViewById(R.id.tv_classify_second_back);
+        tv_classify_second_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideSecondGridView(false,0);
+            }
+        });
+
+        tv_classify_second_title = (TextView) ll_classify_second.findViewById(R.id.tv_classify_second_title);
+        classifySecondGVDetail = (GridView) ll_classify_second.findViewById(R.id.classify_second_detail);
+
+        classifySecondDetailAdapter = new BusinesssItem3Adapter(getActivity(),classifySecondDetaildata);
+        classifySecondGVDetail.setAdapter(classifySecondDetailAdapter);
+        classifySecondGVDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: position "+position);
+                if(classifySecondDetaildata.get(position) == null){
+                    Log.e(TAG, "onItemClick: "+"eeee" );
+                }
+                Intent intent = new Intent();
+                intent.putExtra("BusinessBean",classifySecondDetaildata.get(position));
+                intent.setClass(getActivity(), BusinessDetailActivity.class);
+                startActivity(intent);
+            }
+        });
         
         
+    }
+
+    public void hideSecondGridView(boolean flag,int position){
+        if(flag){
+            if(classifySecondGV != null){
+                classifySecondGV.setVisibility(View.INVISIBLE);
+            }
+            if(ll_classify_second != null){
+                loadData(bLoadMore,secondCategroy,pageId,areaId);
+                ll_classify_second.setVisibility(View.VISIBLE);
+                if(tv_classify_second_title != null){
+                    tv_classify_second_title.setText(secondData.get(position));
+                }
+            }
+        }else {
+            if(classifySecondGV != null){
+                classifySecondGV.setVisibility(View.VISIBLE);
+            }
+            if(ll_classify_second != null){
+                ll_classify_second.setVisibility(View.INVISIBLE);
+            }
+        }
+
+    }
+    private void loadData(final boolean loadMore,final int mSecondCategroy,final int mPageId,final int mAreaId) {
+
+        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0);
+        VolleyRequestUtil.RequestGet(getActivity(),
+                Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0,
+                Constant.TAG_BUSINESS_LIST_2,//商家列表tag
+                new VolleyListenerInterface(getActivity(),
+                        VolleyListenerInterface.mListener,
+                        VolleyListenerInterface.mErrorListener) {
+                    @Override
+                    public void onMySuccess(String result) {
+
+
+                        Log.d(TAG, "onMySuccess: "+result);
+
+                        BusinessStatus status = gson.fromJson(result,BusinessStatus.class);
+                        if(!loadMore){
+                            classifySecondDetaildata.clear();
+                        }
+                        if(status.getData() != null && status.getData().size() > 0){
+                            actionDone = true;
+                            classifySecondDetaildata.addAll(status.getData());
+                        }else{
+
+                        }
+                        classifySecondDetailAdapter.notifyDataSetChanged();
+                        if(mPageId <= 1){
+                            pullToRefreshView.onHeaderRefreshComplete("更新于:"+new Date().toLocaleString());
+                        }else{
+                            pullToRefreshView.onFooterRefreshComplete();
+                        }
+
+                    }
+
+                    @Override
+                    public void onMyError(VolleyError error) {
+                        Log.d(TAG, "onMyError: ");
+                    }
+                },
+                true);
     }
 
     private void initRlSort(View view) {
@@ -325,5 +456,25 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
             llSort.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onFooterRefresh(PullToRefreshView view) {
+        Log.d(TAG, "onFooterRefresh: ");
+
+        if(actionDone){
+            pageId++;
+            actionDone = false;
+        }
+        bLoadMore = true;
+        loadData(bLoadMore,secondCategroy,pageId,areaId);
+    }
+
+    @Override
+    public void onHeaderRefresh(PullToRefreshView view) {
+        Log.d(TAG, "onHeaderRefresh: ");
+        pageId = 1;
+        bLoadMore = false;
+        loadData(bLoadMore,secondCategroy,pageId,areaId);
     }
 }
