@@ -362,7 +362,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 						VolleyListenerInterface.mErrorListener) {
 					@Override
 					public void onMySuccess(String result) {
-//						Log.d(TAG, "onMySuccess: " + result);
+						Log.d(TAG, "onMySuccess: " + result);
 						BusinessStatus status = gson.fromJson(result,BusinessStatus.class);
 						hotList.clear();
 						if(status.getData() != null && status.getData().size() > 0){

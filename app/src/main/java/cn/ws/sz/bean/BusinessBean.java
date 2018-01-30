@@ -32,6 +32,7 @@ public class BusinessBean implements Serializable{
      * isHot : 1
      * sort : 1
      * address : 上海浦东测试
+	 * isAuth:1
      */
 
     private int id;
@@ -54,8 +55,17 @@ public class BusinessBean implements Serializable{
     private int isHot;
     private int sort;
     private String address;
+	private int isAuth;
 
-    public int getId() {
+	public int getIsAuth() {
+		return isAuth;
+	}
+
+	public void setIsAuth(int isAuth) {
+		this.isAuth = isAuth;
+	}
+
+	public int getId() {
         return id;
     }
 
