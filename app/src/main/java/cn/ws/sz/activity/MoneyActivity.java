@@ -1,5 +1,6 @@
 package cn.ws.sz.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,12 +31,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -60,6 +67,7 @@ import cn.ws.sz.utils.DataHelper;
 import cn.ws.sz.utils.DeviceUtils;
 import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.ImageItem;
+import cn.ws.sz.utils.PayResult;
 import cn.ws.sz.utils.StringUtils;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
@@ -84,11 +92,13 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 	private final static int WINDOW_CLASSIFY = 1;
 	private final static int WINDOW_AREA = 2;
 	private int windowType = 0;
+	private int areaId;
 
     private TextView tvTitle;
     private LinearLayout llReturnBack;
 
     private Button submitBtn;
+	private RadioButton rgSettledUserNormal,rgSettledUserVip;
 
     private Dialog dialog;
     private int dialogHeight;
@@ -114,7 +124,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
     private Gson gson;
 
-    private EditText tvSettledName2,etDetailAddress,tvSettledTel2,mainProducts,ad;
+    private EditText tvSettledName2,etDetailAddress,tvSettledTel2,mainProducts,ad,tvSettledPhone2;
     private StringBuilder imageIdStr = new StringBuilder();
 
     private static final int UPLOAD_PIC_SUCCESS = 200;
@@ -168,6 +178,43 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
     private ScrollView scrollView;
 
+	private int merchantId;
+
+	/*
+	 * alipay
+	 * */
+	private String orderInfo;
+	private static final int SDK_PAY_FLAG = 1;
+	@SuppressLint("HandlerLeak")
+	private Handler mPayHandler = new Handler() {
+		@SuppressWarnings("unused")
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+				case SDK_PAY_FLAG: {
+					@SuppressWarnings("unchecked")
+					PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+					/**
+					 对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+					 */
+					String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+					String resultStatus = payResult.getResultStatus();
+					// 判断resultStatus 为9000则代表支付成功
+					if (TextUtils.equals(resultStatus, "9000")) {
+						// 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+						Toast.makeText(MoneyActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+					} else {
+						// 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+						Toast.makeText(MoneyActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+					}
+					break;
+				}
+				default:
+					break;
+			}
+		}
+		;
+	};
+
 
 
 
@@ -216,7 +263,11 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         llMainPoructs = (LinearLayout) findViewById(R.id.llMainPoructs);
         llAd = (LinearLayout) findViewById(R.id.llAd);
 
-        rlSettledName.setOnClickListener(this);
+		rgSettledUserNormal = (RadioButton) findViewById(R.id.rgSettledUserNormal);
+		rgSettledUserVip = (RadioButton) findViewById(R.id.rgSettledUserVip);
+
+
+		rlSettledName.setOnClickListener(this);
         rlSettledAddres.setOnClickListener(this);
         rlSettledAddres2.setOnClickListener(this);
         rlSettledCoordinate.setOnClickListener(this);
@@ -282,6 +333,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
 
         tvSettledName2 = (EditText) findViewById(R.id.tvSettledName2);
+		tvSettledPhone2 = (EditText)findViewById(R.id.tvSettledPhone2);
         etDetailAddress = (EditText) findViewById(R.id.etDetailAddress);
         tvSettledTel2 = (EditText) findViewById(R.id.tvSettledTel2);
         mainProducts = (EditText) findViewById(R.id.mainProducts);
@@ -358,9 +410,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 //					data.getStringExtra("latitude");
 //					data.getStringExtra("longitude");
 					lat = data.getStringExtra("latitude");
-					lat = lat.substring(lat.lastIndexOf("."+1,6));
 					lng = data.getStringExtra("longitude");
-					lng = lng.substring(lng.lastIndexOf("."+1,6));
 
 					tvSettledCoordinate2.setText(lat+","+lng);
 					break;
@@ -383,6 +433,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.llRecommendEnter://submit
                 payAction();
+//				startAliPay();
                 break;
             case R.id.rlWeChat:
                 changPayConfim(false);
@@ -462,6 +513,12 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
     private void payAction() {
 
+		if(!rgSettledUserVip.isChecked() && !rgSettledUserNormal.isChecked()){
+			ToastUtil.showLong(this,"请选择商家类型,默认普通商家");
+			rgSettledUserNormal.setChecked(true);
+			return;
+		}
+
         uploadImage();
         Log.d(TAG, "payAction: ");
 
@@ -485,10 +542,12 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        if(TextUtils.isEmpty(etDetailAddress.getText())){
-            ToastUtil.showLong(this,"请输入详细地址");
-            hideDialog();
-            CommonUtils.showSoftInputFromWindow(this,etDetailAddress);
+        if(TextUtils.isEmpty(tvSettledAddresss2.getText())){
+            ToastUtil.showLong(this,"请输入商家的地址");
+			hideDialog();
+			scrollView.smoothScrollTo(0,0);
+			initAreaPopupWindow();
+			mPopupWindow.showAtLocation(rootView, Gravity.BOTTOM,0,0);
             return;
         }
 
@@ -513,20 +572,27 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         }
 
         params.put("name",tvSettledName2.getText().toString());
-        params.put("region","110101");
+        params.put("region",areaId+"");
         params.put("categoryId",String.valueOf(categoryId));
         params.put("cellphone",tvSettledTel2.getText().toString());
         params.put("mainProducts",mainProducts.getText().toString());
         params.put("adWord",ad.getText().toString());
-        params.put("phone","01012345");
+		if(!TextUtils.isEmpty(tvSettledPhone2.getText().toString())){
+			params.put("phone",tvSettledPhone2.getText().toString());
+		}
 		if(!TextUtils.isEmpty(lng) && !TextUtils.isEmpty(lat)){
 			params.put("lng",lng);
 			params.put("lat",lat);
 		}
 
-        params.put("address",etDetailAddress.getText().toString());
+        params.put("address",tvSettledAddresss2.getText() + etDetailAddress.getText().toString());
         imageIdStr.deleteCharAt(imageIdStr.length()-1);
         params.put("imageIdStr",imageIdStr.toString());
+		if(rgSettledUserNormal.isChecked()){
+			params.put("type","normal");
+		}else {
+			params.put("type","vip");
+		}
 
         Log.d(TAG, "payAction: --------uploadBusinessInfo");
         uploadBusinessInfo(params);
@@ -534,7 +600,11 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
     private void uploadImage() {
 
-
+		if(SelectedImages.size() == 0){
+			ToastUtil.showLong(this,"请添加商户图片");
+			hideDialog();
+			return;
+		}
         mImageSize = 0;
         for (int i = 0; i < SelectedImages.size(); i++) {
 
@@ -544,7 +614,6 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
             //发起请求
             uploadImage(i,paramsImg);
         }
-
     }
 
     private void uploadImage(final int i,final Map<String,String[]> paramsImg){
@@ -579,8 +648,8 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onMyError(VolleyError error) {
                         mImageSize++;
-
-                        Log.d(TAG, "onMyError: ");
+						ToastUtil.showShort(MoneyActivity.this, "商家图片上传失败");
+                        Log.d(TAG, "onMyError: "+error.getMessage());
                     }
                 },
                 true);
@@ -641,6 +710,8 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                         UploadStatus status = gson.fromJson(result,UploadStatus.class);
                         if(status.getErrcode() == 0){
                             ToastUtil.showShort(MoneyActivity.this,"商家信息上传成功");
+							merchantId = status.getData();
+							startAliPay();
                         }else {
                             ToastUtil.showShort(MoneyActivity.this,"商家信息上传失败");
                         }
@@ -650,7 +721,8 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
                     @Override
                     public void onMyError(VolleyError error) {
-                        Log.d(TAG, "onMyError: ");
+						ToastUtil.showShort(MoneyActivity.this,"商家信息上传失败");
+                        Log.d(TAG, "onMyError: "+error.getMessage());
                     }
                 },
                 true);
@@ -805,7 +877,6 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
 	private void updateAreaData(){
 		int pCurrent = cityView.getCurrentItem();
-		ToastUtil.showLong(this,cityBeanList.size()+"");
 		if(cityBeanList.size() > 0){
 			areaBeanList =  WSApp.areasMap.get(cityBeanList.get(pCurrent).getId());// DataHelper.getInstance().getSecondCategroyMap().get(firstClassifyDatas.get(pCurrent).getId());
 		}else {
@@ -819,10 +890,12 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 		if(areaLength > 0){
 			if(areaLength > mCurrentAreaItem){
 				mCurrentArea = areaBeanList.get(mCurrentAreaItem).getArea();
+				areaId = areaBeanList.get(mCurrentAreaItem).getId();
 //				categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
 				areaView.setCurrentItem(mCurrentAreaItem);
 			}else {
 				mCurrentArea = areaBeanList.get(areaLength-1).getArea();
+				areaId = areaBeanList.get(areaLength-1).getId();
 //				categoryId = secondClassifyDatas.get(cityLength-1).getId();
 				areaView.setCurrentItem(areaLength-1);
 			}
@@ -834,7 +907,6 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
     private void updateSecondClassifyDate() {
 		int pCurrent = firstClassifyView.getCurrentItem();
 
-		ToastUtil.showLong(this,firstClassifyDatas.size()+"");
 		if(firstClassifyDatas.size() > 0){
 			secondClassifyDatas =  DataHelper.getInstance().getSecondCategroyMap().get(firstClassifyDatas.get(pCurrent).getId());
 		}else {
@@ -896,7 +968,63 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 
 		if(wheel == areaView){
 			mCurrentArea = areaBeanList.get(newValue).getArea();
+			areaId = areaBeanList.get(newValue).getId();
 			mCurrentAreaItem = newValue;
 		}
     }
+
+
+    private void startAliPay(){
+		if(merchantId <= 0){
+			ToastUtil.showShort(this,"请上传商户信息");
+			return;
+		}
+		doPay(merchantId);
+	}
+
+	private void doPay(int merchantId) {
+		VolleyRequestUtil.RequestGet(this,
+				Constant.PRE_PAY + "/" + merchantId,
+				Constant.TAG_ALIPAY,//商家列表tag
+				new VolleyListenerInterface(this,
+						VolleyListenerInterface.mListener,
+						VolleyListenerInterface.mErrorListener) {
+					@Override
+					public void onMySuccess(String result) {
+						JSONObject jsonObject = null;
+						try {
+							jsonObject = new JSONObject(result);
+							int code = jsonObject.getInt("errcode");
+							if (code == 0) {
+								orderInfo = jsonObject.getString("data");
+								Runnable payRunnable = new Runnable() {
+									@Override
+									public void run() {
+										PayTask alipay = new PayTask(MoneyActivity.this);
+										Map<String, String> result = alipay.payV2(orderInfo, true);
+										Log.i("msp", result.toString());
+
+										Message msg = new Message();
+										msg.what = SDK_PAY_FLAG;
+										msg.obj = result;
+										mHandler.sendMessage(msg);
+									}
+								};
+								Thread payThread = new Thread(payRunnable);
+								payThread.start();
+							} else {
+								ToastUtil.showShort(MoneyActivity.this, jsonObject.getString("data"));
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onMyError(VolleyError error) {
+						Log.d(TAG, "onMyError: "+error.getMessage());
+					}
+				},
+				true);
+	}
 }

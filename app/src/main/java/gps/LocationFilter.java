@@ -250,6 +250,10 @@ public class LocationFilter extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent mIntent = new Intent();
+				if(mLatLng == null){
+					LocationFilter.this.finish();
+					return;
+				}
 				mIntent.putExtra("latitude",mLatLng.latitude+"" );
 				mIntent.putExtra("longitude",mLatLng.longitude+"" );
 				// 设置结果，并进行传送
