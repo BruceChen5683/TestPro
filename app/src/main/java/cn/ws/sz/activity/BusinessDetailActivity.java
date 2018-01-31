@@ -67,7 +67,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
 
     private TextView tvFixedPhone,tvTel;
-
+	RelativeLayout rlModifierAd;
     /**
      *  BusinessBean
      * */
@@ -160,7 +160,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         adDiaglog.setCanceledOnTouchOutside(true);
         LinearLayout root = (LinearLayout) LayoutInflater.from(this).inflate(
                 R.layout.dialog_ad, null);
-        RelativeLayout rlModifierAd = (RelativeLayout) root.findViewById(R.id.rlModifierAd);
+		rlModifierAd = (RelativeLayout) root.findViewById(R.id.rlModifierAd);
         rlModifierAd.setOnClickListener(this);
         adDiaglog.setContentView(root);
         Window dialogWindow = adDiaglog.getWindow();
@@ -214,18 +214,13 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         tvAd2 = (TextView) findViewById(R.id.tvAd2);
 
         rlLogo = (ImageLayout) findViewById(R.id.rlLogo);
-
-
-
         rlMainBusiness.setOnClickListener(this);
         rlAd.setOnClickListener(this);
         ivBack.setOnClickListener(this);
         ivCollect.setOnClickListener(this);
         rlFixedPhone.setOnClickListener(this);
         rlTel.setOnClickListener(this);
-
         lvSimilar.setOnItemClickListener(this);
-
     }
 
     private void setBusinessBeanToUi() {
@@ -384,17 +379,19 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
             TextView dialogEt = (TextView) adDiaglog.findViewById(R.id.dialogEt);
 
             if(type == Constant.MODIFIER_AD_TYPE){
+				rlModifierAd.setVisibility(View.VISIBLE);
                 dialogTitle.setText("广告");
                 tvModifier.setText("修改广告内容");
                 if(tvAd2 != null && !TextUtils.isEmpty(tvAd2.getText())){
                     dialogEt.setText(tvAd2.getText());
                 }
             }else {
+				rlModifierAd.setVisibility(View.INVISIBLE);
                 dialogTitle.setText("主营");
-                tvModifier.setText("修改主营内容");
-                if(tvTivMainBusiness2 != null && !TextUtils.isEmpty(tvTivMainBusiness2.getText())){
-                    dialogEt.setText(tvTivMainBusiness2.getText());
-                }
+//                tvModifier.setText("修改主营内容");
+//                if(tvTivMainBusiness2 != null && !TextUtils.isEmpty(tvTivMainBusiness2.getText())){
+//                    dialogEt.setText(tvTivMainBusiness2.getText());
+//                }
             }
 
             adDiaglog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
