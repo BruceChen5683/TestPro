@@ -87,9 +87,11 @@ public class SplashActivity extends Activity {
             if(mPermissionsChecker.judgePermissions(PERMISSIONS)){
                 ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);
             }else{
+				isRequireCheck = true;
                 loadData();
             }
         }else {
+			isRequireCheck = true;
 			loadData();
 		}
     }
