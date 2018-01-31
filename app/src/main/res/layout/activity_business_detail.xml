@@ -119,55 +119,6 @@
                     android:layout_height="wrap_content"
                     android:text="鸠江区万春路西路鸠兹家园北商业街门门面房6-7-8室"/>
             </RelativeLayout>
-            <!--<RelativeLayout-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--style="@style/personal_summary_10">-->
-                <!--<TextView-->
-                    <!--android:id="@+id/business_name"-->
-                    <!--android:layout_alignParentLeft="true"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textSize="16sp"-->
-                    <!--android:text="和平饭店"/>-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/ivLabel"-->
-                    <!--android:layout_toRightOf="@+id/business_name"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@mipmap/icon_classifyl_label"/>-->
-                <!--<TextView-->
-                    <!--android:id="@+id/vistor"-->
-                    <!--android:layout_below="@id/business_name"-->
-                    <!--android:layout_alignParentLeft="true"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="已浏览120次"/>-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/ivHot"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:src="@mipmap/icon_classifyl_hot"/>-->
-            <!--</RelativeLayout>-->
-
-            <!--<RelativeLayout-->
-                <!--style="@style/personal_summary_10_1">-->
-                <!--<ImageView-->
-                    <!--android:id="@+id/ivAddres"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@mipmap/icon_classifyl_location_big"/>-->
-                <!--<TextView-->
-                    <!--android:id="@+id/tvAddres"-->
-                    <!--android:layout_toRightOf="@+id/ivAddres"-->
-                    <!--android:maxLines="3"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="鸠江区晚春路很好的时光哈帅哥哈商家低空掠过火辣的是"/>-->
-            <!--</RelativeLayout>-->
 
             <RelativeLayout
                 android:id="@+id/rlFixedPhone"

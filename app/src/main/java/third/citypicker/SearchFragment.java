@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.ws.sz.R;
+import cn.ws.sz.utils.DataHelper;
 import cn.ws.sz.utils.ToastUtil;
 
 
@@ -31,6 +32,11 @@ public class SearchFragment extends Fragment {
     private List<CityEntity> mDatas;
 
     private String mQueryText;
+	private SearchResultClickListent searchResultClickListent;
+
+	public void setSearchResultClickListent(SearchResultClickListent searchResultClickListent){
+		this.searchResultClickListent = searchResultClickListent;
+	}
 
     @Nullable
     @Override
@@ -78,7 +84,12 @@ public class SearchFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int position = holder.getAdapterPosition();
+//					DataHelper.getInstance().setCity(items.get(position).getName());
+//					DataHelper.getInstance().setAreaId(items.get(position).getId()+"");
                     ToastUtil.showShort(getActivity(), "选择了" + items.get(position).getName());
+					if(searchResultClickListent != null){
+						searchResultClickListent.setSearhResult(items.get(position));
+					}
                 }
             });
             return holder;
@@ -136,4 +147,8 @@ public class SearchFragment extends Fragment {
             }
         }
     }
+
+    interface SearchResultClickListent{
+		void setSearhResult(CityEntity entity);
+	}
 }

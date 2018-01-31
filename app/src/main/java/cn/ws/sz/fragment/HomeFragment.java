@@ -133,12 +133,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
 		if(TextUtils.isEmpty(DataHelper.getInstance().getCity()) || TextUtils.isEmpty(DataHelper.getInstance().getAreaId())){
 			return;
 		}
 		city = DataHelper.getInstance().getCity();
 		region = Integer.valueOf( DataHelper.getInstance().getAreaId());
+
+		Log.d(TAG, "onResume: city "+city+"    region  "+region);
 
 		int cityLength = city.length();
 		lp = (RelativeLayout.LayoutParams) rl_left_titlel.getLayoutParams();
@@ -148,6 +149,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 		lp.width = cityLength * ((int) getResources().getDimension(R.dimen.dp_32));
 		rl_left_titlel.setLayoutParams(lp);
 		tvArea.setText(city);
+
+
+		loadData();
 	}
 
 
@@ -325,7 +329,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         VolleyListenerInterface.mErrorListener) {
                     @Override
                     public void onMySuccess(String result) {
-//                        Log.d(TAG, "onMySuccess: " + result);
+                        Log.d(TAG, "onMySuccess: " + result);
                         BannerStatus status = gson.fromJson(result,BannerStatus.class);
                         bannerList.clear();
                         if(status.getData() != null && status.getData().size() > 0){
@@ -348,7 +352,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
                     @Override
                     public void onMyError(VolleyError error) {
-                        Log.d(TAG, "onMyError: ");
+                        Log.d(TAG, "onMyError: "+error.getMessage());
                     }
                 },
                 true);

@@ -54,7 +54,7 @@ public class Constant {
 
     public static final String PRE_PAY = "/api/pay/toPay";
 
-
+	public static final String URL_HOT_CITY = "/api/region/getHotCity";
 
     public static final String TAG_CATEGROY = "categroy";
     public static final String TAG_BUSINESS_LIST = "business_list";//分类
@@ -81,6 +81,8 @@ public class Constant {
 
     public static final String TAG_ALIPAY = "aliPay";//支付宝支付
 	public static final String TAG_DETAIL = "detail";//商户详情
+
+	public static final String TAG_HOT_CITY = "hot_city";
 
     public static final int PROVINCES_CITY_DISTRICT_TIME = ACache.TIME_DAY * 90;//省市区   信息更新时间
     public static final int CATEGROYS_TIME = ACache.TIME_DAY * 15;//分类信息  更新时间
