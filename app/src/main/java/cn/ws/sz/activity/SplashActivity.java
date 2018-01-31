@@ -51,6 +51,7 @@ public class SplashActivity extends Activity {
     private PermissionsChecker mPermissionsChecker;//检查权限
     //危险权限（运行时权限）
     static final String[] PERMISSIONS = new String[]{
+			Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -81,18 +82,16 @@ public class SplashActivity extends Activity {
         /**
          * 6.0权限
          */
-        if (isRequireCheck) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //权限没有授权，进入授权界面
             if(mPermissionsChecker.judgePermissions(PERMISSIONS)){
                 ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);
             }else{
                 loadData();
             }
-        }else{
-            isRequireCheck = true;
-        }
-
-//
+        }else {
+			loadData();
+		}
     }
 
     /**
@@ -105,13 +104,6 @@ public class SplashActivity extends Activity {
      */
     @Override
     public void onRequestPermissionsResult(int requestCode,  String[] permissions,  int[] grantResults) {
-
-
-        Log.e(TAG, "onRequestPermissionsResult: requestCode  "+requestCode );
-
-        for (int i = 0;i < permissions.length;i++){
-            Log.e(TAG, "onRequestPermissionsResult: "+permissions[i]);
-        }
 
         if (requestCode == PERMISSION_REQUEST_CODE && hasAllPermissionsGranted(grantResults)) {
             isRequireCheck = true;

@@ -66,7 +66,11 @@ public class PickCityActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
-                    gpsCity.get(0).setName(msg.obj.toString());
+                	if(msg.obj != null){
+						gpsCity.get(0).setName(msg.obj.toString());
+					}else{
+
+					}
                     gpsHeaderAdapter.notifyDataSetChanged();
                     break;
                 default:
@@ -335,8 +339,6 @@ public class PickCityActivity extends AppCompatActivity {
         @Override
         public void onReceiveLocation(BDLocation location) {
 
-            Log.d("cjl", "onReceiveLocation: ");
-            // TODO Auto-generated method stub
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
 
                 areaCode = location.getAdCode();
@@ -426,7 +428,6 @@ public class PickCityActivity extends AppCompatActivity {
                     sb.append("\ndescribe : ");
                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
                 }
-                Log.d("cjl",sb.toString());
             }
         }
 
