@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -31,6 +32,7 @@ import cn.ws.sz.fragment.RecommendFragment;
 import cn.ws.sz.fragment.SearchFragment;
 import cn.ws.sz.service.LocationService;
 import cn.ws.sz.utils.Eyes;
+import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.utils.WSApp;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String city;
     private String areaId;
+
+    private long mExitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -333,4 +337,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if(System.currentTimeMillis() - mExitTime > 2000){
+            ToastUtil.showShort(this,"再次点击退出神州万商！");
+            mExitTime = System.currentTimeMillis();
+        }else{
+            finish();
+            System.exit(0);
+        }
+    }
 }
