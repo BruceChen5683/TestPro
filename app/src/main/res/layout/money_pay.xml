@@ -30,7 +30,8 @@
 
     <RelativeLayout
         android:id="@+id/rlWeChat"
-        style="@style/dialog_pay_item_rl">
+        style="@style/dialog_pay_item_rl"
+        android:visibility="gone">
         <ImageView
             android:id="@+id/ivWeChat"
             style="@style/dialog_pay_left_iv"
