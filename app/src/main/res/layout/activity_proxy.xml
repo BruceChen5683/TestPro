@@ -214,7 +214,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="用热情服务商家，靠才智创造财富！"
-                android:textColor="@color/white"
+                android:textColor="@color/red"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center">
             </TextView>
