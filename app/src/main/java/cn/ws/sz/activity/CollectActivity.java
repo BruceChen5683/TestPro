@@ -39,6 +39,12 @@ public class CollectActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_collect);
         Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
         llReturnBack = (LinearLayout) findViewById(R.id.returnBack);
+        llReturnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CollectActivity.this.finish();
+            }
+        });
         collect = (ListView) findViewById(R.id.collect);
         tvTitle = (TextView) findViewById(R.id.title_value);
         tvTitle.setText("我的收藏");

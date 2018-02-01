@@ -74,6 +74,7 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
 
         llReturnBack = (LinearLayout) findViewById(R.id.returnBack);
         llReturnBack.setVisibility(View.VISIBLE);
+        llReturnBack.setOnClickListener(this);
         tvBusinessName = (TextView) findViewById(R.id.business_name);
         tvAddres = (TextView) findViewById(R.id.tvAddres);
         tvTel = (TextView) findViewById(R.id.tvTel);
@@ -137,6 +138,9 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btnCancel:
 
+                break;
+            case R.id.returnBack:
+                this.finish();
                 break;
 
             case R.id.yzm:

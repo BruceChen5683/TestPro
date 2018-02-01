@@ -68,9 +68,6 @@ public class ProxyActivity extends AppCompatActivity implements View.OnClickList
     private EditText tvProxyName2,tvProxyPhone2,tvIdCard2,tvAli2,tvWeChat2;
     private ScrollView scrollView;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +108,7 @@ public class ProxyActivity extends AppCompatActivity implements View.OnClickList
 
         llReturnBack = (LinearLayout) findViewById(R.id.returnBack);
         llReturnBack.setVisibility(View.VISIBLE);
+        llReturnBack.setOnClickListener(this);
 
         postPhoto = (MyGridView) findViewById(R.id.gvPostPhoto);
         postPhoto.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -305,6 +303,7 @@ public class ProxyActivity extends AppCompatActivity implements View.OnClickList
             case R.id.rlIdCard:onClickEditTextParent((ViewGroup) v);break;
             case R.id.rlAli:onClickEditTextParent((ViewGroup) v);break;
             case R.id.rlWeChat:onClickEditTextParent((ViewGroup) v);break;
+            case R.id.returnBack:this.finish();break;
 
             default:
                 break;

@@ -10,13 +10,13 @@
 
     <cn.ws.sz.view.ImageLayout
         android:id="@+id/rlLogo"
-        style="@style/personal_summary_150_no_bg"
+        style="@style/personal_summary_150_no_bg_detail_img"
         android:background="@drawable/default_ws">
 
         <RelativeLayout
             android:id="@+id/rlBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentLeft="true">
             <ImageView
                 android:layout_width="wrap_content"
@@ -27,8 +27,8 @@
 
         <RelativeLayout
             android:id="@+id/rlCollect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true">
             <ImageView
                 android:layout_width="wrap_content"

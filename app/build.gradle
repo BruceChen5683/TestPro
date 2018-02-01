@@ -1,11 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
+//    signingConfigs {
+//        config {
+//            keyAlias 'app'
+//            keyPassword '123456'
+//            storeFile file('C:/Users/BattleCall/wanshang.jks')
+//            storePassword '123456'
+//        }
+//    }
     signingConfigs {
         config {
             keyAlias 'app'
             keyPassword '123456'
-            storeFile file('C:/Users/BattleCall/wanshang.jks')
+            storeFile file('/Users/chenjianliang/wanshang.jks')
             storePassword '123456'
         }
     }
@@ -33,14 +41,14 @@ android {
             minifyEnabled false
 //            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
         }
 //        debug {
 //            signingConfig signingConfigs.release
 //        }
-        debug {
-            signingConfig signingConfigs.config
-        }
+//        debug {
+//            signingConfig signingConfigs.config
+//        }
     }
     sourceSets {
         main {

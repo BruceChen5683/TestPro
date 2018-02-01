@@ -39,6 +39,12 @@ public class LookHistroryActivity extends AppCompatActivity {
         Eyes.setStatusBarColor(this, ContextCompat.getColor(this,R.color.title_bg));
 
         llReturnBack = (LinearLayout) findViewById(R.id.returnBack);
+        llReturnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LookHistroryActivity.this.finish();
+            }
+        });
         collect = (ListView) findViewById(R.id.collect);
         tvTitle = (TextView) findViewById(R.id.title_value);
         tvTitle.setText("我的足迹");
