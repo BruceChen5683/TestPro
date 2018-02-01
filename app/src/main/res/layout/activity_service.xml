@@ -18,7 +18,7 @@
             android:gravity="center"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="客服微信：XXXX"/>
+            android:text="客服微信:      whnnh2018"/>
     </RelativeLayout>
 
     <View
@@ -34,7 +34,7 @@
             android:gravity="center"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="客服QQ：XXXX"/>
+            android:text="客服QQ：      1648208635"/>
     </RelativeLayout>
 
     <View
@@ -50,7 +50,7 @@
             android:gravity="center"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="客服电话:0553-42351345"/>
+            android:text="客服电话:      0553-42351345"/>
     </RelativeLayout>
 
     <View
