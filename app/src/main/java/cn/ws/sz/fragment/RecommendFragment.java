@@ -34,6 +34,8 @@ public class RecommendFragment extends Fragment implements View.OnClickListener,
 
     private Dialog dialog;
     private int dialogHeight;
+    private  SoftKeyBroadManager mManager;
+
 
 
     public RecommendFragment() {
@@ -53,6 +55,8 @@ public class RecommendFragment extends Fragment implements View.OnClickListener,
         Log.d(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
         initView(view);
+        mManager =new SoftKeyBroadManager(view);
+        mManager.addSoftKeyboardStateListener(this);
         return view;
     }
 
@@ -91,7 +95,7 @@ public class RecommendFragment extends Fragment implements View.OnClickListener,
 //      lp.alpha = 9f; // 透明度
         root.measure(0, 0);
         lp.height = getResources().getDisplayMetrics().heightPixels/4;
-        dialogHeight = lp.height;
+        dialogHeight = lp.y;
         lp.alpha = 9f; // 透明度
         dialogWindow.setAttributes(lp);
     }
@@ -142,18 +146,22 @@ public class RecommendFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onSoftKeyboardOpened(int keyboardHeightInPx) {
+        Log.d(TAG, "onSoftKeyboardOpened: ");
         if(dialog != null && dialog.isShowing()){
             WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-            lp.height = lp.height +keyboardHeightInPx;
+            Log.d(TAG, "onSoftKeyboardOpened: "+lp.height);
+            Log.d(TAG, "onSoftKeyboardOpened: "+keyboardHeightInPx);
+            lp.y = keyboardHeightInPx+lp.y;
             dialog.getWindow().setAttributes(lp);
         }
     }
 
     @Override
     public void onSoftKeyboardClosed() {
+        Log.d(TAG, "onSoftKeyboardClosed: ");
         if(dialog != null && dialog.isShowing()){
             WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-            lp.height = dialogHeight;
+            lp.y = dialogHeight;
             dialog.getWindow().setAttributes(lp);
         }
     }
