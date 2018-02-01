@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">万商</string>
+    <string name="app_name">神州万商</string>
 
 
     <string name="tab_home">首页</string>
@@ -79,6 +79,8 @@
     <string name="pull_to_refresh_footer_release_label">松开后加载</string>
     <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
     <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
+
+    <string name="wanshang_about">"神州万商"是一款针对小微商户的电子黄页。\n万商的特点是：商家入驻无门槛，广告发布不收费。\n商业资源融合分享，助力商家生意年年红。</string>
 
 
 </resources>
