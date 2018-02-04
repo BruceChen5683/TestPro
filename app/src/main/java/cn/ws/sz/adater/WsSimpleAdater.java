@@ -66,10 +66,10 @@ public class WsSimpleAdater extends BaseAdapter{
 
         if(selectedPosition == position){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                convertView.setBackgroundColor(context.getResources().getColor(R.color.grayLight,null));
+                convertView.setBackgroundColor(context.getResources().getColor(R.color.gray_bg,null));
                 holder.tv.setTextColor(context.getResources().getColor(R.color.text_red,null));
             }else {
-                convertView.setBackgroundColor(context.getResources().getColor(R.color.grayLight));
+                convertView.setBackgroundColor(context.getResources().getColor(R.color.gray_bg));
                 holder.tv.setTextColor(context.getResources().getColor(R.color.text_red));
             }
         }else{
