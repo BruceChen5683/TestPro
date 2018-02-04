@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="left">
             <TextView
                 android:id="@+id/tvBusinessName"
                 android:layout_centerVertical="true"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="left">
             <ImageView
                 android:id="@+id/ivSimilarOneAddres"
                 android:layout_centerVertical="true"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rect_graylist_3"
             android:layout_weight="1"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="left">
             <ImageView
                 android:id="@+id/ivSimilarOneFixedPhone"
                 android:paddingLeft="1dp"
@@ -97,7 +97,7 @@
                 android:gravity="center"
                 android:layout_toRightOf="@+id/ivSimilarOneFixedPhone"
                 android:id="@+id/tvBusinessTel"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/grayMiddle"
                 android:maxLines="1"
