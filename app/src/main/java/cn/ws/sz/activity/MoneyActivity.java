@@ -669,26 +669,26 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         if(dialog != null && !dialog.isShowing()){
 
 
-            dialog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-            dialog.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-                @Override
-                public void onSystemUiVisibilityChange(int visibility) {
-                    int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                            //布局位于状态栏下方
-                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                            //全屏
-//                            View.SYSTEM_UI_FLAG_FULLSCREEN |
-                            //隐藏导航栏
-                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-                    if (Build.VERSION.SDK_INT >= 19) {
-                        uiOptions |= 0x00001000;
-                    } else {
-                        uiOptions |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
-                    }
-                    dialog.getWindow().getDecorView().setSystemUiVisibility(uiOptions);
-                }
-            });
+//            dialog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+//            dialog.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+//                @Override
+//                public void onSystemUiVisibilityChange(int visibility) {
+//                    int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+//                            //布局位于状态栏下方
+//                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+//                            //全屏
+////                            View.SYSTEM_UI_FLAG_FULLSCREEN |
+//                            //隐藏导航栏
+//                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+//                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+//                    if (Build.VERSION.SDK_INT >= 19) {
+//                        uiOptions |= 0x00001000;
+//                    } else {
+//                        uiOptions |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+//                    }
+//                    dialog.getWindow().getDecorView().setSystemUiVisibility(uiOptions);
+//                }
+//            });
 
 
             dialog.show();
@@ -753,7 +753,11 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         dialogWindow.setWindowAnimations(R.style.dialogAnimation); // 添加动画
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
         lp.x = 0; // 新位置X坐标
-        lp.y = 0; // 新位置Y坐标
+        if(CommonUtils.hasNavBar(MoneyActivity.this)){
+            lp.y = 0 + CommonUtils.getNavigationBarHeight(MoneyActivity.this); // 新位置Y坐标
+        }else{
+            lp.y = 0; // 新位置Y坐标
+        }
         lp.width = DeviceUtils.getDeviceScreeWidth(this); // 宽度
 //        lp.height = (int) getResources().getDimension(R.dimen.dp_127); 去除微信支付gone
         lp.height = (int) getResources().getDimension(R.dimen.dp_85);
