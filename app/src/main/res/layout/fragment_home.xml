@@ -252,7 +252,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_5"
+                android:paddingBottom="@dimen/dp_44"
                 android:paddingTop="@dimen/dp_10">
 
                 <TextView

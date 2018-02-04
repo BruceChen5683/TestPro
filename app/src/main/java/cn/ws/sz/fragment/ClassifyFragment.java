@@ -48,6 +48,7 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
     private GridView classifySecondGV,classifySecondGVDetail;
     private List<ClassifyBean> secondData = new ArrayList<ClassifyBean>();
     private List<ClassifyBean> tmpList = new ArrayList<ClassifyBean>();
+    private LayoutInflater layoutInflater;
 
     private List<BusinessBean> classifySecondDetaildata = new ArrayList<BusinessBean>();
 
@@ -90,6 +91,7 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        layoutInflater = inflater;
         gson = new Gson();
         View view = inflater.inflate(R.layout.fragment_classify, container, false);
         firstCategroyId = WSApp.classifyId;
@@ -155,6 +157,8 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
 
         classifyFirstLV = (ListView) view.findViewById(R.id.classify_first);
         firstAdapter = new WsSimpleAdater(getActivity(),getFirstData());
+        View footView = layoutInflater.from(getActivity()).inflate(R.layout.footer,null);
+        classifyFirstLV.addFooterView(footView,null,false);
         classifyFirstLV.setAdapter(firstAdapter);
 
         classifyFirstLV.setSelection(firstCategroyId);

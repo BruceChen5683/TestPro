@@ -173,6 +173,7 @@
 
                     <third.PullToRefreshView
                         android:id="@+id/classify_second_pull_refresh_view"
+                        android:layout_marginBottom="@dimen/dp_40"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <GridView

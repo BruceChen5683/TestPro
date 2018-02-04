@@ -104,6 +104,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     private LinearLayout ll_classify_second;
     private TextView tv_classify_second_back,tv_classify_second_title;
 
+    private LayoutInflater layoutInflater;
+
+    private View footView;
+
 
 
 
@@ -121,6 +125,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        layoutInflater = inflater;
         View view =  inflater.inflate(R.layout.fragment_search, container, false);
         initView(view);
         return view;
@@ -130,11 +135,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
         searchView = (SearchView) view.findViewById(R.id.search_view);
 
 
+        footView = layoutInflater.from(getActivity()).inflate(R.layout.footer,null);
 
         listView = (ListView) view.findViewById(R.id.lvSearchBusiness);
         gson = new Gson();
         adapter = new BusinessItemAdapter(getActivity(),data);
+        listView.addFooterView(footView,null,false);
         listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 //        loadData();
 
         rlClassify = (RelativeLayout) view.findViewById(R.id.rlClassify);
@@ -308,6 +316,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
 
         classifyFirstLV = (ListView) view.findViewById(R.id.classify_first);
         firstAdapter = new WsSimpleAdater(getActivity(),getFirstData());
+        classifyFirstLV.addFooterView(footView,null,false);
         classifyFirstLV.setAdapter(firstAdapter);
 
         tvClassify = (TextView) view.findViewById(R.id.tvClassify);
