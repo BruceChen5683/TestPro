@@ -56,6 +56,7 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
     private BusinesssItem3Adapter classifySecondDetailAdapter;
 
     private View rootView;
+    private LinearLayout returnBack;
 
     private TextView tvTitle;
     private int firstCategroyId = 0;
@@ -148,6 +149,9 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
         Log.d(TAG, "initView: ");
         tvTitle = (TextView) view.findViewById(R.id.title_value);
         tvTitle.setText("分类");
+
+        returnBack = (LinearLayout) view.findViewById(R.id.returnBack);
+        returnBack.setVisibility(View.GONE);
 
         classifyFirstLV = (ListView) view.findViewById(R.id.classify_first);
         firstAdapter = new WsSimpleAdater(getActivity(),getFirstData());
