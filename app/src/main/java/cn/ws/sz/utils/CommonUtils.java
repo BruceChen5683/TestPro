@@ -139,6 +139,9 @@ public class CommonUtils {
 
 
     public static void setImageView(String imageUrl, final ImageView imageView){
+		if(!imageUrl.startsWith("http")){
+			imageUrl = Constant.BASEURL + imageUrl;
+		}
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.displayImage(imageUrl, imageView,new ImageLoadingListener() {
             @Override

@@ -75,11 +75,7 @@ public class BusinesssItem3Adapter extends BaseAdapter{
 		if(images != null && images.length > 0){
 			logoUrl = images[0];
 		}
-		if(logoUrl.startsWith("http")){
-			CommonUtils.setImageView(logoUrl,holder.imageView);
-		}else {
-			CommonUtils.setImageView(Constant.BASEURL+logoUrl,holder.imageView);
-		}
+		CommonUtils.setImageView(logoUrl,holder.imageView);
 
 
         convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
