@@ -8,15 +8,20 @@
 
     android:orientation="vertical">
 
-    <cn.ws.sz.view.ImageLayout
-        android:id="@+id/rlLogo"
-        style="@style/personal_summary_150_no_bg_detail_img"
-        android:background="@drawable/default_ws">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_150">
+        <fragment
+            android:id="@+id/fragment_banner_content"
+            android:name="cn.ws.sz.fragment.BannerFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></fragment>
 
         <RelativeLayout
             android:id="@+id/rlBack"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="left"
             android:layout_alignParentLeft="true">
             <ImageView
                 android:layout_width="wrap_content"
@@ -29,6 +34,7 @@
             android:id="@+id/rlCollect"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="right"
             android:layout_alignParentRight="true">
             <ImageView
                 android:layout_width="wrap_content"
@@ -37,8 +43,39 @@
                 android:src="@mipmap/btn_classifyl_collect"/>
         </RelativeLayout>
 
+    </FrameLayout>
 
 
+
+    <cn.ws.sz.view.ImageLayout
+        android:visibility="gone"
+        android:id="@+id/rlLogo"
+        style="@style/personal_summary_150_no_bg_detail_img"
+        android:background="@drawable/default_ws">
+
+        <RelativeLayout
+            android:id="@+id/rlBack1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/btn_classifyl_back"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCollect1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/btn_classifyl_collect"/>
+        </RelativeLayout>
     </cn.ws.sz.view.ImageLayout>
 
     <ScrollView

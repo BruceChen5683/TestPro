@@ -13,11 +13,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -27,11 +25,8 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import cn.ws.sz.R;
 import cn.ws.sz.adater.BusinessItemAdapter;
@@ -40,6 +35,7 @@ import cn.ws.sz.bean.BusinessDetailStatus;
 import cn.ws.sz.bean.BusinessStatus;
 import cn.ws.sz.bean.CollectHistoryBeanCollections;
 import cn.ws.sz.bean.CollectHistroyBean;
+import cn.ws.sz.fragment.BannerFragment;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
 import cn.ws.sz.utils.DeviceUtils;
@@ -48,6 +44,7 @@ import cn.ws.sz.utils.SoftKeyBroadManager;
 import cn.ws.sz.utils.SoftKeyBroadManager.SoftKeyboardStateListener;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.view.ImageLayout;
+import cn.ws.sz.view.ViewFactory;
 import third.ACache;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
@@ -64,6 +61,9 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
     private ListView lvSimilar;
     private BusinessItemAdapter adapter;
     private List<BusinessBean> data = new ArrayList<BusinessBean>();
+	private BannerFragment bannerFragment;
+	private BannerFragment.ImageCycleViewListener imageCycleViewListener;
+	private List<ImageView> views = new ArrayList<ImageView>();
 
 
     private TextView tvFixedPhone,tvTel;
@@ -98,7 +98,12 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 		@Override
 		public void handleMessage(Message msg) {
 			//根据bundle更新数据
-			setBusinessBeanToUi();
+			switch (msg.what){
+				case UPDATE_MERCHANT:
+					setBusinessBeanToUi();
+					break;
+				default:break;
+			}
 		}
 	};
 
@@ -183,7 +188,42 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         mManager.removeSoftKeyboardStateListener(this);
     }
 
+	private void loadBannerFragment() {
+//        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[2]));
+//        for (int i = 0; i < 3; i++) {
+//            views.add(ViewFactory.getImageView(getActivity(),
+//                    bannerImageViews[i]));
+//        }
+//        // 将第一个ImageView添加进来
+//        views.add(ViewFactory.getImageView(getActivity(), bannerImageViews[0]));
+		// 设置循环，在调用setData方法前调用
+		bannerFragment.setCycle(true);
+		// 在加载数据前设置是否循环
+		imageCycleViewListener = new BannerFragment.ImageCycleViewListener() {
+
+			@Override
+			public void onImageClick(int postion, View imageView) {
+				Log.d(TAG, "onImageClick: "+postion);
+			}
+		};
+
+
+		bannerFragment.setData(views, imageCycleViewListener);
+		// 设置轮播
+		bannerFragment.setWheel(false);
+		// 设置轮播时间，默认5000ms
+		bannerFragment.setTime(3000);
+		// 设置圆点指示图标组居中显示，默认靠右
+		bannerFragment.setIndicatorCenter();
+	}
+
     private void initView() {
+
+		bannerFragment = (BannerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_banner_content);
+
+		if (bannerFragment != null) {// null, Version
+//			bannerFragment.setHeight();
+		}
 
         ivLabel = (ImageView) findViewById(R.id.ivLabel);
 
@@ -279,12 +319,23 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
             }
 
             String[] images = businessBean.getImages();
-            if(images != null && images.length > 0){
-				if(images[0].startsWith("http")){//
-					CommonUtils.setImageView2(images[0],rlLogo);
-				}else{
-					CommonUtils.setImageView2(Constant.BASEURL+images[0],rlLogo);
+
+			Log.d("cjl", "BusinessDetailActivity ---------setBusinessBeanToUi:      images "+images);
+
+			if(images != null && images.length > 0){
+				views.clear();
+				views.add(ViewFactory.getImageView(this,images[images.length-1]));
+				for (int i = 0;i < images.length;i++){
+					views.add(ViewFactory.getImageView(this,images[i]));
 				}
+				views.add(ViewFactory.getImageView(this,images[0]));
+				loadBannerFragment();
+			}else {
+				bannerFragment.setVisibility(View.GONE);
+			}
+
+            if(images != null && images.length > 0){
+				CommonUtils.setImageView2(images[0],rlLogo);
 			}else {//default
 				CommonUtils.setImageView2("",rlLogo);
 			}
