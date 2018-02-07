@@ -66,9 +66,9 @@ MobSDK {
         //平台配置信息
         devInfo {
             Wechat {
-                appId "123456"
-                appSecret "123456"
-                bypassApproval true
+                appId "wxd8eb5ec34abd19af"
+                appSecret "683c884e2582cada974a37b7971260d2"
+                bypassApproval false
             }
         }
     }

@@ -301,9 +301,9 @@ public class CommonUtils {
 		oks.setText(recommender);
 		// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 //		TODO weChat Key
-//		Bitmap logo = BitmapFactory.decodeResource(
-//				context.getResources(), R.drawable.default_ws);
-//		oks.setImageData(logo);
+		Bitmap logo = BitmapFactory.decodeResource(
+				context.getResources(), R.drawable.default_ws);
+		oks.setImageData(logo);
 //		oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
 		// url在微信、微博，Facebook等平台中使用
 //		oks.setUrl("http://sharesdk.cn");
