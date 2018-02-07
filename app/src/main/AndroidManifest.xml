@@ -56,7 +56,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.MainActivity"
+            android:launchMode="singleTop"
+            />
         <activity android:name=".activity.MoneyActivity"/>
         <activity android:name=".activity.ImageSelectActivity"/>
         <activity android:name=".activity.BusinessDetailActivity"/>

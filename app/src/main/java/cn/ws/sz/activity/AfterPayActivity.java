@@ -1,5 +1,6 @@
 package cn.ws.sz.activity;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,8 +29,22 @@ public class AfterPayActivity extends AppCompatActivity {
         returnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                startMain();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        startMain();
+    }
+
+
+    private void startMain(){
+        Intent intent = new Intent();
+        intent.setClass(this,MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 }
