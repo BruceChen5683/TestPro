@@ -45,39 +45,6 @@
 
     </FrameLayout>
 
-
-
-    <cn.ws.sz.view.ImageLayout
-        android:visibility="gone"
-        android:id="@+id/rlLogo"
-        style="@style/personal_summary_150_no_bg_detail_img"
-        android:background="@drawable/default_ws">
-
-        <RelativeLayout
-            android:id="@+id/rlBack1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@mipmap/btn_classifyl_back"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlCollect1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@mipmap/btn_classifyl_collect"/>
-        </RelativeLayout>
-    </cn.ws.sz.view.ImageLayout>
-
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent">

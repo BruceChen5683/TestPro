@@ -86,7 +86,6 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
     private int dialogHeight;
 
     private TextView tvTivMainBusiness2,tvAd2,tvModifier;
-    private ImageLayout rlLogo;
 
     private int type = -1;
     private ImageView ivLabel;
@@ -253,7 +252,6 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         tvTivMainBusiness2 = (TextView) findViewById(R.id.tvTivMainBusiness2);
         tvAd2 = (TextView) findViewById(R.id.tvAd2);
 
-        rlLogo = (ImageLayout) findViewById(R.id.rlLogo);
         rlMainBusiness.setOnClickListener(this);
         rlAd.setOnClickListener(this);
         ivBack.setOnClickListener(this);
@@ -332,12 +330,6 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 				loadBannerFragment();
 			}else {
 				bannerFragment.setVisibility(View.GONE);
-			}
-
-            if(images != null && images.length > 0){
-				CommonUtils.setImageView2(images[0],rlLogo);
-			}else {//default
-				CommonUtils.setImageView2("",rlLogo);
 			}
 
         }
