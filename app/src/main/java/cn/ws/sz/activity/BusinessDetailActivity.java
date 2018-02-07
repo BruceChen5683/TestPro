@@ -443,9 +443,9 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 				rlModifierAd.setVisibility(View.INVISIBLE);
                 dialogTitle.setText("主营");
 //                tvModifier.setText("修改主营内容");
-//                if(tvTivMainBusiness2 != null && !TextUtils.isEmpty(tvTivMainBusiness2.getText())){
-//                    dialogEt.setText(tvTivMainBusiness2.getText());
-//                }
+                if(tvTivMainBusiness2 != null && !TextUtils.isEmpty(tvTivMainBusiness2.getText())){
+                    dialogEt.setText(tvTivMainBusiness2.getText());
+                }
             }
 
             adDiaglog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
