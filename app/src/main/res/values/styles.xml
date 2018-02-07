@@ -369,11 +369,11 @@
     </style>
 
     <style name="personal_summary_3_padding_10_110">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">110dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:addStatesFromChildren">true</item>
         <item name="android:background">@color/white</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:padding">@dimen/dp_10</item>
     </style>
 
     <style name="personal_summary_3_padding_10_165">
