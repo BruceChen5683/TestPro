@@ -331,7 +331,9 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 			if(images != null && images.length > 0){
 				views.add(ViewFactory.getImageView(this,images[images.length-1]));
 				for (int i = 0;i < images.length;i++){
-					views.add(ViewFactory.getImageView(this,images[i]));
+                    Log.d(TAG, "setBusinessBeanToUi: images "+images[i]);
+
+                    views.add(ViewFactory.getImageView(this,images[i]));
 				}
 				views.add(ViewFactory.getImageView(this,images[0]));
 			}else {

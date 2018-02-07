@@ -180,9 +180,15 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                 case UPLOAD_PIC_SUCCESS:
                     Log.d(TAG, "handleMessage: "+mImageSize);
                     if(mImageSize == SelectedImages.size()){
+                        ToastUtil.showShort(MoneyActivity.this, "商家图片信息上传成功");
+
                         addMerchant();
                     }else {
-
+                        paramsImg.clear();
+                        // path fileName
+                        paramsImg.put("pic", new String[]{SelectedImages.get(mImageSize).getImagePath(),SelectedImages.get(mImageSize).getImagePath()});
+                        //发起请求
+                        uploadImage(mImageSize,paramsImg);
                     }
                     break;
                 case SDK_PAY_FLAG:
@@ -577,14 +583,15 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 			return;
 		}
         mImageSize = 0;
-        for (int i = 0; i < SelectedImages.size(); i++) {
+//        for (int i = 0; i < SelectedImages.size(); i++) {
 
-            Log.d(TAG, "uploadImage: " + SelectedImages.get(i).getImagePath());
+//            Log.d(TAG, "uploadImage: " + SelectedImages.get(i).getImagePath());
             paramsImg.clear();
-            paramsImg.put("pic", new String[]{SelectedImages.get(i).getImagePath(), SelectedImages.get(i).getImagePath()});
+            // path fileName
+            paramsImg.put("pic", new String[]{SelectedImages.get(0).getImagePath(),SelectedImages.get(0).getImagePath()});
             //发起请求
-            uploadImage(i,paramsImg);
-        }
+            uploadImage(0,paramsImg);
+//        }
     }
 
     private void uploadImage(final int i,final Map<String,String[]> paramsImg){
@@ -609,7 +616,6 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
                         if (status.getErrcode() == 0) {
                             imageIdStr.append(status.getData());
                             imageIdStr.append(",");
-                            ToastUtil.showShort(MoneyActivity.this, "商家图片信息上传成功");
                         } else {
                             ToastUtil.showShort(MoneyActivity.this, "商家图片上传失败");
                         }
