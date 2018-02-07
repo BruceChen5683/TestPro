@@ -336,17 +336,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                             bannerList.addAll(status.getData());
                         }
                         bannerSize = bannerList.size();
-
+						views.clear();
                         //加载广告
                         if(bannerSize > 0){
-                            views.add(ViewFactory.getImageView(getActivity(),bannerList.get(bannerSize-1).getBannerUrl()));
-                            for (int i = 0;i < bannerSize;i++){
-                                views.add(ViewFactory.getImageView(getActivity(),bannerList.get(i).getBannerUrl()));
-                            }
-                            views.add(ViewFactory.getImageView(getActivity(),bannerList.get(0).getBannerUrl()));
-
-                            loadBannerFragment();
-                        }
+							views.add(ViewFactory.getImageView(getActivity(),bannerList.get(bannerSize-1).getBannerUrl()));
+							for (int i = 0;i < bannerSize;i++){
+								views.add(ViewFactory.getImageView(getActivity(),bannerList.get(i).getBannerUrl()));
+							}
+							views.add(ViewFactory.getImageView(getActivity(),bannerList.get(0).getBannerUrl()));
+							loadBannerFragment();
+						}else {
+							bannerFragment.setVisibility(View.GONE);
+						}
 
                     }
 

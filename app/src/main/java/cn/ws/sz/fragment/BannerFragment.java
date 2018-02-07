@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import cn.ws.sz.view.BaseViewPager;
 
 public class BannerFragment extends Fragment implements ViewPager.OnPageChangeListener{
 
+	private final static String TAG = BannerFragment.class.getSimpleName();
     private List<ImageView> imageViews = new ArrayList<ImageView>();
     private ImageView[] indicators;
 
@@ -128,6 +130,8 @@ public class BannerFragment extends Fragment implements ViewPager.OnPageChangeLi
             viewPagerFragmentLayout.setVisibility(View.GONE);
             return;
         }
+		Log.d(TAG, "setData: after gone");
+		viewPagerFragmentLayout.setVisibility(View.VISIBLE);
         for (ImageView item : views) {
             this.imageViews.add(item);
         }
@@ -175,6 +179,10 @@ public class BannerFragment extends Fragment implements ViewPager.OnPageChangeLi
     public void setCycle(boolean isCycle) {
         this.isCycle = isCycle;
     }
+
+    public void setVisibility(int visibility){
+		viewPagerFragmentLayout.setVisibility(visibility);
+	}
 
     /**
      * 是否处于循环状态

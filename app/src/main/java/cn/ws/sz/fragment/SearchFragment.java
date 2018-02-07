@@ -63,9 +63,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     private int firstCategroy = 0;
     private int secondCategroy = 0;
     private int pageId = 0;//页码
-    private int region = 110101;//区域
     private Gson gson;
 
+    private int firstId = 1;
     private int areaId = 110101;//区域
     private boolean bLoadMore = false;
 
@@ -125,10 +125,19 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        areaId = Integer.valueOf( DataHelper.getInstance().getAreaId());
+
         layoutInflater = inflater;
         View view =  inflater.inflate(R.layout.fragment_search, container, false);
         initView(view);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        areaId = Integer.valueOf( DataHelper.getInstance().getAreaId());
     }
 
     private void initView(View view) {
@@ -142,7 +151,16 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
         adapter = new BusinessItemAdapter(getActivity(),data);
         listView.addFooterView(footView,null,false);
         listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+		adapter.notifyDataSetChanged();
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent();
+				intent.putExtra(Constant.KEY_EXTRA_MERCHANT_ID,data.get(position).getId());
+				intent.setClass(getActivity(), BusinessDetailActivity.class);
+				startActivity(intent);
+			}
+		});
 //        loadData();
 
         rlClassify = (RelativeLayout) view.findViewById(R.id.rlClassify);
@@ -202,7 +220,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                secondCategroy = 17;
+                Log.d(TAG, "onItemClick: "+firstId);
+                if(position == 0){
+                    secondCategroy = firstId;
+                }else {
+                    secondCategroy = DataHelper.getInstance().getSecondCategroyMap().get(firstId).get(position-1).getId();
+                }
+//                secondCategroy = 17;
                 Log.d(TAG, "onItemClick: secondCategroy "+secondCategroy);
                 pageId = 1;
                 bLoadMore = false;
@@ -268,16 +292,23 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     }
     private void loadData(final boolean loadMore,final int mSecondCategroy,final int mPageId,final int mAreaId) {
 
-        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0);
-        VolleyRequestUtil.RequestGet(getActivity(),
-                Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0,
-                Constant.TAG_BUSINESS_LIST_2,//商家列表tag
+//        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0);
+
+
+        quertyMap.put("pageNo",mPageId+"");
+        quertyMap.put("category",mSecondCategroy+"");
+        Log.d(TAG, "loadData: quertyMap "+quertyMap);
+//        quertyMap.put("region",String.valueOf(areaId));
+//        quertyMap.put("queryText",queryText);
+        VolleyRequestUtil.RequestPost(getActivity(),
+                Constant.URL_QUERY_BUSINESS,
+                Constant.TAG_QUERY_BUSINESS,//商家列表搜索tag
+                quertyMap,
                 new VolleyListenerInterface(getActivity(),
                         VolleyListenerInterface.mListener,
                         VolleyListenerInterface.mErrorListener) {
                     @Override
                     public void onMySuccess(String result) {
-
 
                         Log.d(TAG, "onMySuccess: "+result);
 
@@ -298,6 +329,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
                             pullToRefreshView.onFooterRefreshComplete();
                         }
 
+//                        Log.d(TAG, "onMySuccess: "+ result);
+//                        BusinessStatus status = gson.fromJson(result,BusinessStatus.class);
+//                        data.clear();
+//                        if(status.getData() != null && status.getData().size() > 0){
+//                            data.addAll(status.getData());
+//                        }
+//                        adapter.notifyDataSetChanged();
+//                        changeLayout(TYPE_SEARCH_DONE);
                     }
 
                     @Override
@@ -306,6 +345,46 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
                     }
                 },
                 true);
+
+
+
+//        VolleyRequestUtil.RequestGet(getActivity(),
+//                Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0,
+//                Constant.TAG_BUSINESS_LIST_2,//商家列表tag
+//                new VolleyListenerInterface(getActivity(),
+//                        VolleyListenerInterface.mListener,
+//                        VolleyListenerInterface.mErrorListener) {
+//                    @Override
+//                    public void onMySuccess(String result) {
+//
+//
+//                        Log.d(TAG, "onMySuccess: "+result);
+//
+//                        BusinessStatus status = gson.fromJson(result,BusinessStatus.class);
+//                        if(!loadMore){
+//                            classifySecondDetaildata.clear();
+//                        }
+//                        if(status.getData() != null && status.getData().size() > 0){
+//                            actionDone = true;
+//                            classifySecondDetaildata.addAll(status.getData());
+//                        }else{
+//
+//                        }
+//                        classifySecondDetailAdapter.notifyDataSetChanged();
+//                        if(mPageId <= 1){
+//                            pullToRefreshView.onHeaderRefreshComplete("更新于:"+new Date().toLocaleString());
+//                        }else{
+//                            pullToRefreshView.onFooterRefreshComplete();
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onMyError(VolleyError error) {
+//                        Log.d(TAG, "onMyError: ");
+//                    }
+//                },
+//                true);
     }
 
     private void initRlSort(View view) {
@@ -350,8 +429,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
         });
 
 
-        classifyFirstLV.setSelection(2);
-        firstAdapter.setSelectedPosition(2);
+        classifyFirstLV.setSelection(firstCategroy);
+        firstAdapter.setSelectedPosition(firstCategroy);
         firstAdapter.notifyDataSetChanged();
 
 
@@ -366,9 +445,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                firstId = DataHelper.getInstance().getFirstCategroyList().get(position).getId();
+
                 firstAdapter.setSelectedPosition(position);
                 firstAdapter.notifyDataSetChanged();
+                firstCategroy = position;
                 updateSecondData(position);
+                hideSecondGridView(false,0);
             }
         });
 
@@ -376,7 +459,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
 
     private List<String> getFirstData() {
         List<String> data = new ArrayList<String>();
-        data.add("所有分类");
+//        data.add("所有分类");
         for (int i = 0; i < DataHelper.getInstance().getFirstCategroyList().size(); i++){
             data.add(DataHelper.getInstance().getFirstCategroyList().get(i).getName());
         }
@@ -384,13 +467,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     }
 
     public void updateSecondData(int id){
-        if(id == 0){
-            return;
-        }
-        tmpList =  DataHelper.getInstance().getSecondCategroyMap().get(DataHelper.getInstance().getFirstCategroyList().get(id-1).getId());
+//        if(id == 0){
+//            return;
+//        }
+        tmpList =  DataHelper.getInstance().getSecondCategroyMap().get(DataHelper.getInstance().getFirstCategroyList().get(id).getId());
         secondData.clear();
         if(tmpList != null){
-            secondData.add("所有"+DataHelper.getInstance().getFirstCategroyList().get(id-1).getName());
+            secondData.add("所有"+DataHelper.getInstance().getFirstCategroyList().get(id).getName());
             for (int i =0;i < tmpList.size();i++){
                 secondData.add(tmpList.get(i).getName());
             }
@@ -399,7 +482,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     }
 
     private void loadData() {
-        quertyMap.put("region",String.valueOf(region));
+        Log.d(TAG, "loadData: "+areaId);
+        quertyMap.clear();
+        quertyMap.put("region",String.valueOf(areaId));
         quertyMap.put("queryText",queryText);
             VolleyRequestUtil.RequestPost(getActivity(),
                     Constant.URL_QUERY_BUSINESS,

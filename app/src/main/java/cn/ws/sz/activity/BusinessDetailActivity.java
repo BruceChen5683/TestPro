@@ -278,14 +278,16 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
                 tvAd2.setText(businessBean.getAdWord());
             }
 
-            if(!TextUtils.isEmpty(businessBean.getLogoUrl())){
-				if(businessBean.getLogoUrl().startsWith("http")){//
-					CommonUtils.setImageView2(businessBean.getLogoUrl(),rlLogo);
+            String[] images = businessBean.getImages();
+            if(images != null && images.length > 0){
+				if(images[0].startsWith("http")){//
+					CommonUtils.setImageView2(images[0],rlLogo);
 				}else{
-					CommonUtils.setImageView2(Constant.BASEURL+businessBean.getLogoUrl(),rlLogo);
+					CommonUtils.setImageView2(Constant.BASEURL+images[0],rlLogo);
 				}
-
-            }
+			}else {//default
+				CommonUtils.setImageView2("",rlLogo);
+			}
 
         }
     }

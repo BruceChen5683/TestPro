@@ -1,6 +1,7 @@
 package cn.ws.sz.bean;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Created by chenjianliang on 2018/1/13.
@@ -56,6 +57,7 @@ public class BusinessBean implements Serializable{
     private int sort;
     private String address;
 	private int isAuth;
+	private String[] images;
 
 	public int getIsAuth() {
 		return isAuth;
@@ -224,4 +226,40 @@ public class BusinessBean implements Serializable{
     public void setAddress(String address) {
         this.address = address;
     }
+
+	public String[] getImages() {
+		return images;
+	}
+
+	public void setImages(String[] images) {
+		this.images = images;
+	}
+
+	@Override
+	public String toString() {
+		return "BusinessBean{" +
+				"id=" + id +
+				", isNewRecord=" + isNewRecord +
+				", name='" + name + '\'' +
+				", region='" + region + '\'' +
+				", categoryId=" + categoryId +
+				", cellphone='" + cellphone + '\'' +
+				", logoUrl='" + logoUrl + '\'' +
+				", referee='" + referee + '\'' +
+				", refereeCellphone='" + refereeCellphone + '\'' +
+				", attendDate='" + attendDate + '\'' +
+				", mainProducts='" + mainProducts + '\'' +
+				", adWord='" + adWord + '\'' +
+				", type='" + type + '\'' +
+				", phone='" + phone + '\'' +
+				", viewNum=" + viewNum +
+				", lng='" + lng + '\'' +
+				", lat='" + lat + '\'' +
+				", isHot=" + isHot +
+				", sort=" + sort +
+				", address='" + address + '\'' +
+				", isAuth=" + isAuth +
+				", images=" + Arrays.toString(images) +
+				'}';
+	}
 }

@@ -91,6 +91,8 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        areaId = Integer.valueOf( DataHelper.getInstance().getAreaId());
+
         layoutInflater = inflater;
         gson = new Gson();
         View view = inflater.inflate(R.layout.fragment_classify, container, false);
@@ -105,26 +107,9 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
+        areaId = Integer.valueOf( DataHelper.getInstance().getAreaId());
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d(TAG, "onDetach: ");
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(TAG, "onAttach: ");
-    }
-
-    @Override
-    public void onAttachFragment(Fragment childFragment) {
-        super.onAttachFragment(childFragment);
-        Log.d(TAG, "onAttachFragment: ");
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

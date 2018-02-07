@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.mob.sdk'
 android {
 //    signingConfigs {
 //        config {
@@ -55,6 +55,24 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+}
+
+MobSDK {
+    appKey "1615553fb1bf9"
+    appSecret "ab34f7925890b9a1f4a029c8e269fb85"
+
+    //TODO 申请Key
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            Wechat {
+                appId "123456"
+                appSecret "123456"
+                bypassApproval true
+            }
+        }
+    }
+
 }
 
 dependencies {

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import cn.ws.sz.utils.ToastUtil;
  * Created by YoKey on 16/10/9.
  */
 public class SearchFragment extends Fragment {
+	private static final String TAG = SearchFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private TextView mTvNoResult;
     private SearchAdapter mAdapter;
@@ -74,6 +76,9 @@ public class SearchFragment extends Fragment {
 
         public SearchAdapter() {
             items.clear();
+			if(mDatas == null){
+				Log.d(TAG, "SearchAdapter: null");
+			}
             items.addAll(mDatas);
         }
 
@@ -127,12 +132,12 @@ public class SearchFragment extends Fragment {
                 protected void publishResults(CharSequence constraint, FilterResults results) {
                     ArrayList<CityEntity> list = (ArrayList<CityEntity>) results.values;
                     items.clear();
-                    items.addAll(list);
                     if (results.count == 0) {
                         mTvNoResult.setVisibility(View.VISIBLE);
                     } else {
                         mTvNoResult.setVisibility(View.INVISIBLE);
-                    }
+						items.addAll(list);
+					}
                     notifyDataSetChanged();
                 }
             };

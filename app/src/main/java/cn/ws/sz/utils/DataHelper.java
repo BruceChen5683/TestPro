@@ -17,8 +17,8 @@ public class DataHelper {
 	private List<ClassifyBean> firstCategroyList = new ArrayList<>();
 	private Map<Integer,List<ClassifyBean>> secondCategroyMap = new HashMap<>();
 
-	private String city = "";
-	private String areaId = "";
+	private String city = "东城区";//defaut
+	private String areaId = "110101";//default
 
 	public DataHelper(){
 

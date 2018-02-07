@@ -158,6 +158,10 @@ public class PickCityActivity extends AppCompatActivity implements SearchFragmen
             @Override
             public void onClick(View v) {
 
+				if(gpsHandler != null){
+					gpsHandler.removeMessages(GPS);
+				}
+
 				locationService.unregisterListener(mListener);
 				locationService.stop();
 
@@ -191,10 +195,14 @@ public class PickCityActivity extends AppCompatActivity implements SearchFragmen
             @Override
             public void onItemClick(View v, int originalPosition, int currentPosition, CityEntity entity) {
 				ToastUtil.showShort(PickCityActivity.this,entity.getName());
+				if(gpsHandler != null){
+					gpsHandler.removeMessages(GPS);
+				}
                 if(!gpsCity.get(0).getName().equals(entity.getName())){
                     gpsCity.get(0).setName(entity.getName());
 					areaCode = entity.getId()+"";
                     gpsHeaderAdapter.notifyDataSetChanged();
+					PickCityActivity.this.finish();
                 }
             }
         });
@@ -207,7 +215,8 @@ public class PickCityActivity extends AppCompatActivity implements SearchFragmen
 	@Override
 	protected void onPause() {
 		super.onPause();
-		DataHelper.getInstance().setCity(gpsCity.get(0).getName());
+        Log.d(TAG, "onPause: "+areaCode);
+        DataHelper.getInstance().setCity(gpsCity.get(0).getName());
 		DataHelper.getInstance().setAreaId(areaCode);
 	}
 
@@ -383,9 +392,13 @@ public class PickCityActivity extends AppCompatActivity implements SearchFragmen
 
 	@Override
 	public void setSearhResult(CityEntity entity) {
+		if(gpsHandler != null){
+			gpsHandler.removeMessages(GPS);
+		}
 		areaCode = entity.getId()+"";
 		gpsCity.get(0).setName(entity.getName());
 		gpsHeaderAdapter.notifyDataSetChanged();
+		this.finish();
 	}
 
 	private void getHotCity(){

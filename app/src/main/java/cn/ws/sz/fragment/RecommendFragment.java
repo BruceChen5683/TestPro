@@ -19,7 +19,9 @@ import android.widget.TextView;
 
 import cn.ws.sz.R;
 import cn.ws.sz.activity.MyRecommendActivity;
+import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.SoftKeyBroadManager;
+import cn.ws.sz.utils.ToastUtil;
 
 
 public class RecommendFragment extends Fragment implements View.OnClickListener,SoftKeyBroadManager.SoftKeyboardStateListener {
@@ -33,6 +35,7 @@ public class RecommendFragment extends Fragment implements View.OnClickListener,
 
 
     private Dialog dialog;
+	private EditText etRecommend,etTel;
     private int dialogHeight;
     private  SoftKeyBroadManager mManager;
 
@@ -64,7 +67,7 @@ public class RecommendFragment extends Fragment implements View.OnClickListener,
         tvTitle = (TextView) view.findViewById(R.id.title_value);
         tvTitle.setText("推荐");
 
-        flEnter = (RelativeLayout) view.findViewById(R.id.enter);
+		flEnter = (RelativeLayout) view.findViewById(R.id.enter);
         flEnter.setOnClickListener(this);
 
         flFriend = (RelativeLayout) view.findViewById(R.id.friend);
@@ -83,6 +86,8 @@ public class RecommendFragment extends Fragment implements View.OnClickListener,
         LinearLayout root = (LinearLayout) LayoutInflater.from(getActivity()).inflate(
                 R.layout.recommend_enter, null);
         RelativeLayout llRecommendEnter = (RelativeLayout) root.findViewById(R.id.llRecommendEnter);
+		etRecommend = (EditText) root.findViewById(R.id.etRecommend);
+		etTel = (EditText) root.findViewById(R.id.etTel);
         llRecommendEnter.setOnClickListener(this);
         dialog.setContentView(root);
         Window dialogWindow = dialog.getWindow();
@@ -111,11 +116,21 @@ public class RecommendFragment extends Fragment implements View.OnClickListener,
                 recommendMode = RECOMMEND_MODE_FRIEND;
                 showRecommendFriendDialog();
             case R.id.llRecommendEnter:
+				if(TextUtils.isEmpty(etRecommend.getText())){
+					ToastUtil.showShort(getActivity(),"请输入姓名");
+					return;
+				}
+				if(TextUtils.isEmpty(etTel.getText())){
+					ToastUtil.showShort(getActivity(),"请输入手机号");
+					return;
+				}
                 if(recommendMode == RECOMMEND_MODE_ENTER){
-
+					CommonUtils.showShare(getActivity(),etRecommend.getText()+getResources().getString(R.string.recommend_enter));
                 }else if(recommendMode == RECOMMEND_MODE_FRIEND){
-
+					CommonUtils.showShare(getActivity(),etRecommend.getText()+getResources().getString(R.string.recommend_proxy));
                 }
+				etRecommend.setText("");
+				etTel.setText("");
                 Log.d(TAG, "onClick: llRecommendEnter");
                 break;
             case R.id.money:
@@ -131,7 +146,7 @@ public class RecommendFragment extends Fragment implements View.OnClickListener,
     private void showRecommendEnterDialog() {
         if(dialog != null && !dialog.isShowing()){
             TextView tvEnterMoney = (TextView) dialog.findViewById(R.id.tvEnterMoney);
-            tvEnterMoney.setText("好友入驻万商，\"推荐人\"填您的手机号，您将推荐得佣金XX元");
+            tvEnterMoney.setText("好友入驻万商，\"推荐人\"填您的手机号，您将推荐得佣金20元");
             dialog.show();
         }
     }

@@ -69,8 +69,13 @@ public class BusinesssItem3Adapter extends BaseAdapter{
             holder.tvAddress.setText("默认上海浦东新区张江高科");
         }
         holder.tvCellPhone.setText(getItem(position).getCellphone());
-		String logoUrl = getItem(position).getLogoUrl();
-		if(logoUrl.startsWith("")){
+
+		String[] images = getItem(position).getImages();
+		String logoUrl = "";
+		if(images != null && images.length > 0){
+			logoUrl = images[0];
+		}
+		if(logoUrl.startsWith("http")){
 			CommonUtils.setImageView(logoUrl,holder.imageView);
 		}else {
 			CommonUtils.setImageView(Constant.BASEURL+logoUrl,holder.imageView);

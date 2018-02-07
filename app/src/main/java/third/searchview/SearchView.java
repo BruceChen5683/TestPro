@@ -336,7 +336,6 @@ public class SearchView extends LinearLayout {
     }
 
     public void hideScrollView(boolean flag){
-        Log.d("", "hideScrollView: "+flag);
         if(flag){
             search_sv.setVisibility(GONE);
 //            tv_clear.setVisibility(GONE);
