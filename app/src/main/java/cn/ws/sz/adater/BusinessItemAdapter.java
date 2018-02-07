@@ -70,12 +70,7 @@ public class BusinessItemAdapter extends BaseAdapter{
         holder.tvBusinessName.setText(getItem(position).getName());
         holder.tvBusinessAddress.setText(getItem(position).getAddress());
         holder.tvBusinessTel.setText(getItem(position).getCellphone());
-		String[] images = getItem(position).getImages();
-		String logoUrl = "";
-		if(images != null && images.length > 0){
-			logoUrl = images[0];
-		}
-		CommonUtils.setImageView(logoUrl,holder.imageView);
+		CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
 
 
         holder.rlFixedPhone.setOnClickListener(new View.OnClickListener() {

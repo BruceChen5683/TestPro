@@ -70,12 +70,7 @@ public class BusinesssItem3Adapter extends BaseAdapter{
         }
         holder.tvCellPhone.setText(getItem(position).getCellphone());
 
-		String[] images = getItem(position).getImages();
-		String logoUrl = "";
-		if(images != null && images.length > 0){
-			logoUrl = images[0];
-		}
-		CommonUtils.setImageView(logoUrl,holder.imageView);
+		CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
 
 
         convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
