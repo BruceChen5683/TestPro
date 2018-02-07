@@ -64,7 +64,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 	private BannerFragment bannerFragment;
 	private BannerFragment.ImageCycleViewListener imageCycleViewListener;
 	private List<ImageView> views = new ArrayList<ImageView>();
-
+	String[] images;
 
     private TextView tvFixedPhone,tvTel;
 	RelativeLayout rlModifierAd;
@@ -202,7 +202,14 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
 			@Override
 			public void onImageClick(int postion, View imageView) {
-				Log.d(TAG, "onImageClick: "+postion);
+				if(images != null && images.length > 0){
+					Intent intent = new Intent();
+					intent.putExtra("image",images[postion-1]);
+					intent.setClass(BusinessDetailActivity.this,ImageShowerActivity.class);
+					startActivity(intent);
+				}else {
+					ToastUtil.showShort(BusinessDetailActivity.this,"商家未上传图片");
+				}
 			}
 		};
 
@@ -316,23 +323,25 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
                 tvAd2.setText(businessBean.getAdWord());
             }
 
-            String[] images = businessBean.getImages();
+            images = businessBean.getImages();
 
 			Log.d("cjl", "BusinessDetailActivity ---------setBusinessBeanToUi:      images "+images);
 
+			views.clear();
 			if(images != null && images.length > 0){
-				views.clear();
 				views.add(ViewFactory.getImageView(this,images[images.length-1]));
 				for (int i = 0;i < images.length;i++){
 					views.add(ViewFactory.getImageView(this,images[i]));
 				}
 				views.add(ViewFactory.getImageView(this,images[0]));
-				loadBannerFragment();
 			}else {
-				bannerFragment.setVisibility(View.GONE);
+				views.add(ViewFactory.getImageView(this,R.drawable.default_ws));
+				views.add(ViewFactory.getImageView(this,R.drawable.default_ws));
+				views.add(ViewFactory.getImageView(this,R.drawable.default_ws));
 			}
+			loadBannerFragment();
 
-        }
+		}
     }
 
     private void loadSimilarData() {
