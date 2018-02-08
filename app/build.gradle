@@ -1,33 +1,25 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 android {
-//    signingConfigs {
-//        config {
-//            keyAlias 'app'
-//            keyPassword '123456'
-//            storeFile file('C:/Users/BattleCall/wanshang.jks')
-//            storePassword '123456'
-//        }
-//    }
-    signingConfigs {
+    signingConfigs {//win
         config {
             keyAlias 'app'
             keyPassword '123456'
-            storeFile file('/Users/chenjianliang/wanshang.jks')
+            storeFile file('C:/Users/BattleCall/wanshang.jks')
             storePassword '123456'
         }
     }
-    compileSdkVersion 24
-    buildToolsVersion "25.0.2"
-//    //配置keystore签名
-//    signingConfigs {
-//        release {
-//            storeFile file("wangshang.jks")
-//            storePassword "123456"
-//            keyAlias "app"
-//            keyPassword "123456"
+//    signingConfigs {//mac
+//        config {
+//            keyAlias 'app'
+//            keyPassword '123456'
+//            storeFile file('/Users/chenjianliang/wanshang.jks')
+//            storePassword '123456'
 //        }
 //    }
+    compileSdkVersion 24
+    buildToolsVersion "25.0.2"
+
     defaultConfig {
         applicationId "cn.ws.sz"
         minSdkVersion 16
@@ -39,16 +31,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-//            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
         }
-//        debug {
-//            signingConfig signingConfigs.release
-//        }
-//        debug {
-//            signingConfig signingConfigs.config
-//        }
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
     sourceSets {
         main {
