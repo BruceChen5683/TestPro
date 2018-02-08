@@ -31,6 +31,7 @@ import java.util.Map;
 
 import cn.ws.sz.R;
 import cn.ws.sz.bean.AreaBean;
+import cn.ws.sz.bean.CityBean;
 import cn.ws.sz.bean.CityStatus;
 import cn.ws.sz.bean.ClassifyStatus;
 import cn.ws.sz.service.LocationService;
@@ -236,13 +237,26 @@ public class PickCityActivity extends AppCompatActivity implements SearchFragmen
             cityStrings.addAll(WSApp.areasMap.get(key));
         }
 
+        List<AreaBean> cityToArea = new ArrayList<>();
+        for (Integer key:WSApp.citys.keySet()){
+			CityBean cityBean = WSApp.citys.get(key);
+			Log.d(TAG, "initDatas: "+ cityBean.getCity());
+			AreaBean areaBean = new AreaBean();
+			areaBean.setId(cityBean.getId());
+			areaBean.setArea(cityBean.getCity());
+			areaBean.setCityid(cityBean.getId());
+			areaBean.setIsNewRecord(cityBean.isIsNewRecord());
+			cityToArea.add(areaBean);
+		}
+		cityStrings.addAll(cityToArea);
+
         for (AreaBean item : cityStrings) {
             CityEntity cityEntity = new CityEntity();
-            if(item.getArea().equals("市辖区")){
-                cityEntity.setName(WSApp.citys.get(item.getCityid()).getCity());
-            }else {
+//            if(item.getArea().equals("市辖区")){
+//                cityEntity.setName(WSApp.citys.get(item.getCityid()).getCity());
+//            }else {
                 cityEntity.setName(item.getArea());
-            }
+//            }
             cityEntity.setId(item.getId());
             list.add(cityEntity);
         }
