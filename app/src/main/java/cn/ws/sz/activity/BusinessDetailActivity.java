@@ -46,6 +46,7 @@ import cn.ws.sz.utils.SoftKeyBroadManager.SoftKeyboardStateListener;
 import cn.ws.sz.utils.ToastUtil;
 import cn.ws.sz.view.ImageLayout;
 import cn.ws.sz.view.ViewFactory;
+import gps.LocationFilter;
 import third.ACache;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
@@ -66,6 +67,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 	private BannerFragment.ImageCycleViewListener imageCycleViewListener;
 	private List<ImageView> views = new ArrayList<ImageView>();
 	String[] images;
+	private RelativeLayout rl_can_gps;
 
     private TextView tvFixedPhone,tvTel;
 	RelativeLayout rlModifierAd;
@@ -233,11 +235,16 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
     private void initView() {
 
+
+
 		bannerFragment = (BannerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_banner_content);
 
 		if (bannerFragment != null) {// null, Version
 //			bannerFragment.setHeight();
 		}
+
+		rl_can_gps = (RelativeLayout)findViewById(R.id.rl_can_gps);
+		rl_can_gps.setOnClickListener(this);
 
         ivLabel = (ImageView) findViewById(R.id.ivLabel);
 
@@ -434,6 +441,15 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
                 tel = (String) tvTel.getText();
                 CommonUtils.callByDefault(this,tel);
                 break;
+			case R.id.rl_can_gps:
+				Intent intent1 = new Intent();
+				intent1.setClass(BusinessDetailActivity.this, LocationFilter.class);
+				intent1.putExtra("mode",Constant.DISPLAY_GPS);
+				intent1.putExtra("latitude",businessBean.getLat());
+				intent1.putExtra("longitude",businessBean.getLng());
+				intent1.putExtra("address",businessBean.getAddress());
+				Log.d(TAG, "onClick: -------------------------------------------");
+				break;
             default:
                 break;
         }

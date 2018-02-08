@@ -425,7 +425,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
             	if(windowType == WINDOW_CLASSIFY){
                 	tvSettledClassify2.setText(mCurrentFirstClassify+"-"+mCurrentSecondClassify);
             	}else if(windowType == WINDOW_AREA){
-					tvSettledAddresss2.setText(mCurrentProvince+"-"+mCurrentCity+"-"+mCurrentArea);
+					tvSettledAddresss2.setText(mCurrentProvince+mCurrentCity+mCurrentArea);
 				}
                 mPopupWindow.dismiss();
                 break;
@@ -451,6 +451,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 //                onClickEditTextParent((ViewGroup) v);
                 Intent intent = new Intent();
                 intent.setClass(MoneyActivity.this, LocationFilter.class);
+				intent.putExtra("mode",Constant.SET_GPS);
 				startActivityForResult(intent,CODE_LOCATIONFILTER_ACTIVITY);
                 break;
             case R.id.rlSettledPhone:

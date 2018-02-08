@@ -7,7 +7,7 @@ import third.ACache;
  */
 
 public class Constant {
-    public static final String BASEURL = "http://118.31.0.121:8080/ws";
+    public static final String BASEURL = "http://sz-ws.cn:8080/ws";
 
     public static final int MAX_BUSINESS_PHOTO = 5;
     public static final int MAX_IDCARD_PHOTO = 1;
@@ -98,7 +98,7 @@ public class Constant {
     public static final int HOT_BUSINESS_NUM = 2;
 
 
-    public static final String TEST_AD_URL = "http://news.bioon.com/article/6716755.html";
+    public static final String TEST_AD_URL = "http://www.sz-ws.cn/join.html";
 
 
 
@@ -117,5 +117,8 @@ public class Constant {
 	public static final String DIR_WS_CRASH = "WanShangCrash";
 
 	public static final String KEY_EXTRA_MERCHANT_ID = "merchantId";
+
+	public static final int DISPLAY_GPS = 1;
+	public static final int SET_GPS = 2;
 
 }

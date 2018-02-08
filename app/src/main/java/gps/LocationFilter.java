@@ -20,6 +20,7 @@ import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
@@ -30,6 +31,8 @@ import cn.ws.sz.R;
 import cn.ws.sz.service.LocationService;
 import cn.ws.sz.utils.WSApp;
 import third.citypicker.PickCityActivity;
+
+import static cn.ws.sz.utils.Constant.DISPLAY_GPS;
 
 /***
  * 定位滤波demo，实际定位场景中，可能会存在很多的位置抖动，此示例展示了一种对定位结果进行的平滑优化处理
@@ -48,12 +51,15 @@ public class LocationFilter extends AppCompatActivity {
 	private LinkedList<LocationEntity> locationList = new LinkedList<LocationEntity>(); // 存放历史定位结果的链表，最大存放当前结果的前5次定位结果
 
 	private LatLng mLatLng;
-
+	private int mode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
+		Bundle bundle = getIntent().getExtras();
+		mode = bundle.getInt("mode");
 
 		Log.d(TAG, "onCreate: ");
 		setContentView(R.layout.locationfilter);
@@ -99,13 +105,34 @@ public class LocationFilter extends AppCompatActivity {
 		mOption.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
 		mOption.setCoorType("bd09ll");
 		locService.setLocationOption(mOption);
-		locService.registerListener(listener);
-		if(locService.isStart()){
-			Log.d(TAG, "onCreate: start");
-		}else {
-			Log.d(TAG, "onCreate: not start");
+
+		if(mode == DISPLAY_GPS){
+			sure.setVisibility(View.GONE);
+			reset.setVisibility(View.GONE);
+			double tLat,tLong;
+			LatLng point = null;
+			if(bundle.get("latitude") != null){
+				tLat = Double.valueOf(bundle.get("latitude").toString());
+				tLong = Double.valueOf(bundle.get("longitude").toString());
+				point = new LatLng(tLat,tLong);
+			}else {
+				if(bundle.get("address") != null){
+
+				}
+			}
+			BitmapDescriptor bitmap = null;
+			bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_mark); // 非推算结果
+			// 构建MarkerOption，用于在地图上添加Marker
+			OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
+			// 在地图上添加Marker，并显示
+			mBaiduMap.clear();
+			mBaiduMap.addOverlay(option);
+			mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(point));
+		}else{
+			locService.registerListener(listener);
+			locService.start();
 		}
-		locService.start();
+
 	}
 
 	/***

@@ -54,6 +54,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/rl_can_gps"
                 android:layout_marginTop="5dp"
                 style="@style/personal_summary_3_padding_10_110">
 
