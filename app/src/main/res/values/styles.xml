@@ -372,7 +372,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:addStatesFromChildren">true</item>
-        <item name="android:background">@color/blue</item>
+        <item name="android:background">@color/white</item>
         <item name="android:padding">@dimen/dp_10</item>
     </style>
 

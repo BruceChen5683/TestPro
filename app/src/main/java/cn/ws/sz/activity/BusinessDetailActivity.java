@@ -44,6 +44,7 @@ import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.SoftKeyBroadManager;
 import cn.ws.sz.utils.SoftKeyBroadManager.SoftKeyboardStateListener;
 import cn.ws.sz.utils.ToastUtil;
+import cn.ws.sz.utils.WSApp;
 import cn.ws.sz.view.ImageLayout;
 import cn.ws.sz.view.ViewFactory;
 import gps.LocationFilter;
@@ -447,8 +448,18 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 				intent1.putExtra("mode",Constant.DISPLAY_GPS);
 				intent1.putExtra("latitude",businessBean.getLat());
 				intent1.putExtra("longitude",businessBean.getLng());
-				intent1.putExtra("address",businessBean.getAddress());
-				Log.d(TAG, "onClick: -------------------------------------------");
+                String city = "";
+                String regionId = businessBean.getRegion();
+                if(!regionId.endsWith("00")){
+                    regionId = regionId.substring(0, regionId.length()-2) + "00";
+                }
+                city = WSApp.citys.get(Integer.valueOf(regionId)).getCity();
+                intent1.putExtra("city",city);
+                intent1.putExtra("address",businessBean.getAddress());
+                startActivity(intent1);
+                Log.d(TAG, "onClick: regionId "+regionId+city);
+
+                Log.e(TAG, "onClick: -------------------------------------------");
 				break;
             default:
                 break;

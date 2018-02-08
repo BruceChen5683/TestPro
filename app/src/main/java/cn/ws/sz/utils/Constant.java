@@ -7,7 +7,7 @@ import third.ACache;
  */
 
 public class Constant {
-    public static final String BASEURL = "http://sz-ws.cn:8080/ws";
+    public static final String BASEURL = "http://api.sz-ws.cn/ws";
 
     public static final int MAX_BUSINESS_PHOTO = 5;
     public static final int MAX_IDCARD_PHOTO = 1;

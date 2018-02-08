@@ -292,7 +292,6 @@ public class CommonUtils {
 		OnekeyShare oks = new OnekeyShare();
 		//关闭sso授权
 		oks.disableSSOWhenAuthorize();
-
 		// title标题，微信、QQ和QQ空间等平台使用
 		oks.setTitle(context.getResources().getString(R.string.app_name));
 		// titleUrl QQ和QQ空间跳转链接
@@ -300,10 +299,10 @@ public class CommonUtils {
 		// text是分享文本，所有平台都需要这个字段
 		oks.setText(recommender);
 		// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-//		TODO weChat Key
-		Bitmap logo = BitmapFactory.decodeResource(
-				context.getResources(), R.drawable.default_ws);
-		oks.setImageData(logo);
+
+//		Bitmap logo = BitmapFactory.decodeResource(
+//				context.getResources(), R.drawable.default_ws);
+//		oks.setImageData(logo);
 //		oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
 		// url在微信、微博，Facebook等平台中使用
 //		oks.setUrl("http://sharesdk.cn");
