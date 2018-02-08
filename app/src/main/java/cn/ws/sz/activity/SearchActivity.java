@@ -79,9 +79,13 @@ public class SearchActivity extends AppCompatActivity {
 
     private void loadData() {
 
-        Log.d(TAG, "loadData: " + Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId + "/"+0);
+		String temp = areaId +"";
+		String url = temp.endsWith("00") ? Constant.URL_BUSINESS_LIST_BY_CITY : Constant.URL_BUSINESS_LIST_BY_AREA;
+		Log.d(TAG, "loadSimilarData: url "+ url);
+
+        Log.d(TAG, "loadData: " + url + secondCategroy + "/" + pageId + "/" + areaId + "/"+0);
         VolleyRequestUtil.RequestGet(this,
-                Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId + "/"+0,
+                url + secondCategroy + "/" + pageId + "/" + areaId + "/"+0,
                 Constant.TAG_BUSINESS_LIST_SEARCH,//商家列表搜索tag
                 new VolleyListenerInterface(this,
                         VolleyListenerInterface.mListener,

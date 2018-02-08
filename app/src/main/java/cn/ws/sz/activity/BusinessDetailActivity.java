@@ -38,6 +38,7 @@ import cn.ws.sz.bean.CollectHistroyBean;
 import cn.ws.sz.fragment.BannerFragment;
 import cn.ws.sz.utils.CommonUtils;
 import cn.ws.sz.utils.Constant;
+import cn.ws.sz.utils.DataHelper;
 import cn.ws.sz.utils.DeviceUtils;
 import cn.ws.sz.utils.Eyes;
 import cn.ws.sz.utils.SoftKeyBroadManager;
@@ -120,6 +121,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         if(bundle != null){
 			merchantId = bundle.getInt(Constant.KEY_EXTRA_MERCHANT_ID,1);
         }
+		areaId = Integer.valueOf( DataHelper.getInstance().getAreaId());
 
         gson = new Gson();
 
@@ -134,6 +136,12 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
         initDialog();
 
     }
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		areaId = Integer.valueOf( DataHelper.getInstance().getAreaId());
+	}
 
 	private void loadBusinessData() {
 		VolleyRequestUtil.RequestGet(this,
@@ -347,8 +355,11 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
     }
 
     private void loadSimilarData() {
-        VolleyRequestUtil.RequestGet(this,
-                Constant.URL_BUSINESS_LIST + secondCategroy + "/" + pageId + "/" + areaId  + "/"+0,
+		String temp = areaId +"";
+		String url = temp.endsWith("00") ? Constant.URL_BUSINESS_LIST_BY_CITY : Constant.URL_BUSINESS_LIST_BY_AREA;
+		Log.d(TAG, "loadSimilarData: url "+ url);
+		VolleyRequestUtil.RequestGet(this,
+				url + secondCategroy + "/" + pageId + "/" + areaId  + "/"+0,
                 Constant.TAG_BUSINESS_LIST_SIMILAR,//商家列表tag
                 new VolleyListenerInterface(this,
                         VolleyListenerInterface.mListener,

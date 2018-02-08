@@ -267,9 +267,15 @@ public class ClassifyFragment extends Fragment implements PullToRefreshView.OnHe
 
     private void loadData(final boolean loadMore,final int mSecondCategroy,final int mPageId,final int mAreaId) {
 
-        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0);
+		String temp = areaId +"";
+		Log.d(TAG, "loadData: temp "+ temp);
+
+		String url = temp.endsWith("00") ? Constant.URL_BUSINESS_LIST_BY_CITY : Constant.URL_BUSINESS_LIST_BY_AREA;
+		Log.d(TAG, "loadSimilarData: url "+ url);
+
+        Log.d(TAG, "loadData: "+url + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0);
         VolleyRequestUtil.RequestGet(getActivity(),
-                Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0,
+                url + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0,
                 Constant.TAG_BUSINESS_LIST_2,//商家列表tag
                 new VolleyListenerInterface(getActivity(),
                         VolleyListenerInterface.mListener,

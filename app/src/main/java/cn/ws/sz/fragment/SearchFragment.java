@@ -292,7 +292,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
     }
     private void loadData(final boolean loadMore,final int mSecondCategroy,final int mPageId,final int mAreaId) {
 
-//        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0);
+//        Log.d(TAG, "loadData: "+Constant.URL_BUSINESS_LIST_BY_AREA + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0);
 
 
         quertyMap.put("pageNo",mPageId+"");
@@ -349,7 +349,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Pul
 
 
 //        VolleyRequestUtil.RequestGet(getActivity(),
-//                Constant.URL_BUSINESS_LIST + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0,
+//                Constant.URL_BUSINESS_LIST_BY_AREA + mSecondCategroy + "/" + mPageId + "/" + mAreaId + "/"+0,
 //                Constant.TAG_BUSINESS_LIST_2,//商家列表tag
 //                new VolleyListenerInterface(getActivity(),
 //                        VolleyListenerInterface.mListener,

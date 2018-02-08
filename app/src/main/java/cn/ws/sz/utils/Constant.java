@@ -29,7 +29,11 @@ public class Constant {
     public static final String URL_AREA = "/api/region/getArea";// +城市id
 
     public static final String URL_AD = "/api/banner/list/";// +areaId  /api/banner/list/110101    110101 是区域id 获取banner图
-    public static final String URL_BUSINESS_LIST = "/api/merchant/getListByCategory/";//  /api/merchant/getListByCategory/0/0/110101 获取商户列表 17是二级分类的id 1是页码
+
+	//俩个接口
+    public static final String URL_BUSINESS_LIST_BY_AREA = "/api/merchant/getListByCategory/";//  /api/merchant/getListByCategory/xxxsecondId/xxxpageId/xxxareaId/0 获取商户列表 17是二级分类的id 1是页码
+	public static final String URL_BUSINESS_LIST_BY_CITY = "/api/merchant/getLists/";
+
     public static final String URL_HOT = "/api/merchant/getHotList/";// + aredId
 
     public static final String URL_DETAIL = "/api/merchant/detail/";// /api/merchant/detail/10
