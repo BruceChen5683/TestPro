@@ -341,8 +341,6 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
 
             images = businessBean.getImages();
 
-			Log.d("cjl", "BusinessDetailActivity ---------setBusinessBeanToUi:      images "+images);
-
 			views.clear();
 			if(images != null && images.length > 0){
 				views.add(ViewFactory.getImageView(this,images[images.length-1]));
@@ -458,9 +456,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
                 intent1.putExtra("address",businessBean.getAddress());
                 startActivity(intent1);
                 Log.d(TAG, "onClick: regionId "+regionId+city);
-
-                Log.e(TAG, "onClick: -------------------------------------------");
-				break;
+                break;
             default:
                 break;
         }

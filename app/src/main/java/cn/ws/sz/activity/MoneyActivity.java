@@ -841,11 +841,9 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 			if(cityLength > 0){
 				if(cityLength > mCurrentCityItem){
 					mCurrentCity = cityBeanList.get(mCurrentCityItem).getCity();
-//				categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
 					cityView.setCurrentItem(mCurrentCityItem);
 				}else {
 					mCurrentCity = cityBeanList.get(cityLength-1).getCity();
-//				categoryId = secondClassifyDatas.get(cityLength-1).getId();
 					cityView.setCurrentItem(cityLength-1);
 				}
 			}else {
@@ -874,12 +872,10 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 			if(areaLength > mCurrentAreaItem){
 				mCurrentArea = areaBeanList.get(mCurrentAreaItem).getArea();
 				areaId = areaBeanList.get(mCurrentAreaItem).getId();
-//				categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
 				areaView.setCurrentItem(mCurrentAreaItem);
 			}else {
 				mCurrentArea = areaBeanList.get(areaLength-1).getArea();
 				areaId = areaBeanList.get(areaLength-1).getId();
-//				categoryId = secondClassifyDatas.get(cityLength-1).getId();
 				areaView.setCurrentItem(areaLength-1);
 			}
 		}else {
@@ -906,14 +902,17 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
 		if(secondClassifyLenght > 0){
 			if(secondClassifyLenght > mCurrentSecondClassifyItem){
 				mCurrentSecondClassify = secondClassifyDatas.get(mCurrentSecondClassifyItem).getName();
-				categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
+                Log.d(TAG, "updateSecondClassifyDate: 1");
+                categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
 				secondClassifyView.setCurrentItem(mCurrentSecondClassifyItem);
 			}else {
 				mCurrentSecondClassify = secondClassifyDatas.get(secondClassifyLenght-1).getName();
-				categoryId = secondClassifyDatas.get(secondClassifyLenght-1).getId();
+                Log.d(TAG, "updateSecondClassifyDate: 2");
+                categoryId = secondClassifyDatas.get(secondClassifyLenght-1).getId();
 				secondClassifyView.setCurrentItem(secondClassifyLenght-1);
 			}
-		}else {
+            Log.d(TAG, "updateSecondClassifyDate: categoryId "+categoryId);
+        }else {
 			mCurrentSecondClassify = "";
 		}
 	}
@@ -935,6 +934,8 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         if(wheel == secondClassifyView){
             mCurrentSecondClassify = secondClassifyDatas.get(newValue).getName();
             mCurrentSecondClassifyItem = newValue;
+            categoryId = secondClassifyDatas.get(mCurrentSecondClassifyItem).getId();
+            Log.d(TAG, "onChanged: categoryId "+categoryId);
         }
 
 		if(wheel == provinceView){
