@@ -138,7 +138,7 @@
                     style="@style/business_detail_tv"
                     android:layout_toRightOf="@+id/ivFixedPhone"
                     android:maxLines="1"
-                    android:text="05535739166"/>
+                    android:text=""/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -154,7 +154,7 @@
                     style="@style/business_detail_tv"
                     android:layout_toRightOf="@+id/ivTel"
                     android:maxLines="1"
-                    android:text="18312345678"/>
+                    android:text=""/>
             </RelativeLayout>
 
             <RelativeLayout

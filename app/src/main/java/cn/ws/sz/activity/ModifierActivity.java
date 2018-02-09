@@ -95,8 +95,8 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
                     tvAddres.setText(businessBean.getAddress());
                 }
 
-                if(!TextUtils.isEmpty(businessBean.getPhone())){
-                    phoneNum = businessBean.getPhone();
+                if(!TextUtils.isEmpty(businessBean.getCellphone())){
+                    phoneNum = businessBean.getCellphone();
                     tvTel.setText(phoneNum);
                 }
             }else{//数据无法修改 返回
@@ -235,7 +235,7 @@ public class ModifierActivity extends AppCompatActivity implements View.OnClickL
     private void getYzm(){
 
         VolleyRequestUtil.RequestGet(this,
-                Constant.URL_SEND_MSG + "/" + businessBean.getPhone(),
+                Constant.URL_SEND_MSG + "/" + businessBean.getCellphone(),
                 Constant.TAG_SEND_MSG,
                 new VolleyListenerInterface(this,
                         VolleyListenerInterface.mListener,
