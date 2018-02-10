@@ -66,15 +66,15 @@ public class BusinesssItem3Adapter extends BaseAdapter{
         if(!TextUtils.isEmpty(getItem(position).getAddress())){
             holder.tvAddress.setText(getItem(position).getAddress());
         }else {
-            holder.tvAddress.setText("默认上海浦东新区张江高科");
+//            holder.tvAddress.setText("默认上海浦东新区张江高科");
         }
         holder.tvCellPhone.setText(getItem(position).getCellphone());
 
 		CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
 
 
-        convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                DeviceUtils.getDeviceScreeHeight(context)/4));
+//        convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                DeviceUtils.getDeviceScreeHeight(context)/4));
         return convertView;
     }
 

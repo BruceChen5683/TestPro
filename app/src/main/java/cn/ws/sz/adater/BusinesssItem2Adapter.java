@@ -49,7 +49,9 @@ public class BusinesssItem2Adapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
+        Log.d("", "getView: "+position);
         ViewHolder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(
@@ -69,8 +71,8 @@ public class BusinesssItem2Adapter extends BaseAdapter{
         }
 		CommonUtils.setImageView(getItem(position).getLogoUrl(),holder.imageView);
 
-        int h = (int) context.getResources().getDimension(R.dimen.dp_130);
-		convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, h));
+//        int h = (int) context.getResources().getDimension(R.dimen.dp_130);
+//		convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, h));
 
         return convertView;
     }

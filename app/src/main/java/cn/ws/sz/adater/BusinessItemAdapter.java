@@ -80,8 +80,8 @@ public class BusinessItemAdapter extends BaseAdapter{
             }
         });
 
-        convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                DeviceUtils.getDeviceScreeHeight(context)/7));
+//        convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                DeviceUtils.getDeviceScreeHeight(context)/7));
 
         return convertView;
     }
