@@ -25,7 +25,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "V1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -36,6 +36,23 @@ android {
         }
         debug {
             signingConfig signingConfigs.config
+        }
+    }
+
+    // 打包后应用名称
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            def fileName
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                if (variant.buildType.name.equals('release')) {
+                    fileName = "WanShang_Release${defaultConfig.versionName}.${releaseTime()}.apk"
+                } else if (variant.buildType.name.equals('debug')) {
+                    fileName = "WanShang_Debug${defaultConfig.versionName}.${releaseTime()}.apk"
+                }
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+
         }
     }
     sourceSets {
@@ -70,6 +87,10 @@ MobSDK {
         }
     }
 
+}
+
+def releaseTime(){
+    return new Date().format("yyyyMMdd",TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
