@@ -198,7 +198,7 @@
                     style="@style/business_detail_tv"
                     android:ellipsize="end"
                     android:paddingRight="10dp"
-                    android:text="圣诞元旦庆祝获得：充值1000送300，充的送的多，欢迎光临。"/>
+                    android:text=""/>
                 <ImageView
                     android:id="@+id/ivAdGo"
                     style="@style/business_detail_iv_right"

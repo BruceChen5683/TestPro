@@ -30,7 +30,7 @@
             android:textColor="@color/dialog_ad_text_color"
             android:textSize="@dimen/sp_14"
             android:maxLength="200"
-            android:text="@string/default_ad_content"/>
+            android:text=""/>
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
