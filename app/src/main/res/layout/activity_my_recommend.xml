@@ -107,8 +107,7 @@
             android:id="@+id/tvTodayRecommend"
             android:layout_toRightOf="@+id/tvTody"
             style="@style/business_detail_tv"
-            android:textColor="@color/black"
-            android:text="XXX家"/>
+            android:textColor="@color/black" />
     </RelativeLayout>
 
     <View
@@ -128,8 +127,7 @@
             android:layout_toRightOf="@+id/tvAll"
             android:id="@+id/tvAllRecommend"
             style="@style/business_detail_tv"
-            android:textColor="@color/black"
-            android:text="XXX家"/>
+            android:textColor="@color/black" />
     </RelativeLayout>
 
 </LinearLayout>
