@@ -50,7 +50,7 @@
             android:gravity="center"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="客服电话:      0553-42351345"/>
+            android:text="客服电话:      0553-5909655"/>
     </RelativeLayout>
 
     <View
