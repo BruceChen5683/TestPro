@@ -43,6 +43,7 @@ import me.yokeyword.indexablerv.EntityWrapper;
 import me.yokeyword.indexablerv.IndexableAdapter;
 import me.yokeyword.indexablerv.IndexableLayout;
 import me.yokeyword.indexablerv.SimpleHeaderAdapter;
+import third.ACache;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
 
@@ -76,6 +77,8 @@ public class PickCityActivity extends AppCompatActivity implements SearchFragmen
 	private final static int HOT_DATA = 2;
 	private final static int NO_HOT_DATA = 3;
 
+    private ACache mCache;
+
 
     private Handler gpsHandler = new Handler(){
         @Override
@@ -99,6 +102,9 @@ public class PickCityActivity extends AppCompatActivity implements SearchFragmen
 
         Log.d(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
+
+        mCache = ACache.get(this);
+
         setContentView(R.layout.activity_pick_city);
 //        getSupportActionBar().setTitle("选择城市");
 
@@ -217,6 +223,10 @@ public class PickCityActivity extends AppCompatActivity implements SearchFragmen
 	protected void onPause() {
 		super.onPause();
         Log.d(TAG, "onPause: "+areaCode);
+
+        mCache.put(Constant.CACHE_GPS_CITY,gpsCity.get(0).getName());
+        mCache.put(Constant.CACHE_GPS_AREACODE,areaCode);
+
         DataHelper.getInstance().setCity(gpsCity.get(0).getName());
 		DataHelper.getInstance().setAreaId(areaCode);
 	}

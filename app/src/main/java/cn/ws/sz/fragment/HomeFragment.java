@@ -52,6 +52,7 @@ import cn.ws.sz.utils.WSApp;
 import cn.ws.sz.view.MarqueeTextView;
 import cn.ws.sz.view.ViewFactory;
 import cn.ws.sz.fragment.BannerFragment.ImageCycleViewListener;
+import third.ACache;
 import third.citypicker.PickCityActivity;
 import third.volley.VolleyListenerInterface;
 import third.volley.VolleyRequestUtil;
@@ -89,6 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 	private StringBuilder adAll = new StringBuilder();
 	private static final int UPDATE_AD_NOTICE = 1;
+    private ACache mCache;
 
 
 	private Handler adHandler = new Handler(){
@@ -117,10 +119,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.d(TAG, "onCreateView: "+ getActivity());
         activity = (MainActivity) getActivity();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        mCache = ACache.get(getActivity());
+         if(mCache.getAsString(Constant.CACHE_GPS_CITY) != null){
+             city = mCache.getAsString(Constant.CACHE_GPS_CITY);
+             region = Integer.valueOf(mCache.getAsString(Constant.CACHE_GPS_AREACODE));
+         }
 
         initView(view);
 
@@ -128,7 +134,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         return view;
     }
-
+    
 
     @Override
     public void onResume() {
@@ -138,9 +144,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 		}
 		city = DataHelper.getInstance().getCity();
 		region = Integer.valueOf( DataHelper.getInstance().getAreaId());
-
-		Log.d(TAG, "onResume: city "+city+"    region  "+region);
-
+        
 		int cityLength = city.length();
 		lp = (RelativeLayout.LayoutParams) rl_left_titlel.getLayoutParams();
 		if(cityLength > 6){
@@ -167,6 +171,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         }
 
         tvArea = (TextView) view.findViewById(R.id.tv_area);
+        if(!TextUtils.isEmpty(city)){
+            tvArea.setText(city);
+        }
         rlSearch = (RelativeLayout) view.findViewById(R.id.rlSearch);
         tvArea.setOnClickListener(this);
         rlSearch.setOnClickListener(this);

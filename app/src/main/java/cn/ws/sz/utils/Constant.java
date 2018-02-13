@@ -110,6 +110,9 @@ public class Constant {
 	public static final String CACHE_COLLECT = "collect";
 	public static final String CACHE_HISTROY = "histroy";
 
+    public static final String CACHE_GPS_CITY = "gps_city";
+    public static final String CACHE_GPS_AREACODE = "gps_areacode";
+
 
 	public static final int MAX_HISTROY = 20;
 	public static final int MAX_COLLECT = 20;
