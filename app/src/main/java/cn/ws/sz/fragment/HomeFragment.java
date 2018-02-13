@@ -384,7 +384,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 						for (int i = 0;i <hotList.size();i++){
 							if(hotList.get(i).getIsHot() == 1){
 								if(!TextUtils.isEmpty(hotList.get(i).getAdWord())){
-									adAll.append("商家"+ hotList.get(i).getName() + ":" + hotList.get(i).getAdWord() + "     ");
+									adAll.append(hotList.get(i).getName() + ":" + hotList.get(i).getAdWord() + "     ");
 								}
 							}
 						}
