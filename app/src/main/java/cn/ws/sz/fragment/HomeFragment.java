@@ -127,11 +127,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
              city = mCache.getAsString(Constant.CACHE_GPS_CITY);
              region = Integer.valueOf(mCache.getAsString(Constant.CACHE_GPS_AREACODE));
          }
-
+         DataHelper.getInstance().setAreaId(region+"");
+         DataHelper.getInstance().setCity(city);
+         
         initView(view);
-
-        loadData();
-
         return view;
     }
     
