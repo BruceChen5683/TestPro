@@ -468,20 +468,21 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
             tvModifier = (TextView) adDiaglog.findViewById(R.id.tvModifier);
             TextView dialogEt = (TextView) adDiaglog.findViewById(R.id.dialogEt);
 
+            dialogEt.clearComposingText();
             if(type == Constant.MODIFIER_AD_TYPE){
 				rlModifierAd.setVisibility(View.VISIBLE);
                 dialogTitle.setText("广告");
                 tvModifier.setText("修改广告内容");
-                if(tvAd2 != null && !TextUtils.isEmpty(tvAd2.getText())){
+//                if(tvAd2 != null && !TextUtils.isEmpty(tvAd2.getText())){
                     dialogEt.setText(tvAd2.getText());
-                }
+//                }
             }else {
 				rlModifierAd.setVisibility(View.INVISIBLE);
                 dialogTitle.setText("主营");
 //                tvModifier.setText("修改主营内容");
-                if(tvTivMainBusiness2 != null && !TextUtils.isEmpty(tvTivMainBusiness2.getText())){
+//                if(tvTivMainBusiness2 != null && !TextUtils.isEmpty(tvTivMainBusiness2.getText())){
                     dialogEt.setText(tvTivMainBusiness2.getText());
-                }
+//                }
             }
 
             adDiaglog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
