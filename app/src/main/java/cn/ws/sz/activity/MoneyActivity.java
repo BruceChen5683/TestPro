@@ -738,7 +738,7 @@ public class MoneyActivity extends AppCompatActivity implements View.OnClickList
         }
         lp.width = DeviceUtils.getDeviceScreeWidth(this); // 宽度
 //        lp.height = (int) getResources().getDimension(R.dimen.dp_127); 去除微信支付gone
-        lp.height = (int) getResources().getDimension(R.dimen.dp_85);
+        lp.height = (int) getResources().getDimension(R.dimen.dp_128);//85+27+16
         dialogHeight = lp.height;
         lp.alpha = 1.0f; // 透明度
         dialogWindow.setAttributes(lp);

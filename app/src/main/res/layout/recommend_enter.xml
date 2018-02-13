@@ -84,7 +84,7 @@
             android:paddingLeft="5dp"
             android:gravity="center"
             android:textColor="@color/sediment_result_plus2"
-            android:text="好友入驻万商，。。。推荐得xxx元..." />
+            android:text="好友入驻万商，。。。推荐得20元..." />
     </RelativeLayout>
 
     <RelativeLayout

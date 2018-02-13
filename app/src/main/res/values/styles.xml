@@ -119,7 +119,7 @@
 
     <style name="dialog_pay_item_rl_small">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_16</item>
+        <item name="android:layout_height">@dimen/dp_32</item>
         <item name="android:paddingLeft">@dimen/dp_14</item>
         <item name="android:paddingRight">@dimen/dp_14</item>
         <item name="android:background">@color/dialog_pay_small_bg_color</item>
@@ -145,7 +145,7 @@
 
     <style name="dialog_pay_rl_mid">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_27</item>
+        <item name="android:layout_height">@dimen/dp_54</item>
         <item name="android:background">@color/title_bg</item>
     </style>
 
