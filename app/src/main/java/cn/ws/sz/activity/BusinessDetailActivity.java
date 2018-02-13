@@ -324,11 +324,11 @@ public class BusinessDetailActivity extends AppCompatActivity implements View.On
             }
 
             if(!TextUtils.isEmpty(businessBean.getCellphone())){
-                tvFixedPhone.setText(businessBean.getCellphone());
+                tvTel.setText(businessBean.getCellphone());
             }
 
             if(!TextUtils.isEmpty(businessBean.getPhone())){
-                tvTel.setText(businessBean.getPhone());
+                tvFixedPhone.setText(businessBean.getPhone());
             }
 
             if(!TextUtils.isEmpty(businessBean.getMainProducts())){
