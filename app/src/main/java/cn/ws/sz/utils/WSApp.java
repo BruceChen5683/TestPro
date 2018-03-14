@@ -1,17 +1,16 @@
 package cn.ws.sz.utils;
 
-import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.baidu.mapapi.SDKInitializer;
+import com.instabug.library.Instabug;
+import com.instabug.library.invocation.InstabugInvocationEvent;
 import com.mob.MobSDK;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -21,7 +20,6 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +28,6 @@ import java.util.Map;
 import cn.ws.sz.R;
 import cn.ws.sz.bean.AreaBean;
 import cn.ws.sz.bean.CityBean;
-import cn.ws.sz.bean.ClassifyBean;
 import cn.ws.sz.bean.ProvinceBean;
 import cn.ws.sz.service.LocationService;
 
@@ -56,8 +53,9 @@ public class WSApp extends Application{
     public void onCreate() {
         super.onCreate();
 
-		CrashHandler crashHandler = CrashHandler.getInstance();
-		crashHandler.init(getApplicationContext());
+		new Instabug.Builder(this, "10a5d2ad274edb62618b14df0128c6d5")
+				.setInvocationEvent(InstabugInvocationEvent.SHAKE)
+				.build();
 
 		MobSDK.init(this);
         queue = Volley.newRequestQueue(getApplicationContext());

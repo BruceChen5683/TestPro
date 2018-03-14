@@ -224,11 +224,13 @@ public class PickCityActivity extends AppCompatActivity implements SearchFragmen
 		super.onPause();
         Log.d(TAG, "onPause: "+areaCode);
 
-        mCache.put(Constant.CACHE_GPS_CITY,gpsCity.get(0).getName());
-        mCache.put(Constant.CACHE_GPS_AREACODE,areaCode);
+		if(gpsCity.get(0).getName() != null && areaCode != null){
+			mCache.put(Constant.CACHE_GPS_CITY,gpsCity.get(0).getName());
+			mCache.put(Constant.CACHE_GPS_AREACODE,areaCode);
+			DataHelper.getInstance().setCity(gpsCity.get(0).getName());
+			DataHelper.getInstance().setAreaId(areaCode);
+		}
 
-        DataHelper.getInstance().setCity(gpsCity.get(0).getName());
-		DataHelper.getInstance().setAreaId(areaCode);
 	}
 
 	@Override

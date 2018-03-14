@@ -1,23 +1,23 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 android {
-//    signingConfigs {//win
-//        config {
-//            keyAlias 'app'
-//            keyPassword '123456'
-//            storeFile file('C:/Users/BattleCall/wanshang.jks')
-//            storePassword '123456'
-//        }
-//    }
-    signingConfigs {//mac
+    signingConfigs {//win
         config {
             keyAlias 'app'
             keyPassword '123456'
-            storeFile file('/Users/chenjianliang/wanshang.jks')
+            storeFile file('C:/Users/BattleCall/wanshang.jks')
             storePassword '123456'
         }
     }
-    compileSdkVersion 24
+//    signingConfigs {//mac
+//        config {
+//            keyAlias 'app'
+//            keyPassword '123456'
+//            storeFile file('/Users/chenjianliang/wanshang.jks')
+//            storePassword '123456'
+//        }
+//    }
+    compileSdkVersion 26
     buildToolsVersion "25.0.2"
 
     defaultConfig {
@@ -100,8 +100,8 @@ dependencies {
     })
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/alipaySdk-20170922.jar')
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:appcompat-v7:26.0.2'
+    compile 'com.android.support:support-v4:26.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'me.yokeyword:indexablerecyclerview:1.3.0'
@@ -111,4 +111,5 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.lovedise:permissiongen:0.0.6'
     testCompile 'junit:junit:4.12'
+    compile 'com.instabug.library:instabug:4.11.2'
 }
